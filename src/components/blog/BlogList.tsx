@@ -12,12 +12,12 @@ interface DataVisit {
 }
 
 const BlogList: React.FC = () => {
-    const [visit, setVisit] = useState<DataVisit>()
+    const [listBlog, setListBlog] = useState<DataVisit[]>([])
     const fetchData = async () => {
         try {
             const response: any = await getBlogs()
             console.log('response', response)
-            setVisit(response)
+            setListBlog(response)
         } catch (error) {
             console.error('Error al cargar los datos', error)
         }
@@ -27,7 +27,7 @@ const BlogList: React.FC = () => {
         fetchData()
     }, [])
 
-    console.log('visit', visit)
+    console.log('listBlog', listBlog)
 
     return (
         <>
