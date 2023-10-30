@@ -5,8 +5,12 @@ import SocialsList1 from '@/shared/SocialsList1'
 import React, { useEffect, useState } from 'react'
 import FooterNav from './FooterNav'
 import { CustomLink } from '@/data/types'
-import axios from 'axios'
+import { registerVisit } from '../data/services/blogServices'
 
+interface DataVisit {
+    data: object
+    response: object
+}
 export interface WidgetFooterMenu {
     id: string
     title: string
@@ -61,25 +65,21 @@ const widgetMenus: WidgetFooterMenu[] = [
 ]
 
 const Footer: React.FC = () => {
-    const [visit, setVisit] = useState({ data: 0 })
-    const [fetchingVisit, setFetchingVisit] = useState(false)
-    useEffect(() => {
-        registerVisit()
-    }, [])
-    const registerVisit = async () => {
-        setFetchingVisit(true)
-        let url = `https://hormiguero1-ff8b257ea498.herokuapp.com/visits`
-        await axios
-            .post(url)
-            .then((respuesta) => {
-                setVisit(respuesta)
-                setFetchingVisit(false)
-            })
-            .catch((error) => {
-                console.log(error)
-                setFetchingVisit(false)
-            })
+    const [visit, setVisit] = useState<DataVisit>()
+    const fetchData = async () => {
+        try {
+            const response: any = await registerVisit()
+            console.log('response', response)
+            setVisit(response)
+        } catch (error) {
+            console.error('Error al cargar los datos', error)
+        }
     }
+
+    useEffect(() => {
+        fetchData()
+    }, [])
+
     console.log('visit', visit)
 
     const renderWidgetMenuItem = (menu: WidgetFooterMenu, index: number) => {
@@ -109,7 +109,7 @@ const Footer: React.FC = () => {
         <>
             <div id="visits" className="flex justify-end">
                 <p style={{ paddingRight: '1em', color: 'grey' }}>
-                    {visit.data ? 'Número de visitas: ' + visit.data : ''}
+                    {visit?.data ? 'Número de visitas: ' + visit.data : ''}
                 </p>
             </div>
 
