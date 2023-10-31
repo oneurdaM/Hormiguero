@@ -4,15 +4,15 @@ import React, { useState } from 'react'
 
 import * as yup from 'yup'
 
-import Input from '@/components/ui/input'
 import Form from '@/components/ui/forms/form'
+import Input from '@/components/ui/input'
+import PasswordInput from '../ui/password-input'
+import Alert from '@/components/ui/alert'
+import Button from '../ui/button'
 import { Routes } from '@/config/routes'
 import { useLogin } from '@/data/user'
-import Alert from '@/components/ui/alert'
-import { allowedRoles, hasAccess, setAuthCredentials } from '@/utils/auth-utils'
-import PasswordInput from '../ui/password-input'
-import Button from '../ui/button'
 import { useRouter } from 'next/navigation'
+import { allowedRoles, hasAccess, setAuthCredentials } from '@/utils/auth-utils'
 
 const loginFormSchema = yup.object().shape({
   identifier: yup
@@ -66,6 +66,7 @@ const LoginForm = () => {
         {({ register, formState: { errors } }) => (
           <>
             <Input
+              signUpLink='/sign-up'
               label='Correo electrónico'
               placeholder='Correo electrónico'
               {...register('identifier')}
@@ -85,7 +86,7 @@ const LoginForm = () => {
               forgotPageLink={Routes.forgotPassword}
             />
             <Button
-              className="w-full bg-dark"
+              className="w-full bg-dark text-light hover:bg-gray-700"
               loading={isLoading}
               disabled={isLoading}
             >

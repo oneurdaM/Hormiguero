@@ -1,5 +1,6 @@
 import cn from "classnames";
 import React, { InputHTMLAttributes } from "react";
+import Link from "next/link";
 
 export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
@@ -13,6 +14,7 @@ export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   variant?: "normal" | "solid" | "outline";
   dimension?: "small" | "medium" | "big";
   showLabel?: boolean;
+  signUpLink?: string
 }
 
 const classes = {
@@ -45,6 +47,7 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
       inputClassName,
       disabled,
       showLabel = true,
+      signUpLink,
       ...rest
     },
     ref
@@ -65,16 +68,28 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
     let numberDisable = type === "number" && disabled ? "number-disable" : "";
     return (
       <div className={className}>
+        <div className="mb-3 flex items-center justify-between">
+
         {showLabel ? (
           <label
             htmlFor={name}
-            className="mb-3 block text-sm font-semibold leading-none text-body-dark"
+            className="text-sm font-semibold leading-none md:text-body-dark"
           >
             {label}
           </label>
         ) : (
           ""
         )}
+
+        {signUpLink && (
+            <Link
+              href={signUpLink}
+              className="text-xs md:text-accent transition-colors duration-200 hover:text-accent-hover focus:font-semibold focus:text-accent-700 focus:outline-none"
+            >
+              ¿No te has registrado?
+            </Link>
+        )}
+        </div>
         <input
           id={name}
           name={name}
