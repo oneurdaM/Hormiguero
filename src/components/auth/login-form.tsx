@@ -66,7 +66,8 @@ const LoginForm = () => {
         {({ register, formState: { errors } }) => (
           <>
             <Input
-              signUpLink='/sign-up'
+              link={Routes.signUp}
+              linkText='¿No te has registrado?'
               label='Correo electrónico'
               placeholder='Correo electrónico'
               {...register('identifier')}

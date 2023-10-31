@@ -25,3 +25,21 @@ export interface UsersResponse {
 
   // oneSignalId?: null
 }
+
+export type UserRegistration = {
+  email: string
+  username: string
+  password: string
+  passwordConfirmation?: string
+  firstName: string
+  middleName?: string | null
+  lastName?: string
+  birthDate?: string
+  role?: string | null
+}
+
+export interface ResetPasswordInput {
+  token: string
+  email: string
+  password: string
+}

@@ -14,7 +14,8 @@ export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   variant?: "normal" | "solid" | "outline";
   dimension?: "small" | "medium" | "big";
   showLabel?: boolean;
-  signUpLink?: string
+  link?: string
+  linkText?: string
 }
 
 const classes = {
@@ -47,7 +48,8 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
       inputClassName,
       disabled,
       showLabel = true,
-      signUpLink,
+      link,
+      linkText,
       ...rest
     },
     ref
@@ -81,12 +83,12 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
           ""
         )}
 
-        {signUpLink && (
+        {link && linkText && (
             <Link
-              href={signUpLink}
+              href={link}
               className="text-xs md:text-accent transition-colors duration-200 hover:text-accent-hover focus:font-semibold focus:text-accent-700 focus:outline-none"
             >
-              ¿No te has registrado?
+              {linkText}
             </Link>
         )}
         </div>
