@@ -29,7 +29,6 @@ export default function RootLayout({
     <html lang="en" className={poppins.className}>
       <body className="bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
         <ReactQueryProvider>
-          {/* <ClientCommons />*/}
           <SiteHeader />
           {children}
           <FooterNav />
