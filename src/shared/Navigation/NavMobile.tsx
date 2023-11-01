@@ -8,6 +8,7 @@ import { Disclosure } from '@headlessui/react'
 import { NAVIGATION } from '@/data/navigation'
 import { NavItemType } from './NavigationItem'
 import { ChevronDownIcon } from '@heroicons/react/24/solid'
+import SocialsList from '../SocialsList'
 
 export interface NavMobileProps {
   data?: NavItemType[]
@@ -101,28 +102,31 @@ const NavMobile: React.FC<NavMobileProps> = ({
 
   return (
     <div className="overflow-y-auto w-full h-screen py-1 transition transform shadow-lg ring-1 dark:ring-neutral-700 bg-white dark:bg-neutral-900 divide-y-2 divide-neutral-100 dark:divide-neutral-800">
-      <div className=" px-5">
+      <div className="px-5">
         <span className="absolute right-2 top-2 p-1">
           <ButtonClose onClick={onClickClose} />
         </span>
         <Logo />
-        {/* <div className="flex flex-col mt-5 text-neutral-700 dark:text-neutral-300 text-sm">
-          <span>
-            ¡Bienvenidos a Mundo Hormiga!
-            Somos mucho más que una comunidad de profesionales en diversas disciplinas. Somos un reflejo de la unión, la confianza, la integridad y el crecimiento colectivo. Aquí, el trabajo en equipo es nuestra brújula y la solidaridad nuestra fuerza impulsora.
-          </span>
-
-          <div className="flex justify-between items-center mt-4">
-            <SocialsList itemClass="w-9 h-9 flex items-center justify-center rounded-full bg-neutral-100 text-xl dark:bg-neutral-800 dark:text-neutral-300" />
-            <span className="block">
-              <SwitchDarkMode className="bg-neutral-100 dark:bg-neutral-800" />
-            </span>
-          </div>
-        </div> */}
       </div>
+
       <ul className="flex flex-col py-6 px-2 space-y-1">
         {data.map(_renderItem)}
       </ul>
+
+      <div className="p-5  mt-5 text-neutral-700 dark:text-neutral-300 text-sm">
+        <p>
+          Nuestra <b>mision</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quas repellat voluptatem sit aliquid provident assumenda aliquam, nostrum soluta ipsum fugiat consequuntur ut rerum asperiores esse. Delectus optio similique quos?
+        </p>
+        <br />
+        <p>
+          La <b>visión</b> del Hormiguero es que Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi adipisci optio ipsam excepturi, laudantium labore itaque nulla ratione voluptatibus eum dicta odit! Ab, ipsa pariatur aliquid quibusdam consectetur debitis nobis?
+        </p>
+
+        <div className="flex justify-between items-center mt-4">
+          <SocialsList itemClass="w-9 h-9 flex items-center justify-center rounded-full bg-neutral-100 text-xl dark:bg-neutral-800 dark:text-neutral-300" />
+          <p>Visitas: 0</p>
+        </div>
+      </div>
     </div>
   )
 }
