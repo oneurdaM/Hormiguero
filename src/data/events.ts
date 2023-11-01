@@ -3,7 +3,6 @@ import {API_ENDPOINTS} from "./client/api-endpoints"
 import {eventsClient} from "./client/events"
 import {EventInterface,EventsResponse,QueryOptionsType} from "@/interfaces";
 
-
 export const useEventsQuery = ({search,...options}: Partial<QueryOptionsType>) => {
 	const {data,isLoading,error} = useQuery<EventsResponse,Error>(
 		[API_ENDPOINTS.EVENTS],
