@@ -69,7 +69,7 @@ const Footer: React.FC = () => {
     const fetchData = async () => {
         try {
             const response: any = await registerVisit()
-            console.log('response', response)
+            console.log('visit', response)
             setVisit(response)
         } catch (error) {
             console.error('Error al cargar los datos', error)
@@ -79,8 +79,6 @@ const Footer: React.FC = () => {
     useEffect(() => {
         fetchData()
     }, [])
-
-    console.log('visit', visit)
 
     const renderWidgetMenuItem = (menu: WidgetFooterMenu, index: number) => {
         return (

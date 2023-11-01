@@ -26,16 +26,3 @@ export const useEventQuery = ({id}: {id: string}) => {
 		eventsClient.byId({id})
 	)
 }
-
-export const useRegistrerVisit = () => {
-	const {data,isLoading,error} = useQuery(
-		[API_ENDPOINTS.VISITS],() => eventsClient.visits(),
-	);
-	
-
-	return {
-		data: data ?? [],
-		isLoading,
-		error
-	}
-}

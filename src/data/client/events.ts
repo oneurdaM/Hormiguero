@@ -12,7 +12,4 @@ export const eventsClient = {
 	byId: ({id}: {id: string}) => {
 		return HttpClient.get<EventInterface>(`${API_ENDPOINTS.EVENT_DETAILS}/${id}`)
 	},
-	visits: () => {
-		return HttpClient.post<EventInterface>(`${API_ENDPOINTS.VISITS}`, {}, {})
-	}
 }
