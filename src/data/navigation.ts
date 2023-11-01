@@ -39,12 +39,12 @@ export const NAVIGATION: NavItemType[] = [
 		children: demoChildMenus,
 		isNew: true,
 	},
-	{
-		id: ncNanoId(),
-		href: "/",
-		name: "Iniciar sesión",
-		type: "dropdown",
-		children: demoChildMenus,
-		isNew: true,
-	},
+	// {
+	// 	id: ncNanoId(),
+	// 	href: "/",
+	// 	name: "Iniciar sesión",
+	// 	type: "dropdown",
+	// 	children: demoChildMenus,
+	// 	isNew: true,
+	// },
 ]

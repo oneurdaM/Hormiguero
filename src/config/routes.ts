@@ -1,6 +1,7 @@
 export const Routes = {
   dashboard: '/',
   login: '/login',
+  signUp: '/sign-up',
   logout: '/logout',
   profile: '/profile',
   settings: '/settings',

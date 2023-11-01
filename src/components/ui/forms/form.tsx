@@ -17,7 +17,7 @@ type FormProps<TFormValues extends FieldValues> = {
   onSubmit: SubmitHandler<TFormValues>
   children: (methods: UseFormReturn<TFormValues>) => React.ReactNode
   useFormProps?: UseFormProps<TFormValues>
-  validationSchema?: SchemaOf<TFormValues>
+  validationSchema?: SchemaOf<TFormValues> | any
   fieldErrors?: ServerErrors<Partial<TFormValues>> | null
   formError?: string | string[] | null
 }

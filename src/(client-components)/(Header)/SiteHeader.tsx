@@ -21,10 +21,10 @@ const PAGES_HIDE_HEADER_BORDER: PathName[] = [
 
 const SiteHeader = () => {
 	const anchorRef = useRef<HTMLDivElement>(null);
-	const [isTopOfPage,setIsTopOfPage] = useState(true);
+	// const [isTopOfPage,setIsTopOfPage] = useState(true);
 
 	useEffect(() => {
-		setIsTopOfPage(window.pageYOffset < 5);
+		// setIsTopOfPage(window.pageYOffset < 5);
 	},[]);
 	//
 	useThemeMode();
@@ -33,7 +33,7 @@ const SiteHeader = () => {
 
 	const intersectionCallback = (entries: IntersectionObserverEntry[]) => {
 		entries.forEach((entry) => {
-			setIsTopOfPage(entry.isIntersecting);
+			// setIsTopOfPage(entry.isIntersecting);
 		});
 	};
 
@@ -56,7 +56,7 @@ const SiteHeader = () => {
 	return (
 		<>
 			<Header className={headerClassName} />
-			<div ref={anchorRef} className="h-1 absolute invisible"></div>
+			{/* <div ref={anchorRef} className="h-1 absolute invisible">lll</div> */}
 		</>
 	);
 };
