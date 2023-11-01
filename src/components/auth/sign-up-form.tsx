@@ -42,9 +42,7 @@ const SignUpForm = () => {
     email,
     password,
     firstName,
-    middleName,
     lastName,
-    birthDate,
   }: UserRegistration) {
     signUp(
       {
@@ -54,8 +52,8 @@ const SignUpForm = () => {
         firstName,
         lastName,
         role: 'USER',
-        birthDate: `${birthDate}T00:00:00.000Z`,
-        middleName: middleName ?? '',
+        // birthDate: `${birthDate}T00:00:00.000Z`,
+        middleName: '',
       },
       {
         onSuccess: () => {
@@ -94,7 +92,7 @@ const SignUpForm = () => {
               error={errors?.email?.message}
             />
             <Input
-              label="Primer Nombre"
+              label="Nombre"
               placeholder="Nombre"
               {...register('firstName')}
               type="email"
@@ -102,7 +100,7 @@ const SignUpForm = () => {
               className="mb-4"
               error={errors?.firstName?.message}
             />
-            <Input
+            {/* <Input
               label="Segundo nombre (opcional)"
               placeholder="Nombre"
               {...register('middleName')}
@@ -110,7 +108,7 @@ const SignUpForm = () => {
               variant="outline"
               className="mb-4"
               error={errors?.middleName?.message}
-            />
+            /> */}
             <Input
               label="Apellido(s)"
               placeholder="Apellido(s)"
@@ -120,7 +118,7 @@ const SignUpForm = () => {
               className="mb-4"
               error={errors?.lastName?.message}
             />
-            <Input
+            {/* <Input
               type="date"
               label="Fecha de nacimiento"
               {...register('birthDate')}
@@ -128,7 +126,7 @@ const SignUpForm = () => {
               className="mb-5"
               max={minAge}
               error={errors.birthDate?.message?.toString()}
-            />
+            /> */}
             <PasswordInput
               label="Contraseña"
               placeholder="Contraseña"
