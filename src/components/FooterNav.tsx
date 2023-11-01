@@ -1,13 +1,14 @@
 'use client'
-
-import { UserCircleIcon, HomeIcon } from '@heroicons/react/24/outline'
 import React, { useEffect, useRef } from 'react'
-import { PathName } from '@/routers/types'
+import Link from 'next/link'
+
+import SwitchDarkMode from '@/shared/SwitchDarkMode'
 import MenuBar from '@/shared/MenuBar'
 import isInViewport from '@/utils/isInViewport'
-import Link from 'next/link'
+import { PathName } from '@/routers/types'
 import { usePathname } from 'next/navigation'
-import SwitchDarkMode from '@/shared/SwitchDarkMode'
+import { UserCircleIcon, HomeIcon } from '@heroicons/react/24/outline'
+import { getAuthCredentials, isAuthenticated } from '@/utils/auth-utils'
 
 let WIN_PREV_POSITION = 0
 if (typeof window !== 'undefined') {
@@ -20,25 +21,10 @@ interface NavItem {
   icon: any
 }
 
-const NAV: NavItem[] = [
-  {
-    name: 'Inicio',
-    link: '/',
-    icon: HomeIcon,
-  },
-  {
-    name: 'Iniciar sesión',
-    link: '/login',
-    icon: UserCircleIcon,
-  },
-  {
-    name: 'Menu',
-    icon: MenuBar,
-  },
-]
-
 const FooterNav = () => {
   const containerRef = useRef<HTMLDivElement>(null)
+  const { token, permissions } = getAuthCredentials()
+  const isAuth = isAuthenticated({ token, permissions })
 
   const pathname = usePathname()
 
@@ -81,6 +67,23 @@ const FooterNav = () => {
 
     WIN_PREV_POSITION = currentScrollPos
   }
+
+  const NAV: NavItem[] = [
+    {
+      name: 'Inicio',
+      link: '/',
+      icon: HomeIcon,
+    },
+    {
+      name: isAuth ? 'Cerrar sesión' : 'Iniciar sesión',
+      link: isAuth ? '/logout' : '/login',
+      icon: UserCircleIcon,
+    },
+    {
+      name: 'Menu',
+      icon: MenuBar,
+    },
+  ]
 
   const renderItem = (item: NavItem, index: number) => {
     const isActive = pathname === item.link
