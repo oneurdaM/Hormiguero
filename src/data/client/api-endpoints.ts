@@ -45,4 +45,6 @@ export const API_ENDPOINTS = {
 
   CAST: '/casts',
   GENRE: '/genders',
+
+  VISITS: '/visits',
 }

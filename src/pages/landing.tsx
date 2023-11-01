@@ -11,7 +11,7 @@ import SectionBecomeAnAuthor from '@/components/SectionBecomeAnAuthor'
 import SectionClientSay from '@/components/SectionClientSay'
 import SectionVideos from '@/components/SectionVideos'
 import SectionGridFeaturePlaces from '@/components/SectionGridFeaturePlaces'
-import { useEventsQuery } from '@/data/events'
+// import { useEventsQuery } from '@/data/events'
 
 const DEMO_CATS: TaxonomyType[] = [
   {
@@ -62,9 +62,9 @@ const DEMO_CATS: TaxonomyType[] = [
 ]
 
 function PageHome() {
-  const { data } = useEventsQuery({
-    id: 1,
-  })
+  // const { data } = useEventsQuery({
+  //   id: 1,
+  // })
 
   return (
     <main className="nc-PageHome relative overflow-hidden">
@@ -72,35 +72,35 @@ function PageHome() {
 
       <Billboard />
       <div className="container relative space-y-24 mb-24 lg:space-y-28 lg:mb-28 mt-20">
-        <SectionGridFeaturePlaces eventsListings={data} />
+        {/* <SectionGridFeaturePlaces eventsListings={data} /> */}
 
-        <SectionSliderNewCategories categories={DEMO_CATS} />
+        {/* <SectionSliderNewCategories categories={DEMO_CATS} /> */}
 
-        <SectionSliderNewCategories
+        {/* <SectionSliderNewCategories
           heading="Recientes"
           subHeading="Estos son los eventos que tenemos para ti"
           categoryCardType="card5"
           itemPerRow={5}
-        />
+        /> */}
 
         <SectionHowItWork />
 
-        <div className="relative py-16">
+        {/* <div className="relative py-16">
           <BackgroundSection className="bg-orange-50 dark:bg-black dark:bg-opacity-20 " />
           <SectionGridAuthorBox />
-        </div>
+        </div> */}
 
-        <div className="relative py-16">
+        {/* <div className="relative py-16">
           <BackgroundSection />
           <SectionBecomeAnAuthor />
-        </div>
+        </div> */}
 
-        <SectionVideos />
+        {/* <SectionVideos /> */}
 
-        <div className="relative py-16">
+        {/* <div className="relative py-16">
           <BackgroundSection />
           <SectionClientSay />
-        </div>
+        </div> */}
       </div>
     </main>
   )
