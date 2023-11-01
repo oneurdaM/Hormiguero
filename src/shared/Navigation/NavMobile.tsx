@@ -1,21 +1,17 @@
-"use client";
+'use client'
+import React from 'react'
+import Link from 'next/link'
 
-import React from "react";
-import ButtonClose from "@/shared/ButtonClose";
-import Logo from "@/shared/Logo";
-import {Disclosure} from "@headlessui/react";
-import {NavItemType} from "./NavigationItem";
-import {NAVIGATION} from "@/data/navigation";
-import ButtonPrimary from "@/shared/ButtonPrimary";
-import SocialsList from "@/shared/SocialsList";
-import {ChevronDownIcon} from "@heroicons/react/24/solid";
-import SwitchDarkMode from "@/shared/SwitchDarkMode";
-import Link from "next/link";
-import LangDropdown from "@/(client-components)/(Header)/LangDropdown";
+import ButtonClose from '@/shared/ButtonClose'
+import Logo from '@/shared/Logo'
+import { Disclosure } from '@headlessui/react'
+import { NAVIGATION } from '@/data/navigation'
+import { NavItemType } from './NavigationItem'
+import { ChevronDownIcon } from '@heroicons/react/24/solid'
 
 export interface NavMobileProps {
-  data?: NavItemType[];
-  onClickClose?: () => void;
+  data?: NavItemType[]
+  onClickClose?: () => void
 }
 
 const NavMobile: React.FC<NavMobileProps> = ({
@@ -25,7 +21,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
   const _renderMenuChild = (item: NavItemType) => {
     return (
       <ul className="nav-mobile-sub-menu pl-6 pb-1 text-base">
-        {item.children?.map((i,index) => (
+        {item.children?.map((i, index) => (
           <Disclosure key={i.href + index} as="li">
             <Link
               href={{
@@ -34,7 +30,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
               className="flex px-4 text-neutral-900 dark:text-neutral-200 text-sm font-medium rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 mt-0.5"
             >
               <span
-                className={`py-2.5 pr-3 ${!i.children ? "block w-full" : ""}`}
+                className={`py-2.5 pr-3 ${!i.children ? 'block w-full' : ''}`}
               >
                 {i.name}
               </span>
@@ -61,10 +57,10 @@ const NavMobile: React.FC<NavMobileProps> = ({
           </Disclosure>
         ))}
       </ul>
-    );
-  };
+    )
+  }
 
-  const _renderItem = (item: NavItemType,index: number) => {
+  const _renderItem = (item: NavItemType, index: number) => {
     return (
       <Disclosure
         key={item.id}
@@ -78,7 +74,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
           }}
         >
           <span
-            className={`py-2.5 pr-3 ${!item.children ? "block w-full" : ""}`}
+            className={`py-2.5 pr-3 ${!item.children ? 'block w-full' : ''}`}
           >
             {item.name}
           </span>
@@ -100,14 +96,17 @@ const NavMobile: React.FC<NavMobileProps> = ({
           <Disclosure.Panel>{_renderMenuChild(item)}</Disclosure.Panel>
         )}
       </Disclosure>
-    );
-  };
+    )
+  }
 
   return (
-    <div className="overflow-y-auto w-full h-screen py-2 transition transform shadow-lg ring-1 dark:ring-neutral-700 bg-white dark:bg-neutral-900 divide-y-2 divide-neutral-100 dark:divide-neutral-800">
-      <div className="py-6 px-5">
+    <div className="overflow-y-auto w-full h-screen py-1 transition transform shadow-lg ring-1 dark:ring-neutral-700 bg-white dark:bg-neutral-900 divide-y-2 divide-neutral-100 dark:divide-neutral-800">
+      <div className=" px-5">
+        <span className="absolute right-2 top-2 p-1">
+          <ButtonClose onClick={onClickClose} />
+        </span>
         <Logo />
-        <div className="flex flex-col mt-5 text-neutral-700 dark:text-neutral-300 text-sm">
+        {/* <div className="flex flex-col mt-5 text-neutral-700 dark:text-neutral-300 text-sm">
           <span>
             ¡Bienvenidos a Mundo Hormiga!
             Somos mucho más que una comunidad de profesionales en diversas disciplinas. Somos un reflejo de la unión, la confianza, la integridad y el crecimiento colectivo. Aquí, el trabajo en equipo es nuestra brújula y la solidaridad nuestra fuerza impulsora.
@@ -119,16 +118,13 @@ const NavMobile: React.FC<NavMobileProps> = ({
               <SwitchDarkMode className="bg-neutral-100 dark:bg-neutral-800" />
             </span>
           </div>
-        </div>
-        <span className="absolute right-2 top-2 p-1">
-          <ButtonClose onClick={onClickClose} />
-        </span>
+        </div> */}
       </div>
       <ul className="flex flex-col py-6 px-2 space-y-1">
         {data.map(_renderItem)}
       </ul>
     </div>
-  );
-};
+  )
+}
 
-export default NavMobile;
+export default NavMobile
