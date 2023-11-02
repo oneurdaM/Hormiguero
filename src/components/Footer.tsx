@@ -61,10 +61,7 @@ import { useVisit } from '@/data/visits'
 //   },
 // ];
 
-const Footer: React.FC = () => {
-  //visits counter
-   const {data: visits} = useVisit()
-
+const Footer = () => {
   // const renderWidgetMenuItem = (menu: WidgetFooterMenu,index: number) => {
   //   return (
   //     <div key={index} className="text-sm">
@@ -100,7 +97,7 @@ const Footer: React.FC = () => {
             </div>
             <div className="col-span-2 flex items-center justify-between">
               <SocialsList1 className="flex items-center space-x-3 " />
-              <span className="hidden md:block text-sm">Visitado {visits.toString()} veces</span>
+              <span className="hidden md:block text-sm">Visitado 0 veces</span>
             </div>
           </div>
           {/* {widgetMenus.map(renderWidgetMenuItem)} */}

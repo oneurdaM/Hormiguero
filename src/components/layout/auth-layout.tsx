@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Logo from '@/components/ui/logo'
 import logo from '../../assets/placeholders/logo-bw.png'
 import SiteHeader from '@/(client-components)/(Header)/SiteHeader'
+import FooterNav from '../FooterNav'
 
 export default function AuthPageLayout({
   children,
@@ -27,6 +28,7 @@ export default function AuthPageLayout({
           </div>
         </div>
       </div>
+      <FooterNav/>
     </>
   )
 }

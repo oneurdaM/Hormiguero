@@ -5,14 +5,14 @@ import { API_ENDPOINTS } from './client/api-endpoints'
 import { VisitsResponse } from '@/types/visits'
 
 export const useVisit = () => {
-	const {data, isLoading, error} = useQuery<VisitsResponse, Error>(
-		[API_ENDPOINTS.VISITS],
-		() => visitClient.register()
-	);
+  const { data, isLoading, error } = useQuery<VisitsResponse, Error>(
+    [API_ENDPOINTS.VISITS],
+    () => visitClient.register()
+  )
 
-	return {
-		data: data ?? [],
-		isLoading,
-		error
-	}
+  return {
+    visitCounter: data ?? [],
+    isLoading,
+    error,
+  }
 }
