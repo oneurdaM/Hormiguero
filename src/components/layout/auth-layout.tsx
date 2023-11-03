@@ -12,7 +12,7 @@ export default function AuthPageLayout({
   return (
     <>
     <SiteHeader />
-      <div className="flex h-screen flex-row" dir="ltr">
+      <div className="flex h-auto min-h-screen flex-row" dir="ltr">
         <div className="hidden flex-1 items-center justify-center bg-dark text-white md:flex ">
           <div className="w-auto max-w-[700px]">
             <Image src={logo} alt="logo-bw" loading="eager" />
