@@ -19,6 +19,8 @@ const NavMobile: React.FC<NavMobileProps> = ({
   data = NAVIGATION,
   onClickClose,
 }) => {
+  const visits = localStorage.getItem('visits')
+  
   const _renderMenuChild = (item: NavItemType) => {
     return (
       <ul className="nav-mobile-sub-menu pl-6 pb-1 text-base">
@@ -124,7 +126,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
 
         <div className="flex justify-between items-center mt-4">
           <SocialsList itemClass="w-9 h-9 flex items-center justify-center rounded-full bg-neutral-100 text-xl dark:bg-neutral-800 dark:text-neutral-300" />
-          <p>Visitas: 0</p>
+          <p>Visitas: {visits}</p>
         </div>
       </div>
     </div>

@@ -84,7 +84,9 @@ const Footer = () => {
   //     </div>
   //   );
   // };
-
+  const storedVisits = localStorage.getItem('visits');
+  const visits = storedVisits !== null ? parseInt(storedVisits) + 1 : 1;
+  
   return (
     <>
       {/* <FooterNav /> */}
@@ -97,7 +99,9 @@ const Footer = () => {
             </div>
             <div className="col-span-2 flex items-center justify-between">
               <SocialsList1 className="flex items-center space-x-3 " />
-              <span className="hidden md:block text-sm">Visitado 0 veces</span>
+              <span className="hidden md:block text-sm">
+                Visitado {visits.toString()} veces
+              </span>
             </div>
           </div>
           {/* {widgetMenus.map(renderWidgetMenuItem)} */}

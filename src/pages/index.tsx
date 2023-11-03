@@ -31,7 +31,8 @@ export default function RootLayout() {
           'https://hormiguero1-ff8b257ea498.herokuapp.com/visits'
         )
         if (response.status === 201 || response.statusText === 'Created') {
-          console.log('Visit counter incremented successfully:', response)
+          console.log('Visit counter incremented successfully:', response.data)
+          localStorage.setItem('visits', response.data.toString())
         } else {
           console.error('Failed to increment visit counter:', response)
         }
