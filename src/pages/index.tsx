@@ -6,7 +6,6 @@ import axios from 'axios'
 
 import PageHome from './landing'
 import Layout from '@/components/layout/layout'
-import { API_ENDPOINTS } from '@/data/client/api-endpoints'
 
 const poppins = Poppins({
   subsets: ['latin'],

@@ -12,6 +12,7 @@ import Button from '../ui/button'
 import { UserRegistration } from '@/types/users'
 import { Routes } from '@/config/routes'
 import { useSignUpMutation } from '@/data/user'
+import FacebookButton from './login/FacebookButton'
 
 const signUpFormSchema = yup.object().shape({
   firstName: yup.string().required('Esta campo es obligatorio'),
@@ -150,6 +151,8 @@ const SignUpForm = () => {
             >
               Registrarme
             </Button>
+            <hr className="my-4" />
+            <FacebookButton action={onSubmit} actionType="sign-up" />
           </>
         )}
       </Form>

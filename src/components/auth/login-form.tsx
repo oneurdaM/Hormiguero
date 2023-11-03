@@ -13,6 +13,7 @@ import { Routes } from '@/config/routes'
 import { useLogin } from '@/data/user'
 import { useRouter } from 'next/navigation'
 import { allowedRoles, hasAccess, setAuthCredentials } from '@/utils/auth-utils'
+import FacebookButton from './login/FacebookButton'
 
 const loginFormSchema = yup.object().shape({
     identifier: yup
@@ -101,6 +102,8 @@ const LoginForm = () => {
                         >
                             Ingresar
                         </Button>
+                        <hr className='my-4' />
+                        <FacebookButton actionType='login' action={onSubmit}/>
                     </>
                 )}
             </Form>
