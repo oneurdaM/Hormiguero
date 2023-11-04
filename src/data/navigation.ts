@@ -33,19 +33,19 @@ export const NAVIGATION: NavItemType[] = [
 	},
 	{
 		id: ncNanoId(),
-		href: "/",
+		href: "/community",
 		name: "Impacto social",
 		isNew: true,
 	},
 	{
 		id: ncNanoId(),
-		href: "/",
+		href: "/billboard",
 		name: "Cartelera",
 		isNew: true,
 	},
 	{
 		id: ncNanoId(),
-		href: "/",
+		href: "/products",
 		name: "Prouctos",
 		isNew: true,
 	},
@@ -57,24 +57,8 @@ export const NAVIGATION: NavItemType[] = [
 	},
 	{
 		id: ncNanoId(),
-		href: "/",
+		href: "/blog",
 		name: "Blog",
 		isNew: true,
 	},
-	// {
-	// 	id: ncNanoId(),
-	// 	href: "/",
-	// 	name: "Eventos",
-	// 	type: "dropdown",
-	// 	children: demoChildMenus,
-	// 	isNew: true,
-	// },
-	// {
-	// 	id: ncNanoId(),
-	// 	href: "/",
-	// 	name: "Social",
-	// 	type: "dropdown",
-	// 	children: demoChildMenus,
-	// 	isNew: true,
-	// },
 ]

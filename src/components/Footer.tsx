@@ -84,8 +84,8 @@ const Footer = () => {
   //     </div>
   //   );
   // };
-  const storedVisits = localStorage.getItem('visits');
-  const visits = storedVisits !== null ? parseInt(storedVisits) + 1 : 1;
+  // const storedVisits = localStorage.getItem('visits');
+  const visits = localStorage.getItem('visits');
   
   return (
     <>
@@ -100,7 +100,7 @@ const Footer = () => {
             <div className="col-span-2 flex items-center justify-between">
               <SocialsList1 className="flex items-center space-x-3 " />
               <span className="hidden md:block text-sm">
-                Visitado {visits.toString()} veces
+                Visitado {visits} veces
               </span>
             </div>
           </div>

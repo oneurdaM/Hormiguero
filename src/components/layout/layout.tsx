@@ -5,13 +5,14 @@ import FooterNav from '../FooterNav'
 import Footer from '../Footer'
 
 export default function Layout({ children }: React.PropsWithChildren<{}>) {
-
   return (
-    <>
-      <SiteHeader />
-      {children}
-      <FooterNav />
-      <Footer />
-    </>
+    <html lang="en">
+      <body className="bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
+        <SiteHeader />
+        {children}
+        <FooterNav />
+        <Footer />
+      </body>
+    </html>
   )
 }

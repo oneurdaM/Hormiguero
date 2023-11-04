@@ -84,6 +84,7 @@ module.exports = {
           google: '#4285f4',
           'google-hover': '#3574de',
         },
+        hormiguero: '#024154',
         light: withOpacity('--color-light'),
         dark: withOpacity('--color-dark'),
         accent: withOpacity('--color-accent'),
