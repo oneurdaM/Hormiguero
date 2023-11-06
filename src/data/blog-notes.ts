@@ -35,7 +35,7 @@ export const useNotesQuery = (options: Partial<QueryOptionsType>) => {
 }
 
 export const useNoteQuery = ({ slug }: { slug: string }) => {
-  return useQuery<BlogResponse, Error>([API_ENDPOINTS.BLOG, slug], () =>
+  return useQuery<Note, Error>([API_ENDPOINTS.BLOG, slug], () =>
     blogNotesClient.bySlug({ slug })
   )
 }
