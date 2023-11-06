@@ -12,7 +12,7 @@ const Blog: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [page, setPage] = useState(1)
   const { notes, error, loading, paginatorInfo } = useNotesQuery({
-    limit: 10,
+    limit: 2,
     page: page,
     search: searchTerm,
   })
@@ -23,6 +23,7 @@ const Blog: React.FC = () => {
   }
 
   function handlePagination(current: number) {
+    console.log(current)
     setPage(current)
   }
 

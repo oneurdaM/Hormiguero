@@ -152,7 +152,7 @@ const SignUpForm = () => {
               Registrarme
             </Button>
             <hr className="my-4" />
-            <FacebookButton action={onSubmit} actionType="sign-up" />
+            {/* <FacebookButton action={onSubmit} actionType="sign-up" /> */}
           </>
         )}
       </Form>

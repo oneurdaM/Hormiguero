@@ -9,7 +9,7 @@ import Pagination from '../ui/pagination'
 
 type NotesListProps = {
   notes: Note[] | null | undefined
-  paginatorInfo: MappedPaginatorInfo | null
+  paginatorInfo: MappedPaginatorInfo | any
   onPagination: (page: number) => void
 }
 
@@ -33,9 +33,9 @@ const BlogList = ({ notes, paginatorInfo, onPagination }: NotesListProps) => {
 
       <div className="flex items-center justify-end my-4">
         <Pagination
-          total={paginatorInfo?.total}
-          current={paginatorInfo?.currentPage}
-          pageSize={paginatorInfo?.perPage}
+          total={parseInt(paginatorInfo.total.toString())}
+          current={parseInt(paginatorInfo.currentPage.toString())}
+          pageSize={parseInt(paginatorInfo.perPage.toString())}
           onChange={onPagination}
           className="text-light"
         />

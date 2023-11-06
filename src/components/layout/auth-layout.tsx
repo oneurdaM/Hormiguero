@@ -10,27 +10,25 @@ export default function AuthPageLayout({
   children,
 }: React.PropsWithChildren<{}>) {
   return (
-    <html lang="en">
-      <body className="bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
-        <SiteHeader />
-        <div className="flex h-auto min-h-screen flex-row" dir="ltr">
-          <div className="hidden flex-1 items-center justify-center bg-dark text-white md:flex ">
-            <div className="w-auto max-w-[700px]">
-              <Image src={logo} alt="logo-bw" loading="eager" />
-            </div>
-          </div>
-
-          <div className="flex flex-1 items-center justify-center bg-gray-100">
-            <div className="m-auto w-full max-w-[420px] rounded bg-gray-100 p-5 sm:p-8 sm:shadow md:bg-light">
-              <div className="flex h-[30px] items-center justify-center">
-                <Logo />
-              </div>
-              {children}
-            </div>
+    <>
+      <SiteHeader />
+      <div className="flex h-auto min-h-screen flex-row" dir="ltr">
+        <div className="hidden flex-1 items-center justify-center bg-dark text-white md:flex ">
+          <div className="w-auto max-w-[700px]">
+            <Image src={logo} alt="logo-bw" loading="eager" />
           </div>
         </div>
-        <FooterNav />
-      </body>
-    </html>
+
+        <div className="flex flex-1 items-center justify-center bg-gray-100">
+          <div className="m-auto w-full max-w-[420px] rounded bg-gray-100 p-5 sm:p-8 sm:shadow md:bg-light">
+            <div className="flex h-[30px] items-center justify-center">
+              <Logo />
+            </div>
+            {children}
+          </div>
+        </div>
+      </div>
+      <FooterNav />
+    </>
   )
 }
