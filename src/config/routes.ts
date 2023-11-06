@@ -10,4 +10,5 @@ export const Routes = {
   orders: '/orders',
   products: '/products',
   blog: '/blog',
+  spaces: '/spaces'
 }
