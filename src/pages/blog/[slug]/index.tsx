@@ -73,7 +73,7 @@ function Note() {
 
         <div className="lg:flex lg:justify-end">
           <div className='lg:w-1/2'>
-            <h1 className="text-xl mt-2">{note.title}</h1>
+            <h1 className=" text-3xl mt-2">{note.title}</h1>
             <p className="mt-2 text-gray-500 text-justify">{note.content}</p>
           </div>
         </div>
