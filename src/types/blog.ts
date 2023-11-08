@@ -18,4 +18,12 @@ export interface Note {
   slug: string
   category_id?: number
   categoryId?: number
+  category?: Category
+}
+
+export interface Category {
+  name: string
+  slug: string
+  id: number | string
+  createdAt: string | Date
 }

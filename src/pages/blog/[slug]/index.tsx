@@ -45,7 +45,7 @@ function Note() {
         <meta name="twitter:image" content={note?.image ?? logo} />
         <meta name="twitter:card" content={note?.image ?? logo} />
       </Head>
-      <div className="container h-auto min-h-screen py-5 lg:flex lg:flex-row">
+      <div className="container h-auto min-h-screen py-5 lg:flex lg:flex-col">
         <div className="lg:fixed">
           <Link href={'/blog'}>
             <small className="text-muted flex gap-2 items-center mb-2">
@@ -62,7 +62,7 @@ function Note() {
           />
           <div className="flex justify-between">
             <small className="text-gray-500">
-              {note?.categoryId ?? 'No Category'}
+              {note?.category?.name ?? 'No Category'}
             </small>
             <small className="text-muted">
               Públicado {moment(note.createdAt).startOf('minute').fromNow()} |
@@ -72,7 +72,7 @@ function Note() {
         </div>
 
         <div className="lg:flex lg:justify-end">
-          <div className='lg:w-1/2'>
+          <div className="lg:w-1/2">
             <h1 className=" text-3xl mt-2">{note.title}</h1>
             <p className="mt-2 text-gray-500 text-justify">{note.content}</p>
           </div>

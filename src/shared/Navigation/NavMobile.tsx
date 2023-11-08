@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 
 import ButtonClose from '@/shared/ButtonClose'
@@ -19,8 +19,13 @@ const NavMobile: React.FC<NavMobileProps> = ({
   data = NAVIGATION,
   onClickClose,
 }) => {
-  const visits = localStorage.getItem('visits')
-  
+  const [visits, setVisits] = useState<null | number>(null)
+
+  useEffect(() => {
+    const visits = window?.localStorage?.getItem('visits') ?? 0
+    setVisits(parseInt(visits.toString()))
+  }, [])
+
   const _renderMenuChild = (item: NavItemType) => {
     return (
       <ul className="nav-mobile-sub-menu pl-6 pb-1 text-base">
@@ -111,20 +116,37 @@ const NavMobile: React.FC<NavMobileProps> = ({
         <Logo />
       </div>
 
-      <ul className="flex flex-col py-6 px-2 space-y-1">
+      <ul className="flex flex-col py-2 px-2 space-y-1">
         {data.map(_renderItem)}
       </ul>
 
       <div className="p-5  mt-5 text-neutral-700 dark:text-neutral-300 text-sm">
         <p>
-          Nuestra <b>mision</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quas repellat voluptatem sit aliquid provident assumenda aliquam, nostrum soluta ipsum fugiat consequuntur ut rerum asperiores esse. Delectus optio similique quos?
+          <small>
+            <b>Nuestra misión </b> En Centro Cultural El Hormiguero,
+            enriquecemos vidas a través del teatro, inspirando y conectando a
+            nuestra comunidad.
+          </small>
         </p>
         <br />
         <p>
-          La <b>visión</b> del Hormiguero es que Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi adipisci optio ipsam excepturi, laudantium labore itaque nulla ratione voluptatibus eum dicta odit! Ab, ipsa pariatur aliquid quibusdam consectetur debitis nobis?
+          <small>
+            <b>Nuestra visión es </b>
+            ser un referente destacado en el mundo del teatro, combinando
+            excelencia artística con inclusión e innovación.
+          </small>
+        </p>
+        <br />
+        <p>
+          <small>
+            Somos amantes del teatro dedicados a producir obras que despiertan
+            emociones y promueven la reflexión en un espacio de expresión para
+            todos. ¡Únete a nuestra travesía teatral en Centro Cultural El
+            Hormiguero!
+          </small>
         </p>
 
-        <div className="flex justify-between items-center mt-4">
+        <div className="lg:absolute lg:bottom-4 lg:w-full lg:pr-8 flex justify-between items-center mt-4">
           <SocialsList itemClass="w-9 h-9 flex items-center justify-center rounded-full bg-neutral-100 text-xl dark:bg-neutral-800 dark:text-neutral-300" />
           <p>Visitas: {visits}</p>
         </div>

@@ -22,14 +22,14 @@ const demoChildMenus: NavItemType[] = [
 ]
 
 export const NAVIGATION: NavItemType[] = [
-  {
-    id: ncNanoId(),
-    href: '/about-us',
-    name: '¿Quienénes somos?',
-    // type: "dropdown",
-    // children: demoChildMenus,
-    isNew: true,
-  },
+  // {
+  //   id: ncNanoId(),
+  //   href: '/about-us',
+  //   name: '¿Quienénes somos?',
+  //   // type: "dropdown",
+  //   // children: demoChildMenus,
+  //   isNew: true,
+  // },
   {
     id: ncNanoId(),
     href: '/community',

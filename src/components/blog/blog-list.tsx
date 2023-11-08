@@ -26,7 +26,7 @@ const BlogList = ({ notes, paginatorInfo, onPagination }: NotesListProps) => {
             content={item.content}
             createdAt={item.createdAt}
             author={item.createdBy}
-            category={item.category_id ?? 'No category'}
+            category={item?.category?.name ?? 'No category'}
           />
         ))}
       </div>

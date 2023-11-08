@@ -90,10 +90,10 @@ function PageHome() {
           <SectionGridAuthorBox />
         </div> */}
 
-        <div className="relative py-16">
+        {/* <div className="relative py-16">
           <BackgroundSection />
           <SectionBecomeAnAuthor />
-        </div>
+        </div> */}
 
         {/* <SectionVideos /> */}
 
