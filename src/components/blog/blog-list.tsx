@@ -6,6 +6,7 @@ import { MappedPaginatorInfo } from '@/utils/data-mappers'
 
 import NoteCard from './note-card'
 import Pagination from '../ui/pagination'
+import ErrorMessage from '../ui/error-message'
 
 type NotesListProps = {
   notes: Note[] | null | undefined
@@ -14,6 +15,12 @@ type NotesListProps = {
 }
 
 const BlogList = ({ notes, paginatorInfo, onPagination }: NotesListProps) => {
+  if (paginatorInfo?.total === 0) {
+    return (
+      <ErrorMessage message="Aún no hay ninguna nota o artículo para mostrar" />
+    )
+  }
+
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -32,13 +39,15 @@ const BlogList = ({ notes, paginatorInfo, onPagination }: NotesListProps) => {
       </div>
 
       <div className="flex items-center justify-end my-4">
-        <Pagination
-          total={parseInt(paginatorInfo.total.toString())}
-          current={parseInt(paginatorInfo.currentPage.toString())}
-          pageSize={parseInt(paginatorInfo.perPage.toString())}
-          onChange={onPagination}
-          className="text-light"
-        />
+        {!!paginatorInfo?.total && (
+          <Pagination
+            total={parseInt(paginatorInfo.total.toString())}
+            current={parseInt(paginatorInfo.currentPage.toString())}
+            pageSize={parseInt(paginatorInfo.perPage.toString())}
+            onChange={onPagination}
+            className="text-light"
+          />
+        )}
       </div>
     </>
   )

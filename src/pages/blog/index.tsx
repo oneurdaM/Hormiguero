@@ -27,11 +27,18 @@ const Blog: React.FC = () => {
     setPage(current)
   }
 
-  if (loading) return <Loader text="Cargando blog de notas..." />
-  if (error) return <ErrorMessage message={error.message} />
-
-  return (
-    <Layout>
+  const Blog = () => {
+    if (loading) {
+      return <Loader text="Cargando blog de notas..." />
+    }
+    if (error) {
+      return (
+        <div className="nc-PageHome container pt-10  h-auto min-h-screen">
+          <ErrorMessage message={error.message} />
+        </div>
+      )
+    }
+    return (
       <div className="nc-PageHome container pt-10  h-auto min-h-screen">
         <Search onSearch={handleSearch} />
         <br />
@@ -41,6 +48,12 @@ const Blog: React.FC = () => {
           onPagination={handlePagination}
         />
       </div>
+    )
+  }
+
+  return (
+    <Layout>
+      <Blog />
     </Layout>
   )
 }
