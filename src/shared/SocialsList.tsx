@@ -1,24 +1,46 @@
-import { SocialType } from "@/shared/SocialsShare";
-import React, { FC } from "react";
+import React, { FC } from 'react'
+import { SocialType } from '@/shared/SocialsShare'
+import { useSettingsQuery } from '@/data/settings'
 
 export interface SocialsListProps {
-  className?: string;
-  itemClass?: string;
-  socials?: SocialType[];
+  className?: string
+  itemClass?: string
+  socials?: SocialType[]
 }
 
-const socialsDemo: SocialType[] = [
-  { name: "Facebook", icon: "lab la-facebook-square", href: "#" },
-  { name: "Twitter", icon: "lab la-twitter", href: "#" },
-  { name: "Youtube", icon: "lab la-youtube", href: "#" },
-  { name: "Instagram", icon: "lab la-instagram", href: "#" },
-];
-
 const SocialsList: FC<SocialsListProps> = ({
-  className = "",
-  itemClass = "block",
-  socials = socialsDemo,
+  className = '',
+  itemClass = 'block',
 }) => {
+  const { settings } = useSettingsQuery()
+
+  const socials: SocialType[] = [
+    {
+      name: 'Facebook',
+      icon: 'lab la-facebook-square',
+      href:
+        settings?.facebookUrl ??
+        'https://www.facebook.com/CentroCulturalElHormiguero/',
+    },
+    {
+      name: 'Twitter',
+      icon: 'lab la-twitter',
+      href: settings?.twitterUrl ?? 'https://twitter.com/ElHormigueroMx/',
+    },
+    {
+      name: 'Youtube',
+      icon: 'lab la-youtube',
+      href: settings?.youtubeUrl ?? 'https://www.youtube.com/',
+    },
+    {
+      name: 'Instagram',
+      icon: 'lab la-instagram',
+      href:
+        settings?.instagramUrl ??
+        'https://www.instagram.com/centro_cultural_el_hormiguero/?hl=es-la',
+    },
+  ]
+
   return (
     <nav
       className={`nc-SocialsList flex space-x-2.5 text-2xl text-neutral-6000 dark:text-neutral-300 ${className}`}
@@ -37,7 +59,7 @@ const SocialsList: FC<SocialsListProps> = ({
         </a>
       ))}
     </nav>
-  );
-};
+  )
+}
 
-export default SocialsList;
+export default SocialsList
