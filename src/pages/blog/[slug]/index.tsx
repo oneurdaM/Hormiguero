@@ -70,7 +70,7 @@ function Note() {
               </small>
               <small className="text-muted">
                 Públicado {moment(note.createdAt).startOf('minute').fromNow()} |
-                Por {note.createdBy}
+                Por {note.user.firstName} {note.user.lastName}
               </small>
             </div>
           </div>
