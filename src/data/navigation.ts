@@ -45,7 +45,7 @@ export const NAVIGATION: NavItemType[] = [
   {
     id: ncNanoId(),
     href: '/products',
-    name: 'Prouctos',
+    name: 'Productos',
     isNew: true,
   },
   {
