@@ -6,22 +6,29 @@ import { MappedPaginatorInfo } from '@/utils/data-mappers'
 import ProductCard from './product-card'
 import Pagination from '../ui/pagination'
 import ErrorMessage from '../ui/error-message'
+import Loader from '../ui/loader/loader'
 
 type ProductsListProps = {
   products: Product[] | null | undefined
   paginatorInfo: MappedPaginatorInfo | any
   onPagination: (page: number) => void
+  loading: boolean
 }
 
 function ProductsList({
   products,
   paginatorInfo,
   onPagination,
+  loading,
 }: ProductsListProps) {
-  if (paginatorInfo?.total === 0) {
+  if (paginatorInfo?.total === 0 && !loading) {
     return (
       <ErrorMessage message="Aún no hay ninguna nota o artículo para mostrar" />
     )
+  }
+
+  if (loading) {
+    return <Loader text="Cargando..." />
   }
 
   return (

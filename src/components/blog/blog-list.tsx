@@ -7,18 +7,30 @@ import { MappedPaginatorInfo } from '@/utils/data-mappers'
 import NoteCard from './note-card'
 import Pagination from '../ui/pagination'
 import ErrorMessage from '../ui/error-message'
+import Loader from '../ui/loader/loader'
 
 type NotesListProps = {
   notes: Note[] | null | undefined
   paginatorInfo: MappedPaginatorInfo | any
   onPagination: (page: number) => void
+  loading: boolean
 }
 
-const BlogList = ({ notes, paginatorInfo, onPagination }: NotesListProps) => {
-  if (paginatorInfo?.total === 0) {
+const BlogList = ({
+  notes,
+  paginatorInfo,
+  onPagination,
+  loading,
+}: NotesListProps) => {
+
+  if (paginatorInfo?.total === 0 && !loading) {
     return (
       <ErrorMessage message="Aún no hay ninguna nota o artículo para mostrar" />
     )
+  }
+  
+  if (loading) {
+    return <Loader text="Cargando..." />
   }
 
   return (
