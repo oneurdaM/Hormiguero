@@ -22,7 +22,7 @@ export const useNotesQuery = (options: Partial<QueryOptionsType>) => {
     [API_ENDPOINTS.BLOG, options],
     () => blogNotesClient.paginated(options),
     {
-      keepPreviousData: true,
+      keepPreviousData: false,
     }
   )
 

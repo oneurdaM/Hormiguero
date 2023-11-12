@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 import BlogList from '@/components/blog/blog-list'
 import Layout from '@/components/layout/layout'
@@ -9,7 +9,7 @@ import ErrorMessage from '@/components/ui/error-message'
 import Search from '@/components/common/search'
 
 const Blog: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState('')
+  const [searchTerm, setSearchTerm] = useState('halloween')
   const [page, setPage] = useState(1)
   const { notes, error, loading, paginatorInfo } = useNotesQuery({
     limit: 8,
@@ -38,6 +38,7 @@ const Blog: React.FC = () => {
         </div>
       )
     }
+
     return (
       <div className="nc-PageHome container pt-10  h-auto min-h-screen">
         <Search onSearch={handleSearch} />
