@@ -32,7 +32,7 @@ const BlogList = ({ notes, paginatorInfo, onPagination }: NotesListProps) => {
             image={item.image}
             content={item.content}
             createdAt={item.createdAt}
-            author={item.createdBy}
+            author={`${item?.user?.firstName} ${item?.user?.lastName}`}
             category={item?.category?.name ?? 'No category'}
           />
         ))}

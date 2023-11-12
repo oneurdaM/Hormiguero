@@ -19,6 +19,7 @@ export interface Note {
   category_id?: number
   categoryId?: number
   category?: Category
+  user: { firstName: string; lastName: string; id: string | number }
 }
 
 export interface Category {
