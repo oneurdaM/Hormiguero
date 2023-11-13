@@ -35,7 +35,7 @@ export const useProductsQuery = (options: Partial<QueryOptionsType>) => {
 }
 
 export const useProductQuery = ({ id }: { id: number }) => {
-  const { data, isLoading, error } = useQuery<ProductByIdResponse, Error>(
+  const { data, isLoading, error } = useQuery<any, Error>(
     [API_ENDPOINTS.PRODUCTS, id],
     () => productClient.byId({ id }),
     {

@@ -38,7 +38,7 @@ function ProductsList({
           <ProductCard
             key={item.slug}
             title={item.title}
-            href={`/product/${item.slug}/${item.id}`}
+            href={`/products/${item.id}`}
             image={item.thumbnail}
             content={item.description}
             price={item.price}
