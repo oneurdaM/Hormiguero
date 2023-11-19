@@ -33,7 +33,7 @@ function FacebookButton({
 
   return (
     <LoginSocialFacebook
-      appId="320680850599464"
+      appId=""
       onResolve={(res) => onHandleOnResolve(res)}
       onReject={(err) => {
         console.log('Something went wrong: ', err)
