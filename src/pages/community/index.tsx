@@ -1,10 +1,12 @@
 import React from 'react'
 import Layout from '@/components/layout/layout'
 import Image from 'next/image'
+import Head from 'next/head'
 
 import 'moment/locale/es'
 import moment from 'moment'
 
+import logo from '@/assets/placeholders/logo.png'
 import imageUrl from '@/images/logo.png'
 import rightImg from '@/images/BecomeAnAuthorImg.png'
 import Card from '@/components/common/card'
@@ -112,6 +114,19 @@ function Community() {
 
   return (
     <Layout>
+      <Head>
+        <title>Comunidad Hormiga | CCH</title>
+        <meta name="description" content={'Centro Cultural El Hormiguero'} />
+        <meta property="og:image" content={logo.toString()} />
+
+        <meta name="twitter:title" content="Centro Cultural El Hormiguero" />
+        <meta
+          name="twitter:description"
+          content={'Centro Cultural El Hormgiuero'}
+        />
+        <meta name="twitter:image" content={logo.toString()} />
+        <meta name="twitter:card" content={logo.toString()} />
+      </Head>
       <div className="bg-orange-50 dark:bg-black dark:bg-opacity-20 h-auto min-h-screen">
         <Section />
       </div>

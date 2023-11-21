@@ -11,22 +11,12 @@ export const productClient = {
       search: search,
     })
   },
-
   byId: ({ id }: { id: number }) => {
     return HttpClient.get<ProductByIdResponse>(
       `${API_ENDPOINTS.PRODUCTS}/${id}`
     )
   },
-
-  register: (variables: ProductRegistration) => {
-    return HttpClient.post(API_ENDPOINTS.PRODUCTS, variables)
-  },
-
   update: ({ id, input }: { id: string; input: ProductRegistration }) => {
     return HttpClient.put(`${API_ENDPOINTS.PRODUCTS}/${id}`, input)
   },
-
-  delete: (id:number) => {
-    return HttpClient.delete(`${API_ENDPOINTS.PRODUCTS}/${id}`)
-  }
 }
