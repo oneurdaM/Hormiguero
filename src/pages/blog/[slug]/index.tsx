@@ -69,7 +69,7 @@ function Note() {
                 {note?.category?.name ?? 'No Category'}
               </small>
               <small className="text-muted">
-                Públicado {moment(note.createdAt).startOf('minute').fromNow()} |
+                Publicado {moment(note.createdAt).startOf('minute').fromNow()} |
                 Por {note.user.firstName} {note.user.lastName}
               </small>
             </div>

@@ -42,7 +42,7 @@ function NoteCard({
           <p className="text-body line-clamp-2">{content}</p>
           <div className="card-footer">
             <small className="text-muted">
-              Públicado {moment(createdAt).startOf('minute').fromNow()} | Por{' '}
+              Publicado {moment(createdAt).startOf('minute').fromNow()} | Por{' '}
               {author}
             </small>
           </div>

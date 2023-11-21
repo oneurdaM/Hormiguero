@@ -16,7 +16,7 @@ function Products() {
     page,
     search: searchTerm,
   })
-
+  console.log('paginatorInfo', paginatorInfo)
   function handleSearch({ searchText }: { searchText: string }) {
     setSearchTerm(searchText)
     setPage(1)

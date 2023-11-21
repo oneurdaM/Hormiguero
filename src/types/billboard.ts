@@ -1,0 +1,54 @@
+export interface BillboardResponse {
+    billboards: any
+    fetchingBillboards: boolean
+    paginatorInfo: {
+        total: number
+        currentPage: number
+        totalPages: number
+        perPage: number
+    }
+    error: string
+}
+
+export interface Billboard {
+    id: number
+    company: string
+    director: string
+    dramaturgy: string
+    genderList: string
+    thumbnailUrl: string
+    public: boolean
+    synopsis: string
+    title: string
+    type: string
+    video: string
+    duration: number
+}
+export interface EventsSpacesResponse {
+    eventsSpaces: any
+    error: string
+}
+export interface EventsSpaces {
+    id: number
+    spaceId: number
+    eventId: number
+    startDate: string
+    endDate: string
+    createdAt: string
+    space: Space
+    event: Billboard
+    title: string
+    type: string
+    video: string
+}
+
+export interface Space {
+    id: number
+    dimensions: number
+    capacity: number
+    price: number
+    name: string
+    location: string
+    image: string
+    active: boolean
+}
