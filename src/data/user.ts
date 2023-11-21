@@ -48,7 +48,7 @@ export const useMeQuery = () => {
 export const useLogoutMutation = () => {
   Cookies.remove(AUTH_CRED)
   toast.success('Se cerró sesión.')
-  return {
+  return{
     isSuccess: true,
   }
 }

@@ -1,18 +1,15 @@
 'use client'
-import { useRouter } from "next/navigation";
-
-import { useLogoutMutation } from "@/data/user";
-import Loader from "@/components/ui/loader/loader";
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
+import { useLogoutMutation } from '@/data/user'
+import Loader from '@/components/ui/loader/loader'
 
 function Logout() {
-  const router = useRouter()
-  const { isSuccess } = useLogoutMutation();
+    const router = useRouter()
 
-    if (isSuccess) {
-      router.replace('/')
-    }
+    useEffect(() => {}, [])
 
-  return <Loader text='Cerrando sesión' />;
+    return <Loader text="Cerrando sesión" />
 }
 
-export default Logout;
+export default Logout
