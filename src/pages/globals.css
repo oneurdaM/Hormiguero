@@ -268,5 +268,27 @@
   a {
     @apply no-underline;
   }
+  .backgroundDrawer{
+    background-color: #fff7ed !important ;
+  }
+  .cardEvent{
+    border-radius: 2em;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+  }
+  .cardEvent:hover{
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;  
+  }
+  .coverCard{
+    height: 15em;
+    object-fit: cover;
+  }
+  .dayCard{
+    background-color: #0b7e8b;
+    color: white;
+    text-align: center;
+    padding: 2em;
+    border-radius: 1em;
+  }
 }
 
