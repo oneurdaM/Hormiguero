@@ -41,6 +41,16 @@ export interface EventsSpaces {
     type: string
     video: string
 }
+export interface EventsSelected {
+    id: number
+    spaceId: number
+    eventId: number
+    startDate: string
+    endDate: string
+    createdAt: string
+    space: Space
+    event: Billboard
+}
 
 export interface Space {
     id: number

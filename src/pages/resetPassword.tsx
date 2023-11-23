@@ -14,7 +14,7 @@ export default function LoginPage() {
     return (
         <AuthPageLayout>
             <h3 className="mb-6 mt-4 text-center text-base italic text-body">
-                Recuperar Contraseña
+                Recuperar contraseña
             </h3>
             <ResetPassForm />
         </AuthPageLayout>

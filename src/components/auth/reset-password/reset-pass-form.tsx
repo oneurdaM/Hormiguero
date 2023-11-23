@@ -1,123 +1,118 @@
 'use client'
 import React, { useState } from 'react'
-// import Router from 'next/router'
-
-import * as yup from 'yup'
-
-import Form from '@/components/ui/forms/form'
-import Input from '@/components/ui/input'
-import PasswordInput from '../../ui/password-input'
-import Alert from '@/components/ui/alert'
+import { useRouter } from 'next/router'
+import { LockOutlined } from '@ant-design/icons'
+import { Form, Input, notification } from 'antd'
 import Button from '../../ui/button'
-import { Routes } from '@/config/routes'
-import { useLogin } from '@/data/user'
-import { useRouter } from 'next/navigation'
-import { allowedRoles, hasAccess, setAuthCredentials } from '@/utils/auth-utils'
-import FacebookButton from '../login/FacebookButton'
+import { resetPassword } from '@/data/authServices'
+import { ResetPasswordResponse } from '@/types/auth'
+import Loader from '@/components/ui/loader/loader'
 
-const loginFormSchema = yup.object().shape({
-    identifier: yup
-        .string()
-        .email('form:error-email-format')
-        .required('form:error-email-required'),
-    password: yup.string().required('form:error-password-required'),
-})
+const ResetPassForm = () => {
+    const router = useRouter()
+    const { query } = router
+    console.log('query:', query)
+    const [form] = Form.useForm()
+    const [fetchingResetPass, setFetchingResetPass] = useState(false)
 
-const LoginForm = () => {
-    const Router = useRouter()
-    const [errorMessage, setErrorMessage] = useState<string | null>(null)
-    const { mutate: login, isLoading, error } = useLogin()
-
-    function onSubmit({
-        identifier,
-        password,
-    }: {
-        identifier: string
-        password: string
-    }) {
-        login(
-            {
-                identifier,
-                password,
-            },
-            {
-                onSuccess: (data: any) => {
-                    if (data?.jwt) {
-                        const role = data?.role
-                        if (hasAccess(allowedRoles, role)) {
-                            setAuthCredentials(data.jwt, data.role)
-                            Router.push('/') //redirect to '/'
-                            return
-                        }
-                    }
-                },
-                onError: () => {
-                    const messages = error as any
-                    if (messages?.response?.data?.message) {
-                        setErrorMessage(
-                            messages?.response?.data?.message !== 'Unauthorized'
-                                ? messages?.response?.data?.message
-                                : 'El usuario no se encuentra registrado.'
-                        )
-                    } else {
-                        setErrorMessage(
-                            'El correo y/o la contraseña están equivocados.'
-                        )
-                    }
-                },
-            }
-        )
+    const onFinish = (values: any) => {
+        console.log('Received values of form: ', values)
+        fetchData(values)
     }
 
+    const fetchData = async (formulario: any) => {
+        try {
+            const data: any = {
+                token: query.token,
+                newPassword: formulario.password,
+            }
+            setFetchingResetPass(true)
+            const response = await resetPassword(data)
+            console.log('response en index', response)
+
+            setFetchingResetPass(false)
+            notification.success({
+                message: 'Cambio de contraseña exitoso',
+                description:
+                    'La contraseña se cambió de forma correcta, redirigiendo a la ventana de login',
+            })
+            router.push('/login')
+        } catch (error: any) {
+            console.log('error', error)
+            notification.error({
+                message: 'Hubo un error, favor de intentar mas tarde',
+                description: error.message,
+            })
+            setFetchingResetPass(false)
+        }
+    }
+
+    if (fetchingResetPass) {
+        return <Loader text="Cargando..." />
+    }
     return (
-        <>
-            <Form validationSchema={loginFormSchema} onSubmit={onSubmit}>
-                {({ register, formState: { errors } }) => (
-                    <>
-                        <Input
-                            link={Routes.signUp}
-                            linkText="¿No te has registrado?"
-                            label="Correo electrónico"
-                            placeholder="Correo electrónico"
-                            {...register('identifier')}
-                            type="email"
-                            variant="outline"
-                            className="mb-4"
-                            error={errors?.identifier?.message}
-                        />
-                        <PasswordInput
-                            label="Contraseña"
-                            placeholder="Contraseña"
-                            forgotPassHelpText="¿Olvidaste tu contraseña?"
-                            {...register('password')}
-                            error={errors?.password?.message}
-                            variant="outline"
-                            className="mb-4"
-                            forgotPageLink={Routes.forgotPassword}
-                        />
-                        <Button
-                            className="w-full bg-dark text-light hover:bg-gray-700"
-                            loading={isLoading}
-                            disabled={isLoading}
-                        >
-                            Ingresar
-                        </Button>
-                        <hr className="my-4" />
-                        {/* <FacebookButton actionType="login" action={onSubmit} /> */}
-                    </>
-                )}
-            </Form>
-            {errorMessage ? (
-                <Alert
-                    message={errorMessage}
-                    variant="error"
-                    closeable={true}
-                    className="mt-5"
-                    onClose={() => setErrorMessage(null)}
+        <Form
+            form={form}
+            name="resetPassword"
+            onFinish={onFinish}
+            scrollToFirstError
+        >
+            <Form.Item
+                name="password"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Favor de ingresar la contraseña',
+                    },
+                ]}
+                hasFeedback
+            >
+                <Input.Password
+                    size="large"
+                    placeholder="Contraseña"
+                    prefix={<LockOutlined className="site-form-item-icon" />}
                 />
-            ) : null}
-        </>
+            </Form.Item>
+
+            <Form.Item
+                name="confirm"
+                dependencies={['password']}
+                hasFeedback
+                rules={[
+                    {
+                        required: true,
+                        message: 'Favor de confirmar la contraseña!',
+                    },
+                    ({ getFieldValue }) => ({
+                        validator(_, value) {
+                            if (!value || getFieldValue('password') === value) {
+                                return Promise.resolve()
+                            }
+                            return Promise.reject(
+                                new Error(
+                                    'La nueva contraseña que has ingresado no coincide'
+                                )
+                            )
+                        },
+                    }),
+                ]}
+            >
+                <Input.Password
+                    size="large"
+                    placeholder="Confirmar contraseña"
+                    prefix={<LockOutlined className="site-form-item-icon" />}
+                />
+            </Form.Item>
+
+            <Button
+                className="w-full bg-dark text-light hover:bg-gray-700"
+                loading={false}
+                disabled={false}
+            >
+                Recuperar
+            </Button>
+        </Form>
     )
 }
 
-export default LoginForm
+export default ResetPassForm

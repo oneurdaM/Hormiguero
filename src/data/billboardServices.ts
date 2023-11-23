@@ -8,7 +8,7 @@ let config = {
     headers: {
       'Authorization': 'Bearer ' + token
     }
-  }
+}
 
 
 export const getBillboard = async (page: any, search: any) => {
