@@ -62,3 +62,14 @@ export interface Space {
     image: string
     active: boolean
 }
+export interface SeatResponse {
+    seatsResponse: any
+    error: any
+}
+export interface Seat {
+    id: number
+    name: string
+    createdAt: string
+    is_available: boolean
+    eventSpacesId: number
+}

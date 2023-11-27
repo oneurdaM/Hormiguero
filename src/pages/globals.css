@@ -271,6 +271,9 @@
   .backgroundDrawer{
     background-color: #fff7ed !important ;
   }
+  .backgroundDrawerNigth{
+    background-color: gray !important ;
+  }
   .cardEvent{
     border-radius: 2em;
     -webkit-transition-duration: 0.4s; /* Safari */
@@ -289,6 +292,9 @@
     text-align: center;
     padding: 2em;
     border-radius: 1em;
+  }
+  .width100 {
+    width: 100%;
   }
 }
 

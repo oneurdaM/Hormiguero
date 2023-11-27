@@ -1,15 +1,17 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
-import { Drawer, Row, Col, notification, Divider, Card, Badge, Steps, theme, Button } from 'antd'
+import { Drawer, Row, Col, notification, Divider, Card, Badge, Steps, Button } from 'antd'
 import { ClockCircleOutlined, TagsOutlined } from '@ant-design/icons'
 
 import moment from 'moment'
 import 'moment/locale/es'
 import Loader from '../ui/loader/loader'
 import CardEvent from '../common/card'
-
+import ButtonPrimary from '@/components/ui/primary-button'
 import { getEventsSpaces } from '@/data/billboardServices'
 import { EventsSelected, EventsSpacesResponse, Billboard } from '@/types/billboard'
+import { getAuthCredentials } from '@/utils/auth-utils'
+import BillboardSeatPicker from './billboard-seatPicker'
 
 function BillboardCard({ event }: { event: Billboard }) {
     const [open, setOpen] = useState(false)
@@ -25,7 +27,8 @@ function BillboardCard({ event }: { event: Billboard }) {
         eventsSpaces: [],
         error: '',
     })
-
+    const { token } = getAuthCredentials()
+    console.log('token', token)
     const fetchData = async (eventId: any, spaceId: any) => {
         try {
             setFetchingEventsSpaces(true)
@@ -67,8 +70,27 @@ function BillboardCard({ event }: { event: Billboard }) {
 
     const showChildrenDrawer = (value: any) => {
         console.log('value', value)
-        setChildrenDrawer(true)
-        setEventSelected(value)
+        if (token) {
+            setChildrenDrawer(true)
+            setEventSelected(value)
+        } else {
+            api.warning({
+                message: 'Es necesario iniciar sesión',
+                description: (
+                    <Row justify="center">
+                        <Col span={24}>
+                            <p>Para continuar con la compra de los asientos es necesario iniciar sesión</p>
+                        </Col>
+                        <Col span={20}>
+                            <br />
+                            <ButtonPrimary className="mr-4 width100" href="/login">
+                                Iniciar sesión
+                            </ButtonPrimary>
+                        </Col>
+                    </Row>
+                ),
+            })
+        }
     }
 
     const onChildrenDrawerClose = () => {
@@ -253,7 +275,7 @@ function BillboardCard({ event }: { event: Billboard }) {
                             <Steps current={current} items={items} />
                             <Row justify="space-between">
                                 <Col span={24}>
-                                    {current === 0 && <></>}
+                                    {current === 0 && <BillboardSeatPicker eventSpaces={eventSelected} />}
                                     {current === 1 && (
                                         <>
                                             <p>second</p>

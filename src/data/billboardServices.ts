@@ -10,7 +10,6 @@ let config = {
     }
 }
 
-
 export const getBillboard = async (page: any, search: any) => {
     try {
         search = search ? 'search=' + search + '&' : ''
@@ -65,15 +64,34 @@ export const getEventsSpaces = async (eventId: any, spaceId: any) => {
         const response = await axios.get(endpoint + 'events-spaces?' + spaceId + eventId , config)
         console.log('response', response);
         if (response.status === 200) {
-
             return {
                 eventsSpaces: response.data,
                 error: '',
             }
         } else {
-
             return {
                 eventsSpaces: [],
+                error: response.data.error 
+            }
+        }
+    } catch (error) {
+        console.error(error);
+        throw error; 
+    }
+};
+
+export const getSeats = async (eventSpacesId: any) => {
+    try {
+        const response = await axios.get(endpoint + 'seats/' + eventSpacesId , config)
+        console.log('response', response);
+        if (response.status === 200) {
+            return {
+                seatsResponse: response.data,
+                error: '',
+            }
+        } else {
+            return {
+                seatsResponse: [],
                 error: response.data.error 
             }
         }
