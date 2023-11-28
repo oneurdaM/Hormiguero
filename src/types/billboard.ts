@@ -23,6 +23,7 @@ export interface Billboard {
     type: string
     video: string
     duration: number
+    price: number
 }
 export interface EventsSpacesResponse {
     eventsSpaces: any
@@ -72,4 +73,11 @@ export interface Seat {
     createdAt: string
     is_available: boolean
     eventSpacesId: number
+    is_selected: boolean
+}
+
+export interface Details {
+    eventSpaces: EventsSpaces
+    quantity: number
+    subtotal: number 
 }

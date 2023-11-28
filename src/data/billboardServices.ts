@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getAuthCredentials } from '@/utils/auth-utils'
 
-const endpoint = 'https://hormiguero-dc8e78e18915.herokuapp.com/';
+const endpoint = process.env.NEXT_PUBLIC_REST_API_ENDPOINT;
 const { token } = getAuthCredentials();
 console.log('token :>> ', token);
 let config = {
@@ -15,7 +15,7 @@ export const getBillboard = async (page: any, search: any) => {
         search = search ? 'search=' + search + '&' : ''
         page = 'page=' + page
         let fetchingBillboards = true;
-        const response = await axios.get(endpoint + 'events?' + search + page + '&limit=10', config)
+        const response = await axios.get(endpoint + '/events?' + search + page + '&limit=10', config)
         console.log('response', response);
         const paginatorInfo = {
             total: response?.data.total ? parseInt(response.data.total.toString()) : 0,
@@ -61,7 +61,7 @@ export const getEventsSpaces = async (eventId: any, spaceId: any) => {
     try {
         spaceId = spaceId ? 'spaceId=' + spaceId + '&' : ''
         eventId = 'eventId=' + eventId
-        const response = await axios.get(endpoint + 'events-spaces?' + spaceId + eventId , config)
+        const response = await axios.get(endpoint + '/events-spaces?' + spaceId + eventId , config)
         console.log('response', response);
         if (response.status === 200) {
             return {
@@ -82,7 +82,34 @@ export const getEventsSpaces = async (eventId: any, spaceId: any) => {
 
 export const getSeats = async (eventSpacesId: any) => {
     try {
-        const response = await axios.get(endpoint + 'seats/' + eventSpacesId , config)
+        const response = await axios.get(endpoint + '/seats/' + eventSpacesId , config)
+        console.log('response', response);
+        if (response.status === 200) {
+            for(let i in response.data) {
+                response.data[i].is_selected = false
+            }
+            return {
+                seatsResponse: response.data,
+                error: '',
+            }
+        } else {
+            return {
+                seatsResponse: [],
+                error: response.data.error 
+            }
+        }
+    } catch (error) {
+        console.error(error);
+        throw error; 
+    }
+};
+
+export const buySeat = async (seatID: any) => {
+    try {
+        const body = {
+            "isAvailable": false
+        }
+        const response = await axios.put(endpoint + '/seats/' + seatID + '/block-unblock' , body, config)
         console.log('response', response);
         if (response.status === 200) {
             return {

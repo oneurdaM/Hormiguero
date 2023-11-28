@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
-import { Drawer, Row, Col, notification, Divider, Card, Badge, Steps, Button } from 'antd'
-import { ClockCircleOutlined, TagsOutlined } from '@ant-design/icons'
+import { Drawer, Row, Col, notification, Divider, Card, Badge, Steps, Avatar, Tooltip } from 'antd'
+import { ClockCircleOutlined, TagsOutlined, ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons'
+import { PayPalScriptProvider } from '@paypal/react-paypal-js'
 
 import moment from 'moment'
 import 'moment/locale/es'
@@ -12,6 +13,7 @@ import { getEventsSpaces } from '@/data/billboardServices'
 import { EventsSelected, EventsSpacesResponse, Billboard } from '@/types/billboard'
 import { getAuthCredentials } from '@/utils/auth-utils'
 import BillboardSeatPicker from './billboard-seatPicker'
+import BillboardPayment from './billboard-payment'
 
 function BillboardCard({ event }: { event: Billboard }) {
     const [open, setOpen] = useState(false)
@@ -20,6 +22,8 @@ function BillboardCard({ event }: { event: Billboard }) {
     const [childrenDrawer, setChildrenDrawer] = useState(false)
     const [fetchingEventsSpaces, setFetchingEventsSpaces] = useState(false)
     const [eventSelected, setEventSelected] = useState<EventsSelected>()
+    const [details, setDetails] = useState<any>()
+    const [seatsSelected, setSeatsSelected] = useState<any>([])
 
     const [current, setCurrent] = useState(0)
     const [api, contextHolder] = notification.useNotification()
@@ -28,7 +32,13 @@ function BillboardCard({ event }: { event: Billboard }) {
         error: '',
     })
     const { token } = getAuthCredentials()
-    console.log('token', token)
+
+    const seatsChosen = (details: any, seatsSelected: any) => {
+        console.log('values', details, seatsSelected)
+        setSeatsSelected(seatsSelected)
+        setDetails(details)
+    }
+
     const fetchData = async (eventId: any, spaceId: any) => {
         try {
             setFetchingEventsSpaces(true)
@@ -72,6 +82,7 @@ function BillboardCard({ event }: { event: Billboard }) {
         console.log('value', value)
         if (token) {
             setChildrenDrawer(true)
+            value.price = event?.price
             setEventSelected(value)
         } else {
             api.warning({
@@ -93,7 +104,14 @@ function BillboardCard({ event }: { event: Billboard }) {
         }
     }
 
-    const onChildrenDrawerClose = () => {
+    const onChildrenDrawerClose = (showSuccess: boolean) => {
+        setCurrent(0)
+        if (showSuccess) {
+            api.success({
+                message: 'El pago se realizó de manera correcta',
+                description: 'Ya cuentas con tus asientos para el evento, podrás descargarlos desde tu cuenta',
+            })
+        }
         setChildrenDrawer(false)
     }
     console.log('event', event)
@@ -105,9 +123,6 @@ function BillboardCard({ event }: { event: Billboard }) {
         {
             title: 'Pagar',
         },
-        {
-            title: 'Confirmación',
-        },
     ]
     const next = () => {
         setCurrent(current + 1)
@@ -118,13 +133,6 @@ function BillboardCard({ event }: { event: Billboard }) {
     }
 
     const items = steps.map((item) => ({ key: item.title, title: item.title }))
-    const rows = [
-        [{ id: 1, number: 1, isSelected: true, tooltip: 'Reserved by you' }, { id: 2, number: 2, tooltip: 'Cost: 15$' }, null, { id: 3, number: '3', isReserved: true, orientation: 'east', tooltip: 'Reserved by Rogger' }, { id: 4, number: '4', orientation: 'west' }, null, { id: 5, number: 5 }, { id: 6, number: 6 }],
-        [{ id: 7, number: 1, isReserved: true, tooltip: 'Reserved by Matthias Nadler' }, { id: 8, number: 2, isReserved: true }, null, { id: 9, number: '3', isReserved: true, orientation: 'east' }, { id: 10, number: '4', orientation: 'west' }, null, { id: 11, number: 5 }, { id: 12, number: 6 }],
-        [{ id: 13, number: 1 }, { id: 14, number: 2 }, null, { id: 15, number: 3, isReserved: true, orientation: 'east' }, { id: 16, number: '4', orientation: 'west' }, null, { id: 17, number: 5 }, { id: 18, number: 6 }],
-        [{ id: 19, number: 1, tooltip: 'Cost: 25$' }, { id: 20, number: 2 }, null, { id: 21, number: 3, orientation: 'east' }, { id: 22, number: '4', orientation: 'west' }, null, { id: 23, number: 5 }, { id: 24, number: 6 }],
-        [{ id: 25, number: 1, isReserved: true }, { id: 26, number: 2, orientation: 'east' }, null, { id: 27, number: '3', isReserved: true }, { id: 28, number: '4', orientation: 'west' }, null, { id: 29, number: 5, tooltip: 'Cost: 11$' }, { id: 30, number: 6, isReserved: true }],
-    ]
 
     return (
         <>
@@ -169,7 +177,7 @@ function BillboardCard({ event }: { event: Billboard }) {
                 {!fetchingEventsSpaces ? (
                     <Row justify={'space-around'} gutter={[8, 8]}>
                         <Col xs={22} lg={14}>
-                            <iframe style={{ borderRadius: '2em' }} width={'100%'} height={heightFrame} src={event.video} title={event.title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+                            <iframe style={{ borderBottomLeftRadius: '2em', borderBottomRightRadius: '2em', borderTopLeftRadius: '1em', borderTopRightRadius: '1em' }} width={'100%'} height={heightFrame} src={event.video} title={event.title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
                         </Col>
                         <Col xs={22} lg={10}>
                             <Row justify="center">
@@ -271,27 +279,42 @@ function BillboardCard({ event }: { event: Billboard }) {
                             </Row>
                         </Col>
 
-                        <Drawer title={<p className="text-xl text-primary-6000 ">{eventSelected?.event.title + ', ' + moment(eventSelected?.startDate).format('dddd D MMMM YYYY').charAt(0).toUpperCase() + moment(eventSelected?.startDate).format('dddd D MMMM YYYY').slice(1) + ', ' + moment(eventSelected?.startDate).format('h:mm a')}</p>} width={widthDrawer} classNames={{ body: 'backgroundDrawer' }} onClose={onChildrenDrawerClose} open={childrenDrawer}>
+                        <Drawer
+                            destroyOnClose={true}
+                            title={<p className="text-xl text-primary-6000 ">{eventSelected?.event.title + ', ' + moment(eventSelected?.startDate).format('dddd D MMMM YYYY').charAt(0).toUpperCase() + moment(eventSelected?.startDate).format('dddd D MMMM YYYY').slice(1) + ', ' + moment(eventSelected?.startDate).format('h:mm a')}</p>}
+                            width={widthDrawer}
+                            classNames={{ body: 'backgroundDrawer' }}
+                            onClose={() => onChildrenDrawerClose(false)}
+                            open={childrenDrawer}
+                            footer={
+                                current !== 0 ? (
+                                    <Tooltip placement="top" title={'Anterior'}>
+                                        <Avatar className="avatarHover" style={{ backgroundColor: '#0b7e8b' }} size={40} onClick={() => prev()}>
+                                            <ArrowLeftOutlined />
+                                        </Avatar>
+                                    </Tooltip>
+                                ) : (
+                                    false
+                                )
+                            }
+                        >
                             <Steps current={current} items={items} />
                             <Row justify="space-between">
                                 <Col span={24}>
-                                    {current === 0 && <BillboardSeatPicker eventSpaces={eventSelected} />}
-                                    {current === 1 && (
-                                        <>
-                                            <p>second</p>
-                                        </>
+                                    {current === 0 && (
+                                        <Row justify={'space-around'}>
+                                            <Col xs={24} lg={22}>
+                                                <BillboardSeatPicker eventSpaces={eventSelected} seatsChosen={seatsChosen} next={next} />
+                                            </Col>
+                                        </Row>
                                     )}
-                                    {current === 2 && <p>ultimo</p>}
-                                </Col>
-                                <Col span={2}>
-                                    <Button style={{ margin: '0 8px' }} type="dashed" disabled={current === 0} onClick={() => prev()}>
-                                        Previous
-                                    </Button>
-                                </Col>
-                                <Col span={2}>
-                                    <Button type="dashed" disabled={current === 2} onClick={() => next()}>
-                                        Next
-                                    </Button>
+                                    {current === 1 && (
+                                        <Row justify={'space-around'}>
+                                            <Col xs={24} lg={22}>
+                                                <BillboardPayment details={details} seatsSelected={seatsSelected} onChildrenDrawerClose={onChildrenDrawerClose} />
+                                            </Col>
+                                        </Row>
+                                    )}
                                 </Col>
                             </Row>
                             <div style={{ marginTop: 24 }}></div>
