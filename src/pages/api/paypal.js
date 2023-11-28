@@ -1,5 +1,4 @@
 import paypal from '@paypal/checkout-server-sdk'
-import { NextResponse } from 'next/server'
 
 const clientId = process.env.PAYPAL_CLIENT_ID
 const clientSecret = process.env.PAYPAL_CLIENT_SECRET
