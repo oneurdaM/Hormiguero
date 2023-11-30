@@ -9,7 +9,7 @@ import 'moment/locale/es'
 import Loader from '../ui/loader/loader'
 import CardEvent from '../common/card'
 import ButtonPrimary from '@/components/ui/primary-button'
-import { getEventsSpaces } from '@/data/billboardServices'
+import { getEventsSpaces, selectSeat } from '@/data/billboardServices'
 import { EventsSelected, EventsSpacesResponse, Billboard } from '@/types/billboard'
 import { getAuthCredentials } from '@/utils/auth-utils'
 import BillboardSeatPicker from './billboard-seatPicker'
@@ -104,7 +104,21 @@ function BillboardCard({ event }: { event: Billboard }) {
         }
     }
 
-    const onChildrenDrawerClose = (showSuccess: boolean) => {
+    const onChildrenDrawerClose = async (showSuccess: boolean) => {
+        for (let i in seatsSelected) {
+            setFetchingEventsSpaces(true)
+            const response = await selectSeat(seatsSelected[i])
+            console.log('response', response)
+            setFetchingEventsSpaces(false)
+            if (response.error) {
+                api.error({
+                    message: response.error,
+                })
+            } else {
+                console.log('else de fetch')
+                setCurrent(current - 1)
+            }
+        }
         setCurrent(0)
         if (showSuccess) {
             api.success({
@@ -127,8 +141,22 @@ function BillboardCard({ event }: { event: Billboard }) {
         setCurrent(current + 1)
     }
 
-    const prev = () => {
-        setCurrent(current - 1)
+    const prev = async () => {
+        console.log('seatsSelected', seatsSelected)
+        for (let i in seatsSelected) {
+            setFetchingEventsSpaces(true)
+            const response = await selectSeat(seatsSelected[i])
+            console.log('response', response)
+            setFetchingEventsSpaces(false)
+            if (response.error) {
+                api.error({
+                    message: response.error,
+                })
+            } else {
+                console.log('else de fetch')
+                setCurrent(current - 1)
+            }
+        }
     }
 
     const items = steps.map((item) => ({ key: item.title, title: item.title }))
