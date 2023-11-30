@@ -13,7 +13,7 @@ export const allowedRoles = [
 ]
 
 export function setAuthCredentials(token: string, permissions: string) {
-  Cookie.set(AUTH_CRED, JSON.stringify({ token, permissions }))
+  Cookie.set(AUTH_CRED, JSON.stringify({ token, permissions }), {'SameSite': 'None'})
 }
 
 export function getAuthCredentials(context?: any): {
@@ -21,11 +21,9 @@ export function getAuthCredentials(context?: any): {
   permissions: string | null
 } {
   let authCred
-  if (context) {
-    authCred = parseSSRCookie(context)[AUTH_CRED]
-  } else {
-    authCred = Cookie.get(AUTH_CRED)
-  }
+  console.log('context', context)
+  authCred = Cookie.get(AUTH_CRED)
+  console.log('authCred', authCred)
   if (authCred) {
     return JSON.parse(authCred)
   }
