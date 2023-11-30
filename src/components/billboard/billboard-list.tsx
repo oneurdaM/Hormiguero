@@ -16,16 +16,9 @@ type BillboardListProps = {
     loading: boolean
 }
 
-const BillboardList = ({
-    billboards,
-    paginatorInfo,
-    onPagination,
-    loading,
-}: BillboardListProps) => {
+const BillboardList = ({ billboards, paginatorInfo, onPagination, loading }: BillboardListProps) => {
     if (paginatorInfo?.total === 0 && !loading) {
-        return (
-            <ErrorMessage message="Aún no hay ninguna nota o artículo para mostrar" />
-        )
+        return <ErrorMessage message="Aún no hay ningún evento para mostrar" />
     }
 
     if (loading) {
@@ -40,17 +33,7 @@ const BillboardList = ({
                 ))}
             </div>
 
-            <div className="flex items-center justify-end my-4">
-                {!!paginatorInfo?.total && (
-                    <Pagination
-                        total={parseInt(paginatorInfo.total.toString())}
-                        current={parseInt(paginatorInfo.currentPage.toString())}
-                        pageSize={parseInt(paginatorInfo.perPage.toString())}
-                        onChange={onPagination}
-                        className="text-light"
-                    />
-                )}
-            </div>
+            <div className="flex items-center justify-end my-4">{!!paginatorInfo?.total && <Pagination total={parseInt(paginatorInfo.total.toString())} current={parseInt(paginatorInfo.currentPage.toString())} pageSize={parseInt(paginatorInfo.perPage.toString())} onChange={onPagination} className="text-light" />}</div>
         </>
     )
 }

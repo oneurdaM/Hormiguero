@@ -48,12 +48,22 @@ export const getBillboard = async (page: any, search: any) => {
                 billboards: [], 
                 fetchingBillboards,
                 paginatorInfo,
-                error: response.data.error 
+                error: response.data.message 
             }
         }
-    } catch (error) {
-        console.error(error);
-        throw error; 
+    } catch (error:any) {
+        const paginatorInfo = {
+            total: 0,
+            currentPage: 1,
+            totalPages: 0,
+            perPage: 0,
+        }
+        return {
+            billboards: [], 
+            fetchingBillboards: false,
+            paginatorInfo,
+            error: error?.response.data.message,
+        } 
     }
 };
 
@@ -71,12 +81,14 @@ export const getEventsSpaces = async (eventId: any, spaceId: any) => {
         } else {
             return {
                 eventsSpaces: [],
-                error: response.data.error 
+                error: response.data.message 
             }
         }
-    } catch (error) {
-        console.error(error);
-        throw error; 
+    } catch (error:any) {
+        return {
+            eventsSpaces: [],
+            error: error?.response.data.message,
+        } 
     }
 };
 
@@ -95,15 +107,45 @@ export const getSeats = async (eventSpacesId: any) => {
         } else {
             return {
                 seatsResponse: [],
-                error: response.data.error 
+                error: response.data.message 
             }
         }
-    } catch (error) {
-        console.error(error);
-        throw error; 
+    } catch (error:any) {
+        return {
+            seatsResponse: [],
+            error: error?.response.data.message,
+        } 
     }
 };
 
+export const selectSeat = async (seatSelected: any) => {
+    try {
+        console.log('seatSelected', seatSelected)
+        const body = {
+            "isSelect": !seatSelected.is_selected
+        }
+        console.log('body', body)
+        const response = await axios.put(endpoint + '/seats/' + seatSelected.id + '/select-unselect' , body, config)
+        console.log('response', response);
+        if (response.status === 200) {
+            return {
+                seatsResponse: response.data,
+                error: '',
+            }
+        } else {
+            console.error('error en else', response);
+            return {
+                seatsResponse: [],
+                error: response.data.message 
+            }
+        }
+    } catch (error: any) {
+        return {
+            seatsResponse: [],
+            error: error?.response.data.message,
+        }
+    }
+};
 export const buySeat = async (seatID: any) => {
     try {
         const body = {
@@ -117,13 +159,16 @@ export const buySeat = async (seatID: any) => {
                 error: '',
             }
         } else {
+            console.error('error en else', response);
             return {
                 seatsResponse: [],
-                error: response.data.error 
+                error: response.data.message 
             }
         }
-    } catch (error) {
-        console.error(error);
-        throw error; 
+    } catch (error: any) {
+        return {
+            seatsResponse: [],
+            error: error?.response.data.message,
+        }
     }
 };

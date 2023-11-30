@@ -17,12 +17,20 @@ const BillboardPayment = (props: any) => {
     const fetchData = async (seatsSelected: any) => {
         try {
             setFetchingPayment(true)
+            let response: any = {}
             for (let i in seatsSelected) {
-                const response = await buySeat(seatsSelected[i].id)
-                console.log('reponse', response)
+                response = await buySeat(seatsSelected[i].id)
+                console.log('response', response)
                 setPaymentResponse(response)
             }
             setFetchingPayment(false)
+            if (response.error) {
+                api.error({
+                    message: response.error,
+                })
+            } else {
+                props.onChildrenDrawerClose(true)
+            }
         } catch (error: any) {
             api.error({
                 message: 'Error',
@@ -32,23 +40,15 @@ const BillboardPayment = (props: any) => {
         }
     }
 
-    if (paymentResponse.error) {
-        api.error({
-            message: 'Error',
-            description: 'El pago no se pudo efectuar, favor de reintentar',
-        })
-    }
-
     const paymentCanceled = () => {
-        api.error({
-            message: 'Error',
+        api.warning({
+            message: 'Pago cancelado',
             description: 'El pago no se pudo efectuar, favor de reintentar',
         })
     }
     const paymentApproved = () => {
         console.log('paypal  success', props.seatsSelected)
         fetchData(props.seatsSelected)
-        props.onChildrenDrawerClose(true)
     }
 
     return (
@@ -56,7 +56,7 @@ const BillboardPayment = (props: any) => {
             {contextHolder}
             {!fetchingPayment ? (
                 <Row justify="space-between">
-                    <Col span={16}>
+                    <Col xs={24} lg={16}>
                         <Row justify="space-around">
                             <Col span={24} className="text-xl">
                                 <p>
@@ -78,7 +78,6 @@ const BillboardPayment = (props: any) => {
                                                 }),
                                             })
                                             const order = await res.json()
-                                            console.log(order)
                                             return order.id
                                         }}
                                         onApprove={async (data, actions) => {
@@ -94,17 +93,24 @@ const BillboardPayment = (props: any) => {
                             </Col>
                         </Row>
                     </Col>
-                    <Col span={6}>
-                        <Card>
+                    <Col xs={24} lg={8}>
+                        <br />
+                        <br />
+                        <Card className="cardEvent" bordered={false}>
                             <Row justify={'end'}>
-                                <Col span={24} className="text-xl text-right">
+                                <Col span={16} className="text-xl text-left">
                                     <p>
-                                        <strong className="text-primary-6000 ">Cantidad de asientos: </strong>
-                                        {props.details?.quantity ? props.details.quantity : 0}
+                                        <strong className="text-primary-6000">Cantidad de asientos: </strong>
                                     </p>
                                     <p>
-                                        <strong className="text-primary-6000 ">Subtotal: </strong>${props.details?.subtotal ? props.details.subtotal : 0}
+                                        <strong className="text-primary-6000">Subtotal: </strong>
                                     </p>
+                                    <br />
+                                </Col>
+                                <Col span={8} className="text-xl text-right">
+                                    <p>{props.details?.quantity ? props.details.quantity : 0}</p>
+                                    <p>${props.details?.subtotal ? props.details.subtotal : 0}</p>
+                                    <br />
                                 </Col>
                             </Row>
                         </Card>

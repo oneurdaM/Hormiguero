@@ -114,7 +114,6 @@ function BillboardCard({ event }: { event: Billboard }) {
         }
         setChildrenDrawer(false)
     }
-    console.log('event', event)
 
     const steps = [
         {
@@ -201,12 +200,12 @@ function BillboardCard({ event }: { event: Billboard }) {
                                 </Col>
                             </Row>
                             <Row justify="space-around">
-                                <Col span={23}>
+                                <Col xs={11} lg={11}>
                                     <p className="text-lg text-primary-6000">Director</p>
                                     <p className="text-base">{event.director}</p>
                                     <br />
                                 </Col>
-                                <Col span={23}>
+                                <Col xs={11} lg={11}>
                                     <p className="text-lg text-primary-6000">Compañia</p>
                                     <p className="text-base">{event.company}</p>
                                     <br />
@@ -214,7 +213,6 @@ function BillboardCard({ event }: { event: Billboard }) {
                                 <Col span={23}>
                                     <p className="text-lg text-primary-6000">Sinopsis</p>
                                     <p className="text-base">{event.synopsis}</p>
-                                    <br />
                                 </Col>
                                 <div className="card-footer">
                                     <small className="text-muted">
