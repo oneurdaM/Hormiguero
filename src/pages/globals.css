@@ -268,11 +268,20 @@
   a {
     @apply no-underline;
   }
+  .stepsClass{
+    background-color: #9ba1ac;
+    border-radius: 2em;
+  }
   .backgroundDrawer{
-    background-color: #fff7ed !important ;
+    background-color: #fff7ed !important;
   }
   .backgroundDrawerNigth{
-    background-color: gray !important ;
+    background-color: #0e131f !important;
+    color: white;
+  }
+  .backgroundDrawerNigthHeader{
+    background-color: #6b7280 !important;
+    color: white;
   }
   .cardEvent{
     border-radius: 2em;
@@ -281,6 +290,9 @@
   }
   .cardEvent:hover{
     box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;  
+  }
+  .cardEventDark:hover{
+    box-shadow: rgba(176, 176, 176, 0.343) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;  
   }
   .coverCard{
     height: 15em;

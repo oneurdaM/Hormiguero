@@ -166,14 +166,14 @@ function BillboardCard({ event }: { event: Billboard }) {
             {contextHolder}
             <Row>
                 <Col xs={0} lg={24}>
-                    <CardEvent className="my-4 hover:shadow-xl hover:shadow-border-400" onClick={onClickBillboard}>
+                    <CardEvent className="my-4 hover:shadow-xl hover:shadow-border-400 dark:bg-gray-500" onClick={onClickBillboard}>
                         <Image src={event.thumbnailUrl} alt={event.title} className="rounded-tl rounded-tr aspect-[500/300] object-cover" width={500} height={300} />
                         <div className="p-5">
                             <div>
-                                <small className="text-dark">{event.genderList}</small>
+                                <small className="dark:text-white text-dark">{event.genderList}</small>
                             </div>
-                            <h5 className="text-dark line-clamp-1">{event.title}</h5>
-                            <p className="text-body line-clamp-2">{event.synopsis}</p>
+                            <h5 className="dark:text-white text-dark line-clamp-1">{event.title}</h5>
+                            <p className="dark:text-muted text-body line-clamp-2">{event.synopsis}</p>
                             <div className="card-footer">
                                 <small className="text-muted">
                                     Publicado {event.director} | Por {event.company}
@@ -200,7 +200,7 @@ function BillboardCard({ event }: { event: Billboard }) {
                     </CardEvent>
                 </Col>
             </Row>
-            <Drawer title={<p className="text-xl text-primary-6000 ">{event.title}</p>} width={widthDrawer} onClose={onClose} open={open} className="" classNames={{ body: 'backgroundDrawer' }}>
+            <Drawer title={<p className="text-xl text-primary-6000 dark:text-white">{event.title}</p>} width={widthDrawer} onClose={onClose} open={open} className=" " classNames={{ body: 'dark:backgroundDrawerNigth backgroundDrawer', header: 'dark:backgroundDrawerNigthHeader' }}>
                 {!fetchingEventsSpaces ? (
                     <Row justify={'space-around'} gutter={[8, 8]}>
                         <Col xs={22} lg={14}>
@@ -215,7 +215,7 @@ function BillboardCard({ event }: { event: Billboard }) {
                                     </p>
                                 </Col>
                                 <Col>
-                                    <Divider type="vertical" className="text-lg font-black text-primary-6000 " />
+                                    <Divider type="vertical" className="dark:text-white text-lg font-black text-primary-6000 " />
                                 </Col>
                                 <Col className="text-lg text-primary-6000 line-clamp-1">
                                     <p>
@@ -224,7 +224,7 @@ function BillboardCard({ event }: { event: Billboard }) {
                                     </p>
                                 </Col>
                                 <Col span={24}>
-                                    <Divider className="text-6xl font-black text-primary-6000 " />
+                                    <Divider className="dark:text-white text-6xl font-black " />
                                 </Col>
                             </Row>
                             <Row justify="space-around">
@@ -267,7 +267,7 @@ function BillboardCard({ event }: { event: Billboard }) {
                                                 </p>
                                             }
                                         >
-                                            <Card className="cardEvent" bordered={false} onClick={() => showChildrenDrawer(eventSpace)} cover={<img className="coverCard" alt={eventSpace.space.name} src={eventSpace.space.image} />}>
+                                            <Card className="cardEvent dark:cardEventDark dark:bg-gray-500 dark:text-white" bordered={false} onClick={() => showChildrenDrawer(eventSpace)} cover={<img className="coverCard" alt={eventSpace.space.name} src={eventSpace.space.image} />}>
                                                 <Row justify="space-around">
                                                     <Col span={24} className="dayCard">
                                                         <p className="text-xl ">{moment(eventSpace?.startDate).format('dddd D MMMM YYYY').charAt(0).toUpperCase() + moment(eventSpace?.startDate).format('dddd D MMMM YYYY').slice(1)}</p>
@@ -307,9 +307,9 @@ function BillboardCard({ event }: { event: Billboard }) {
 
                         <Drawer
                             destroyOnClose={true}
-                            title={<p className="text-xl text-primary-6000 ">{eventSelected?.event.title + ', ' + moment(eventSelected?.startDate).format('dddd D MMMM YYYY').charAt(0).toUpperCase() + moment(eventSelected?.startDate).format('dddd D MMMM YYYY').slice(1) + ', ' + moment(eventSelected?.startDate).format('h:mm a')}</p>}
+                            title={<p className="text-xl text-primary-6000 dark:text-white">{eventSelected?.event.title + ', ' + moment(eventSelected?.startDate).format('dddd D MMMM YYYY').charAt(0).toUpperCase() + moment(eventSelected?.startDate).format('dddd D MMMM YYYY').slice(1) + ', ' + moment(eventSelected?.startDate).format('h:mm a')}</p>}
                             width={widthDrawer}
-                            classNames={{ body: 'backgroundDrawer' }}
+                            classNames={{ body: 'dark:backgroundDrawerNigth backgroundDrawer', header: 'dark:backgroundDrawerNigthHeader', footer: 'dark:backgroundDrawerNigthHeader' }}
                             onClose={() => onChildrenDrawerClose(false)}
                             open={childrenDrawer}
                             footer={
@@ -324,7 +324,9 @@ function BillboardCard({ event }: { event: Billboard }) {
                                 )
                             }
                         >
-                            <Steps current={current} items={items} />
+                            <div className="dark:stepsClass">
+                                <Steps current={current} items={items} />
+                            </div>
                             <Row justify="space-between">
                                 <Col span={24}>
                                     {current === 0 && (

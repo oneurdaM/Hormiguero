@@ -12,22 +12,21 @@ export const allowedRoles = [
   Role.User
 ]
 
-export function setAuthCredentials(token: string, permissions: string) {
-  Cookie.set(AUTH_CRED, JSON.stringify({ token, permissions }), {'SameSite': 'None'})
+export function setAuthCredentials(token: string, permissions: string, userId: string): void {
+  Cookie.set(AUTH_CRED, JSON.stringify({ token, permissions, userId }), {'SameSite': 'None'})
 }
 
 export function getAuthCredentials(context?: any): {
   token: string | null
   permissions: string | null
+  userId: string | null
 } {
   let authCred
-  console.log('context', context)
   authCred = Cookie.get(AUTH_CRED)
-  console.log('authCred', authCred)
   if (authCred) {
     return JSON.parse(authCred)
   }
-  return { token: null, permissions: null }
+  return { token: null, permissions: null, userId: null }
 }
 
 export function parseSSRCookie(context: any) {
