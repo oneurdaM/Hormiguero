@@ -6,15 +6,15 @@ const { token, userId } = getAuthCredentials();
 let config = {
     headers: {
       'Authorization': 'Bearer ' + token
-    }
+    },
 }
 
 export const getOrders = async (page: any, search: any) => {
     try {
-        // search = search ? 'search=' + search + '&' : ''
-        // page = 'page=' + page
+        search = search ? 'search=' + search + '&' : ''
+        page = 'page=' + page
         let fetchingOrders = true;
-        const response = await axios.get(endpoint + '/orders/ByUser?', config)
+        const response = await axios.get(endpoint + '/orders/ByUser?'+ page + '&limit=10', config)
         console.log('response', response);
         const paginatorInfo = {
             total: response?.data.total ? parseInt(response.data.total.toString()) : 0,
@@ -24,16 +24,6 @@ export const getOrders = async (page: any, search: any) => {
         }
         if (response.status === 200) {
             fetchingOrders = false;
-            for(let i in response.data.data) {
-                response.data.data[i].genderList = ''
-                response.data.data[i].thumbnailUrl = response.data.data[i].thumbnailUrl ? response.data.data[i].thumbnailUrl : "https://kali-connect.s3.us-west-1.amazonaws.com/_c0c46b43-d047-444c-8665-17092c17ef7b.jpeg"
-                if(response.data.data[i].gender.length){
-                    for(let x in response.data.data[i].gender){
-                        response.data.data[i].genderList += x === '0' ? response.data.data[i].gender[x].name : ', ' + response.data.data[i].gender[x].name
-                    }
-                }
-            }
-            
             return {
                 orders: response.data.data,
                 fetchingOrders,
@@ -61,6 +51,33 @@ export const getOrders = async (page: any, search: any) => {
             orders: [], 
             fetchingOrders: false,
             paginatorInfo,
+            error: error?.response.data.message,
+        } 
+    }
+};
+
+export const downloadTicket = async (orderId: number) => {
+    try {
+        console.log('config', config)
+        const response = await axios.post(endpoint + '/orders/file/' + orderId, {}, {headers: {
+            'Authorization': 'Bearer ' + token
+          },
+          responseType: 'blob'})
+        console.log('response', response);
+        if (response.status === 200) {
+            return {
+                downloadTicket: response.data,
+                error: '',
+            }
+        } else {
+            return {
+                downloadTicket: null,
+                error: response.data.message 
+            }
+        }
+    } catch (error:any) {
+        return {
+            downloadTicket: null,
             error: error?.response.data.message,
         } 
     }
