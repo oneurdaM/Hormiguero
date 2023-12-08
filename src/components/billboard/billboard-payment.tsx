@@ -12,17 +12,15 @@ const BillboardPayment = (props: any) => {
         seatsResponse: [],
         error: '',
     })
-
+    console.log('props :>> ', props)
     const [api, contextHolder] = notification.useNotification()
     const fetchData = async (seatsSelected: any) => {
         try {
             setFetchingPayment(true)
             let response: any = {}
-            for (let i in seatsSelected) {
-                response = await buySeat(seatsSelected[i].id)
-                console.log('response', response)
-                setPaymentResponse(response)
-            }
+            response = await buySeat(seatsSelected, props.details)
+            console.log('response', response)
+            setPaymentResponse(response)
             setFetchingPayment(false)
             if (response.error) {
                 api.error({
@@ -96,7 +94,7 @@ const BillboardPayment = (props: any) => {
                     <Col xs={24} lg={8}>
                         <br />
                         <br />
-                        <Card className="cardEvent" bordered={false}>
+                        <Card className="cardEvent dark:cardEventDark dark:bg-gray-500 dark:text-white" bordered={false}>
                             <Row justify={'end'}>
                                 <Col span={16} className="text-xl text-left">
                                     <p>

@@ -133,7 +133,7 @@ const BillboardSeatPicker = (props: any) => {
                     <Col xs={24} lg={8}>
                         <br />
                         <br />
-                        <Card className="cardEvent" bordered={false}>
+                        <Card className="cardEvent dark:cardEventDark dark:bg-gray-500  dark:text-white" bordered={false}>
                             <Row justify={'end'}>
                                 <Col span={18} className="text-xl text-left">
                                     <p>

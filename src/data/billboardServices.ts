@@ -2,8 +2,7 @@ import axios from 'axios';
 import { getAuthCredentials } from '@/utils/auth-utils'
 
 const endpoint = process.env.NEXT_PUBLIC_REST_API_ENDPOINT;
-const { token } = getAuthCredentials();
-console.log('token :>> ', token);
+const { token, userId } = getAuthCredentials();
 let config = {
     headers: {
       'Authorization': 'Bearer ' + token
@@ -146,12 +145,28 @@ export const selectSeat = async (seatSelected: any) => {
         }
     }
 };
-export const buySeat = async (seatID: any) => {
+export const buySeat = async (seatsSelected: any, details: any) => {
     try {
-        const body = {
-            "isAvailable": false
+        const seats = []
+        for(let i in seatsSelected) {
+            seats.push(seatsSelected[i].id)
         }
-        const response = await axios.put(endpoint + '/seats/' + seatID + '/block-unblock' , body, config)
+        const body = {
+            "userId": userId,
+            "deliveryDate": null,
+            "deliveryStatus": null,
+            "products": null,
+            "seats": seats,
+            "rents": null,
+            "payment":{
+                "userId": userId,
+                "name": details.eventSpaces.event.title, 
+                "type": "GENERAL",
+                "total": details.subtotal,
+                "method": "PAYPAL"
+            }
+        }
+        const response = await axios.post(endpoint + '/orders' , body, config)
         console.log('response', response);
         if (response.status === 200) {
             return {
