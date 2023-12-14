@@ -27,7 +27,9 @@ export default function RootLayout() {
         const incrementVisitCounter = async () => {
             try {
                 const response = await axios.post(
-                    'https://hormiguero-dc8e78e18915.herokuapp.com/visits'
+                    // 'https://hormiguero-dc8e78e18915.herokuapp.com/visits'
+                     'https://back-hormiguero-558b8cf43e32.herokuapp.com/visits'
+
                 )
                 if (
                     response.status === 201 ||
