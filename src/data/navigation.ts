@@ -30,12 +30,12 @@ export const NAVIGATION: NavItemType[] = token ? [
     name: 'Impacto social',
     isNew: true,
   },
-  {
-    id: ncNanoId(),
-    href: '/billboard',
-    name: 'Cartelera',
-    isNew: true,
-  },
+  // {
+  //   id: ncNanoId(),
+  //   href: '/billboard',
+  //   name: 'Cartelera',
+  //   isNew: true,
+  // },
   {
     id: ncNanoId(),
     href: '/products',
@@ -66,12 +66,12 @@ export const NAVIGATION: NavItemType[] = token ? [
   name: 'Impacto social',
   isNew: true,
 },
-{
-  id: ncNanoId(),
-  href: '/billboard',
-  name: 'Cartelera',
-  isNew: true,
-},
+// {
+//   id: ncNanoId(),
+//   href: '/billboard',
+//   name: 'Cartelera',
+//   isNew: true,
+// },
 {
   id: ncNanoId(),
   href: '/products',

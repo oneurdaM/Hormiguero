@@ -9,7 +9,7 @@ import { getBillboard } from '@/data/billboardServices'
 import { BillboardResponse } from '@/types/billboard'
 import BillboardList from '@/components/billboard/billboard-list'
 
-function Billboard() {
+function Billboard2() {
     const [isClient, setIsClient] = useState(false)
 
     useEffect(() => {
@@ -72,7 +72,7 @@ function Billboard() {
     return (
         <>
             {isClient && (
-                <Layout>
+                <>
                     <Head>
                         <title>Cartelera | CCH</title>
                         <meta
@@ -92,9 +92,9 @@ function Billboard() {
                         <meta name="twitter:image" content={logo.toString()} />
                         <meta name="twitter:card" content={logo.toString()} />
                     </Head>
-                    <div className="h-auto min-h-screen bg-orange-50 dark:bg-black dark:bg-opacity-20">
+                    <div className="h-auto min-h-screen bg-orange-50 dark:bg-black dark:bg-opacity-20 py-5">
                         <div className="nc-PageHome container pt-10  h-auto min-h-screen">
-                            <h1 className="text-3xl mt-2">Cartelera</h1>
+                            <h1 className="text-4xl mt-2 font-bold text-neutral-900 dark:text-neutral-100 text-center">Cartelera</h1>
                             <div className="w-full border-slate-300 border-solid border-[1px] my-5" />
                             <Search onSearch={handleSearch} />
                             <br />
@@ -108,10 +108,10 @@ function Billboard() {
                             />
                         </div>
                     </div>
-                </Layout>
+                </ >
             )}
         </>
     )
 }
 
-export default Billboard
+export default Billboard2

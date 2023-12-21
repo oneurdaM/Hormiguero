@@ -3,6 +3,7 @@
 import { Poppins } from 'next/font/google'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import Cartelera from "@/pages/billboard"
 
 import PageHome from './landing'
 import Layout from '@/components/layout/layout'
@@ -62,6 +63,8 @@ export default function RootLayout() {
     return (
         <Layout>
             <PageHome />
+            <Cartelera />
+
         </Layout>
     )
 }
