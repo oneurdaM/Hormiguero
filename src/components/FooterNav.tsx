@@ -1,75 +1,49 @@
-"use client";
+'use client'
+import React, { useEffect, useRef } from 'react'
+import Link from 'next/link'
 
-import {
-  HeartIcon,
-  MagnifyingGlassIcon,
-  UserCircleIcon,
-} from "@heroicons/react/24/outline";
-import React,{useEffect,useRef} from "react";
-import {PathName} from "@/routers/types";
-import MenuBar from "@/shared/MenuBar";
-import isInViewport from "@/utils/isInViewport";
-import Link from "next/link";
-import {usePathname} from "next/navigation";
+import SwitchDarkMode from '@/shared/SwitchDarkMode'
+import MenuBar from '@/shared/MenuBar'
+import isInViewport from '@/utils/isInViewport'
+import { PathName } from '@/routers/types'
+import { usePathname } from 'next/navigation'
+import { UserCircleIcon, HomeIcon } from '@heroicons/react/24/outline'
+import { getAuthCredentials, isAuthenticated } from '@/utils/auth-utils'
 
-let WIN_PREV_POSITION = 0;
-if (typeof window !== "undefined") {
-  WIN_PREV_POSITION = window.pageYOffset;
+let WIN_PREV_POSITION = 0
+if (typeof window !== 'undefined') {
+  WIN_PREV_POSITION = window.pageYOffset
 }
 
 interface NavItem {
-  name: string;
-  link?: PathName;
-  icon: any;
+  name: string
+  link?: PathName
+  icon: any
 }
 
-const NAV: NavItem[] = [
-  {
-    name: "Inicio",
-    link: "/",
-    icon: MagnifyingGlassIcon,
-  },
-  {
-    name: "Guardados",
-    link: "/",
-    icon: HeartIcon,
-  },
-  {
-    name: "Iniciar sesión",
-    link: "/",
-    icon: UserCircleIcon,
-  },
-  {
-    name: "Menu",
-    icon: MenuBar,
-  },
-];
-
 const FooterNav = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null)
+  const { token, permissions } = getAuthCredentials()
+  const isAuth = isAuthenticated({ token, permissions })
 
-  const pathname = usePathname();
+  const pathname = usePathname()
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      window.addEventListener("scroll",handleEvent);
+    if (typeof window !== 'undefined') {
+      window.addEventListener('scroll', handleEvent)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[]);
+  }, [])
 
   const handleEvent = () => {
-    if (typeof window !== "undefined") {
-      window.requestAnimationFrame(showHideHeaderMenu);
+    if (typeof window !== 'undefined') {
+      window.requestAnimationFrame(showHideHeaderMenu)
     }
-  };
+  }
 
   const showHideHeaderMenu = () => {
-    // if (typeof window === "undefined" || window?.innerWidth >= 768) {
-    //   return null;
-    // }
-
-    let currentScrollPos = window.pageYOffset;
-    if (!containerRef.current) return;
+    let currentScrollPos = window.pageYOffset
+    if (!containerRef.current) return
 
     // SHOW _ HIDE MAIN MENU
     if (currentScrollPos > WIN_PREV_POSITION) {
@@ -77,37 +51,56 @@ const FooterNav = () => {
         isInViewport(containerRef.current) &&
         currentScrollPos - WIN_PREV_POSITION < 80
       ) {
-        return;
+        return
       }
 
-      containerRef.current.classList.add("FooterNav--hide");
+      containerRef.current.classList.add('FooterNav--hide')
     } else {
       if (
         !isInViewport(containerRef.current) &&
         WIN_PREV_POSITION - currentScrollPos < 80
       ) {
-        return;
+        return
       }
-      containerRef.current.classList.remove("FooterNav--hide");
+      containerRef.current.classList.remove('FooterNav--hide')
     }
 
-    WIN_PREV_POSITION = currentScrollPos;
-  };
+    WIN_PREV_POSITION = currentScrollPos
+  }
 
-  const renderItem = (item: NavItem,index: number) => {
-    const isActive = pathname === item.link;
+  const NAV: NavItem[] = [
+    {
+      name: 'Inicio',
+      link: '/',
+      icon: HomeIcon,
+    },
+    {
+      name: isAuth ? 'Cerrar sesión' : 'Iniciar sesión',
+      link: isAuth ? '/logout' : '/login',
+      icon: UserCircleIcon,
+    },
+    {
+      name: 'Menu',
+      icon: MenuBar,
+    },
+  ]
+
+  const renderItem = (item: NavItem, index: number) => {
+    const isActive = pathname === item.link
 
     return item.link ? (
       <Link
         key={index}
         href={item.link}
-        className={`flex flex-col items-center justify-between text-neutral-500 dark:text-neutral-300/90 ${isActive ? "text-neutral-900 dark:text-neutral-100" : ""
-          }`}
+        className={`flex flex-col items-center justify-between text-neutral-500 dark:text-neutral-300/90 ${
+          isActive ? 'text-neutral-900 dark:text-neutral-100' : ''
+        }`}
       >
-        <item.icon className={`w-6 h-6 ${isActive ? "text-red-600" : ""}`} />
+        <item.icon className={`w-6 h-6 ${isActive ? 'text-red-600' : ''}`} />
         <span
-          className={`text-[11px] leading-none mt-1 ${isActive ? "text-red-600" : ""
-            }`}
+          className={`text-[11px] leading-none mt-1 ${
+            isActive ? 'text-red-600' : ''
+          }`}
         >
           {item.name}
         </span>
@@ -115,14 +108,15 @@ const FooterNav = () => {
     ) : (
       <div
         key={index}
-        className={`flex flex-col items-center justify-between text-neutral-500 dark:text-neutral-300/90 ${isActive ? "text-neutral-900 dark:text-neutral-100" : ""
-          }`}
+        className={`flex flex-col items-center justify-between text-neutral-500 dark:text-neutral-300/90 ${
+          isActive ? 'text-neutral-900 dark:text-neutral-100' : ''
+        }`}
       >
         <item.icon iconClassName="w-6 h-6" className={``} />
         <span className="text-[11px] leading-none mt-1">{item.name}</span>
       </div>
-    );
-  };
+    )
+  }
 
   return (
     <div
@@ -132,10 +126,11 @@ const FooterNav = () => {
     >
       <div className="w-full max-w-lg flex justify-around mx-auto text-sm text-center ">
         {/* MENU */}
+        <SwitchDarkMode />
         {NAV.map(renderItem)}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default FooterNav;
+export default FooterNav

@@ -1,31 +1,35 @@
-"use client";
+'use client'
+import React, { useState, useEffect } from 'react'
+import Link from 'next/link'
 
-import React from "react";
-import ButtonClose from "@/shared/ButtonClose";
-import Logo from "@/shared/Logo";
-import {Disclosure} from "@headlessui/react";
-import {NavItemType} from "./NavigationItem";
-import {NAVIGATION} from "@/data/navigation";
-import ButtonPrimary from "@/shared/ButtonPrimary";
-import SocialsList from "@/shared/SocialsList";
-import {ChevronDownIcon} from "@heroicons/react/24/solid";
-import SwitchDarkMode from "@/shared/SwitchDarkMode";
-import Link from "next/link";
-import LangDropdown from "@/(client-components)/(Header)/LangDropdown";
+import ButtonClose from '@/shared/ButtonClose'
+import Logo from '@/shared/Logo'
+import { Disclosure } from '@headlessui/react'
+import { NAVIGATION } from '@/data/navigation'
+import { NavItemType } from './NavigationItem'
+import { ChevronDownIcon } from '@heroicons/react/24/solid'
+import SocialsList from '../SocialsList'
 
 export interface NavMobileProps {
-  data?: NavItemType[];
-  onClickClose?: () => void;
+  data?: NavItemType[]
+  onClickClose?: () => void
 }
 
 const NavMobile: React.FC<NavMobileProps> = ({
   data = NAVIGATION,
   onClickClose,
 }) => {
+  const [visits, setVisits] = useState<null | number>(null)
+
+  useEffect(() => {
+    const visits = window?.localStorage?.getItem('visits') ?? 0
+    setVisits(parseInt(visits.toString()))
+  }, [])
+
   const _renderMenuChild = (item: NavItemType) => {
     return (
       <ul className="nav-mobile-sub-menu pl-6 pb-1 text-base">
-        {item.children?.map((i,index) => (
+        {item.children?.map((i, index) => (
           <Disclosure key={i.href + index} as="li">
             <Link
               href={{
@@ -34,7 +38,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
               className="flex px-4 text-neutral-900 dark:text-neutral-200 text-sm font-medium rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 mt-0.5"
             >
               <span
-                className={`py-2.5 pr-3 ${!i.children ? "block w-full" : ""}`}
+                className={`py-2.5 pr-3 ${!i.children ? 'block w-full' : ''}`}
               >
                 {i.name}
               </span>
@@ -61,10 +65,10 @@ const NavMobile: React.FC<NavMobileProps> = ({
           </Disclosure>
         ))}
       </ul>
-    );
-  };
+    )
+  }
 
-  const _renderItem = (item: NavItemType,index: number) => {
+  const _renderItem = (item: NavItemType, index: number) => {
     return (
       <Disclosure
         key={item.id}
@@ -78,7 +82,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
           }}
         >
           <span
-            className={`py-2.5 pr-3 ${!item.children ? "block w-full" : ""}`}
+            className={`py-2.5 pr-3 ${!item.children ? 'block w-full' : ''}`}
           >
             {item.name}
           </span>
@@ -100,35 +104,55 @@ const NavMobile: React.FC<NavMobileProps> = ({
           <Disclosure.Panel>{_renderMenuChild(item)}</Disclosure.Panel>
         )}
       </Disclosure>
-    );
-  };
+    )
+  }
 
   return (
-    <div className="overflow-y-auto w-full h-screen py-2 transition transform shadow-lg ring-1 dark:ring-neutral-700 bg-white dark:bg-neutral-900 divide-y-2 divide-neutral-100 dark:divide-neutral-800">
-      <div className="py-6 px-5">
-        <Logo />
-        <div className="flex flex-col mt-5 text-neutral-700 dark:text-neutral-300 text-sm">
-          <span>
-            ¡Bienvenidos a Mundo Hormiga!
-            Somos mucho más que una comunidad de profesionales en diversas disciplinas. Somos un reflejo de la unión, la confianza, la integridad y el crecimiento colectivo. Aquí, el trabajo en equipo es nuestra brújula y la solidaridad nuestra fuerza impulsora.
-          </span>
-
-          <div className="flex justify-between items-center mt-4">
-            <SocialsList itemClass="w-9 h-9 flex items-center justify-center rounded-full bg-neutral-100 text-xl dark:bg-neutral-800 dark:text-neutral-300" />
-            <span className="block">
-              <SwitchDarkMode className="bg-neutral-100 dark:bg-neutral-800" />
-            </span>
-          </div>
-        </div>
+    <div className="overflow-y-auto w-full h-screen py-1 transition transform shadow-lg ring-1 dark:ring-neutral-700 bg-white dark:bg-neutral-900 divide-y-2 divide-neutral-100 dark:divide-neutral-800">
+      <div className="px-5">
         <span className="absolute right-2 top-2 p-1">
           <ButtonClose onClick={onClickClose} />
         </span>
+        <Logo />
       </div>
-      <ul className="flex flex-col py-6 px-2 space-y-1">
+
+      <ul className="flex flex-col py-2 px-2 space-y-1">
         {data.map(_renderItem)}
       </ul>
-    </div>
-  );
-};
 
-export default NavMobile;
+      <div className="p-5  mt-5 text-neutral-700 dark:text-neutral-300 text-sm">
+        <p>
+          <small>
+            <b>Nuestra misión </b> En Centro Cultural El Hormiguero,
+            enriquecemos vidas a través del teatro, inspirando y conectando a
+            nuestra comunidad.
+          </small>
+        </p>
+        <br />
+        <p>
+          <small>
+            <b>Nuestra visión es </b>
+            ser un referente destacado en el mundo del teatro, combinando
+            excelencia artística con inclusión e innovación.
+          </small>
+        </p>
+        <br />
+        <p>
+          <small>
+            Somos amantes del teatro dedicados a producir obras que despiertan
+            emociones y promueven la reflexión en un espacio de expresión para
+            todos. ¡Únete a nuestra travesía teatral en Centro Cultural El
+            Hormiguero!
+          </small>
+        </p>
+
+        <div className="lg:absolute lg:bottom-4 lg:w-full lg:pr-8 flex justify-between items-center mt-4">
+          <SocialsList itemClass="w-9 h-9 flex items-center justify-center rounded-full bg-neutral-100 text-xl dark:bg-neutral-800 dark:text-neutral-300" />
+          <p>Visitas: {visits}</p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default NavMobile
