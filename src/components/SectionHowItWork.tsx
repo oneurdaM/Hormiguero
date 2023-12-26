@@ -1,13 +1,15 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import HIW1img from '@/images/HIW2-3.png'
 import HIW2img from '@/images/HIW2-2.png'
 import HIW3img from '@/images/HIW2-1.png'
 import VectorImg from '@/images/VectorHIW.svg'
 import Image, { StaticImageData } from 'next/image'
 import Heading from '@/shared/Heading'
-import { Calendar, Divider, Select } from 'antd'
+import { Calendar, Divider, Select, Row, Button, Tooltip } from 'antd'
 import type { CalendarProps } from 'antd'
 import { useSpacesQuery } from '@/data/spaces'
+import { ClockCircleOutlined } from '@ant-design/icons'
+import RentModal from './spaces/ModalRentSpace';
 
 import type { Dayjs } from 'dayjs'
 export interface SectionHowItWorkProps {
@@ -19,11 +21,13 @@ export interface SectionHowItWorkProps {
         img: StaticImageData
         imgDark?: StaticImageData
     }[]
+    
 }
 const { Option } = Select
 const onPanelChange = (value: Dayjs, mode: CalendarProps<Dayjs>['mode']) => {
     console.log(value.format('YYYY-MM-DD'), mode)
 }
+
 const DEMO_DATA: SectionHowItWorkProps['data'] = [
     {
         id: 1,
@@ -50,7 +54,8 @@ const showSpaces = () => {
 }
 
 const viewAvailable = (value:any)=>{
-console.log(value)
+    console.log(value);
+    
 }
 
 const SectionHowItWork: FC<SectionHowItWorkProps> = ({ className = '', data = DEMO_DATA }) => {
@@ -59,9 +64,17 @@ const SectionHowItWork: FC<SectionHowItWorkProps> = ({ className = '', data = DE
         page: 1,
         search: '',
     })
+
+    const [showModalRentSpace, setShowModalRentSpace] = useState(false);
+
+    const onShowRent = () => {
+        setShowModalRentSpace(!showModalRentSpace);
+    };
+
+
     return (
         <div className={`nc-SectionHowItWork  ${className}`} data-nc-id="SectionHowItWork">
-            <Heading isCenter desc="Como Funciona" className="text-neutral-900 dark:text-neutral-100">
+            <Heading isCenter desc="¿Cómo funciona?" className="text-neutral-900 dark:text-neutral-100">
                 Renta Espacios Hormiga
             </Heading>
             <div className="mt-20 relative grid md:grid-cols-3 gap-20">
@@ -87,19 +100,27 @@ const SectionHowItWork: FC<SectionHowItWorkProps> = ({ className = '', data = DE
             </div>
 
             <Divider />
-            <div className="flex-col flex">
-                <span className="my-4 text-2xl lg:text-3xl">Disponibilidad de salones</span>
-
-                <Select placeholder="Selecciona un espacio" className="w-full md:w-32 lg:w-40 xl:w-1/2" onChange={viewAvailable}>
-                    {spaces?.map((option) => (
-                        <Select.Option key={option.id} value={option.id}>
-                            {option.name}
-                        </Select.Option>
-                    ))}
-                </Select>
+            <div className="flex-col flex" style={{paddingBottom:'1em'}}>
+                <span className="my-4 text-2xl lg:text-3xl">Disponibilidad de Salones</span>
+                
+                <Row justify='space-between'>
+                    <Select placeholder="Selecciona un espacio" className="w-full md:w-32 lg:w-40 xl:w-1/2" onChange={viewAvailable}>
+                        {spaces?.map((option) => (
+                            <Select.Option key={option.id} value={option.id}>
+                                {option.name}
+                            </Select.Option>
+                        ))}
+                    </Select>
+                    
+                    <Tooltip color='#56aec4' placement="left" title={true ? '' : 'Por favor selecciona un espacio'}>
+                        <Button className="btnPrimaryLeft" onClick={onShowRent}> Reservar espacio </Button>
+                    </Tooltip>
+                </Row>
             </div>
 
-            <Calendar onPanelChange={onPanelChange}></Calendar>
+            <Calendar style={{borderRadius:'.5em'}} onPanelChange={onPanelChange}></Calendar>
+
+            <RentModal showRent={onShowRent} showModalRentSpace={showModalRentSpace} />
         </div>
     )
 }

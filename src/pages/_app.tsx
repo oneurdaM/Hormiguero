@@ -1,7 +1,8 @@
 // App.js
 
 import React from 'react'
-import { ConfigProvider } from 'antd'
+import { ConfigProvider, theme } from 'antd'
+import esES from 'antd/locale/es_ES';
 import type { AppProps } from 'next/app'
 import './globals.css'
 import '../styles/index.scss'
@@ -14,7 +15,17 @@ export default function App({ Component, pageProps }: AppProps) {
     const [client] = React.useState(new QueryClient())
 
     return (
-        <ConfigProvider>
+        <ConfigProvider locale={esES} theme={{
+            token: {
+              // Seed Token
+            colorPrimary: '#56aec4',
+            borderRadius: '3px',
+            
+            // Alias Token
+            // colorBgContainer: '#fff7ed',
+            },
+            // algorithm: theme.darkAlgorithm,
+        }}>
             <QueryClientProvider client={client}>
                 <Component {...pageProps} />
                 <ReactQueryDevtools initialIsOpen={false} />

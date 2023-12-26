@@ -327,5 +327,12 @@
     background-color: #0194a4;
     color: white !important;
   }
+
+  .btnPrimaryLeft{
+    background-color: #0b7e8b;
+    color: white;
+    text-align: center;
+    border-radius: .3em;
+  }
 }
 
