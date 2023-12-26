@@ -33,10 +33,18 @@ export interface Payment {
 export interface Seat {
     id: number
     name: string
-    createdAt: string
-    is_available: boolean
-    eventSpacesId: number
-    is_selected: boolean
+    EventsSpaces: {
+        endDate: string
+        startDate: string
+        event: {
+            director: string
+            dramaturgy: string
+            duration: number
+            thumbnailUrl: string
+            title: string
+            type: string
+        }
+    }
 }
 
 export interface User {

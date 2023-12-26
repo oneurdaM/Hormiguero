@@ -22,8 +22,6 @@ type OrdersListProps = {
 const OrdersList = ({ orders, paginatorInfo, onPagination, loading }: OrdersListProps) => {
     const [fetchingDownloadTicket, setFetchingDownloadTicket] = useState(false)
 
-    const [api, contextHolder] = notification.useNotification()
-
     const fetchData = async (order: Order) => {
         try {
             setFetchingDownloadTicket(true)
@@ -33,11 +31,13 @@ const OrdersList = ({ orders, paginatorInfo, onPagination, loading }: OrdersList
                 console.log('error', response)
                 notification.error({
                     message: response.error,
+                    duration: 5,
                 })
             } else {
                 notification.success({
                     message: 'Descarga con éxito',
                     description: 'La descarga comenzará de forma automática',
+                    duration: 5,
                 })
                 const url = window.URL.createObjectURL(new Blob([response.downloadTicket]))
                 const link = document.createElement('a')
@@ -54,6 +54,7 @@ const OrdersList = ({ orders, paginatorInfo, onPagination, loading }: OrdersList
             notification.error({
                 message: 'Error',
                 description: error,
+                duration: 5,
             })
         }
     }
@@ -73,7 +74,6 @@ const OrdersList = ({ orders, paginatorInfo, onPagination, loading }: OrdersList
 
     return (
         <>
-            {contextHolder}
             <Row justify={'space-around'} gutter={[8, 8]}>
                 {orders?.map((item) => (
                     <Col span={24} key={item.id}>
@@ -121,9 +121,28 @@ const OrdersList = ({ orders, paginatorInfo, onPagination, loading }: OrdersList
                             {item.seats.length && (
                                 <Row justify={'space-between'} gutter={[8, 8]}>
                                     <Col xs={24} lg={18}>
-                                        {item.seats?.map((seat: Seat) => (
-                                            <Row key={seat.id}>
-                                                <Col span={24}>Número de asiento: {seat.name}</Col>
+                                        {item.seats?.map((seat: Seat, index: number) => (
+                                            <Row key={seat.id} gutter={[8, 8]}>
+                                                <Col xs={24} lg={2}>
+                                                    <img className="orderImg" src={seat.EventsSpaces.event.thumbnailUrl} />
+                                                </Col>
+                                                <Col xs={24} lg={22}>
+                                                    <Row justify={'space-between'} gutter={[8, 8]}>
+                                                        <Col span={12} className="text-primary-6000 ">
+                                                            <strong>Número de asiento:</strong> {seat.name}
+                                                        </Col>
+                                                        <Col xs={24} lg={12}>
+                                                            <strong>Título del evento:</strong> {seat.EventsSpaces.event.title}
+                                                        </Col>
+                                                        <Col xs={24} lg={12}>
+                                                            <strong>Fecha y hora del evento:</strong> {moment(seat.EventsSpaces.startDate).format('dddd D MMMM YYYY').charAt(0).toUpperCase() + moment(seat.EventsSpaces.startDate).format('dddd D MMMM YYYY').slice(1)}
+                                                        </Col>
+                                                        <Col xs={24} lg={12}>
+                                                            <strong>Duración del evento:</strong> {seat.EventsSpaces.event.duration} min
+                                                        </Col>
+                                                    </Row>
+                                                </Col>
+                                                {index + 1 < item.seats.length && <Divider />}
                                             </Row>
                                         ))}
                                     </Col>

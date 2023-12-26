@@ -2,16 +2,14 @@
 import React, { useState } from 'react'
 import { Row, Col, notification, Card } from 'antd'
 import Loader from '../ui/loader/loader'
-import { SeatResponse } from '@/types/billboard'
 import { buySeat } from '@/data/billboardServices'
-import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js'
+import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js'
 
 const BillboardPayment = (props: any) => {
     const [fetchingPayment, setFetchingPayment] = useState(false)
-    const [paymentResponse, setPaymentResponse] = useState<SeatResponse>({
-        seatsResponse: [],
-        error: '',
-    })
+
+    const [{ isPending }] = usePayPalScriptReducer()
+
     console.log('props :>> ', props)
     const [api, contextHolder] = notification.useNotification()
     const fetchData = async (seatsSelected: any) => {
@@ -20,7 +18,6 @@ const BillboardPayment = (props: any) => {
             let response: any = {}
             response = await buySeat(seatsSelected, props.details)
             console.log('response', response)
-            setPaymentResponse(response)
             setFetchingPayment(false)
             if (response.error) {
                 api.error({
@@ -34,7 +31,6 @@ const BillboardPayment = (props: any) => {
                 message: 'Error',
                 description: error,
             })
-            setPaymentResponse({ seatsResponse: [], error: '' })
         }
     }
 
@@ -48,11 +44,11 @@ const BillboardPayment = (props: any) => {
         console.log('paypal  success', props.seatsSelected)
         fetchData(props.seatsSelected)
     }
-
+    console.log('isPending', isPending)
     return (
         <>
             {contextHolder}
-            {!fetchingPayment ? (
+            {!fetchingPayment || isPending ? (
                 <Row justify="space-between">
                     <Col xs={24} lg={16}>
                         <Row justify="space-around">
@@ -64,30 +60,28 @@ const BillboardPayment = (props: any) => {
                                 </p>
                             </Col>
                             <Col xs={24} lg={12}>
-                                <PayPalScriptProvider options={{ clientId: 'AfPMP9UGMMHatFve1JsJ2VWoSK13mDnXa8EFrPOlFGLSANnFYfJ8u2mWZ5KRHVF-SgF29HgR68IZ-BGS', currency: 'MXN' }}>
-                                    <PayPalButtons
-                                        style={{ color: 'blue', layout: 'vertical', shape: 'pill', tagline: false }}
-                                        createOrder={async () => {
-                                            const res = await fetch('/api/paypal', {
-                                                method: 'POST',
-                                                body: JSON.stringify({
-                                                    details: props.details,
-                                                    seatsSelected: props.seatsSelected,
-                                                }),
-                                            })
-                                            const order = await res.json()
-                                            return order.id
-                                        }}
-                                        onApprove={async (data, actions) => {
-                                            console.log(data)
-                                            await actions.order?.capture()
-                                            paymentApproved()
-                                        }}
-                                        onCancel={() => {
-                                            paymentCanceled()
-                                        }}
-                                    />
-                                </PayPalScriptProvider>
+                                <PayPalButtons
+                                    style={{ color: 'blue', layout: 'vertical', shape: 'pill', tagline: false }}
+                                    createOrder={async () => {
+                                        const res = await fetch('/api/paypal', {
+                                            method: 'POST',
+                                            body: JSON.stringify({
+                                                details: props.details,
+                                                seatsSelected: props.seatsSelected,
+                                            }),
+                                        })
+                                        const order = await res.json()
+                                        return order.id
+                                    }}
+                                    onApprove={async (data, actions) => {
+                                        console.log(data)
+                                        await actions.order?.capture()
+                                        paymentApproved()
+                                    }}
+                                    onCancel={() => {
+                                        paymentCanceled()
+                                    }}
+                                />
                             </Col>
                         </Row>
                     </Col>

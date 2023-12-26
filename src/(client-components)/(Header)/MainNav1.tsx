@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
-
+import moment from 'moment'
+import { notification } from 'antd'
 import { getAuthCredentials, isAuthenticated } from '@/utils/auth-utils'
 import Logo from '@/components/ui/logo'
 import ButtonPrimary from '@/components/ui/primary-button'
@@ -18,10 +19,48 @@ const MainNav1: FC<MainNav1Props> = ({ className = '' }) => {
     const router = useRouter()
     const { token, permissions } = getAuthCredentials()
     const onLogOut = () => {
+        notification.success({
+            message: 'Se cerró la sesión',
+            duration: 5,
+        })
         Cookies.remove(AUTH_CRED)
         toast.success('Se cerró sesión.')
         router.push('/')
     }
+    function parseJwt(token: any) {
+        if (!token) {
+            return
+        }
+        const base64Url = token.split('.')[1]
+        const base64 = base64Url.replace('-', '+').replace('_', '/')
+        return JSON.parse(window.atob(base64))
+    }
+    const tokenDecode = parseJwt(token)
+
+    if (tokenDecode) {
+        let hoy = new Date(tokenDecode.exp * 1000)
+        console.log('hoy', hoy)
+        let minutos = moment(hoy).diff(moment(), 'minutes')
+        console.log('minutos', minutos)
+        // Falten 2 minutos cierra sesión
+        if (minutos <= 2) {
+            notification.warning({
+                message: 'El token expiró',
+                description: 'La sesión se cerró automáticamente, favor de iniciar sesión',
+                duration: 5,
+            })
+            onLogOut()
+        }
+
+        if (minutos <= 15) {
+            notification.warning({
+                message: 'El token está a 15 minutos de expirar',
+                description: 'Pasados 13 minutos la sesión se cerrará automaticamente',
+                duration: 5,
+            })
+        }
+    }
+
     const RenderItem = () => {
         const isAuth = isAuthenticated({ token, permissions })
         return isAuth ? (

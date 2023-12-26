@@ -11,10 +11,10 @@ let config = {
 
 export const getOrders = async (page: any, search: any) => {
     try {
-        search = search ? 'search=' + search + '&' : ''
+        search = search ? 'search=' + search + '&' : 'search=&'
         page = 'page=' + page
         let fetchingOrders = true;
-        const response = await axios.get(endpoint + '/orders/ByUser?'+ page + '&limit=10', config)
+        const response = await axios.get(endpoint + '/orders/ByUser?'+ search + page + '&limit=10', config)
         console.log('response', response);
         const paginatorInfo = {
             total: response?.data.total ? parseInt(response.data.total.toString()) : 0,
