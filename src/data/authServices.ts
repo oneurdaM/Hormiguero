@@ -1,6 +1,9 @@
 import axios from 'axios';
 
-const endpoint = 'https://hormiguero-dc8e78e18915.herokuapp.com/';
+//const endpoint = 'https://hormiguero-dc8e78e18915.herokuapp.com/';
+const endpoint = 'https://back-hormiguero-558b8cf43e32.herokuapp.com/';
+
+
 
 export const resetPassword = async (data: any) => {
     try {

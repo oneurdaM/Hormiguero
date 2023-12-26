@@ -11,12 +11,12 @@ export const NAVIGATION: NavItemType[] =  [
     name: 'Impacto social',
     isNew: true,
   },
-  {
-    id: ncNanoId(),
-    href: '/billboard',
-    name: 'Cartelera',
-    isNew: true,
-  },
+  // {
+  //   id: ncNanoId(),
+  //   href: '/billboard',
+  //   name: 'Cartelera',
+  //   isNew: true,
+  // },
   {
     id: ncNanoId(),
     href: '/products',

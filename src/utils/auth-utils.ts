@@ -13,7 +13,8 @@ export const allowedRoles = [
 ]
 
 export function setAuthCredentials(token: string, permissions: string, userId: string): void {
-  Cookie.set(AUTH_CRED, JSON.stringify({ token, permissions, userId }), {'SameSite': 'None'})
+  Cookie.set(AUTH_CRED, JSON.stringify({ token, permissions, userId }))
+  Cookie.set("SameSite", 'None')
 }
 
 export function getAuthCredentials(context?: any): {
