@@ -19,7 +19,7 @@ export default function App({ Component, pageProps }: AppProps) {
             token: {
               // Seed Token
             colorPrimary: '#56aec4',
-            borderRadius: '3px',
+            borderRadius: 30,
             
             // Alias Token
             // colorBgContainer: '#fff7ed',

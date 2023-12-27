@@ -37,7 +37,7 @@ const LoginForm = () => {
                         const role = data?.role
                         if (hasAccess(allowedRoles, role)) {
                             setAuthCredentials(data.jwt, data.role, data.id)
-                            Router.push('/') //redirect to '/'
+                            Router.replace('/') //redirect to '/'
                             return
                         }
                     }

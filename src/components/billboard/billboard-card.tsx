@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import { Drawer, Row, Col, notification, Divider, Card, Badge, Steps, Avatar, Tooltip } from 'antd'
-import { ClockCircleOutlined, TagsOutlined, ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons'
+import { ClockCircleOutlined, TagsOutlined, ArrowLeftOutlined } from '@ant-design/icons'
 import { PayPalScriptProvider } from '@paypal/react-paypal-js'
-
 import moment from 'moment'
 import 'moment/locale/es'
+
 import Loader from '../ui/loader/loader'
 import CardEvent from '../common/card'
 import ButtonPrimary from '@/components/ui/primary-button'
@@ -339,7 +339,9 @@ function BillboardCard({ event }: { event: Billboard }) {
                                     {current === 1 && (
                                         <Row justify={'space-around'}>
                                             <Col xs={24} lg={22}>
-                                                <BillboardPayment details={details} seatsSelected={seatsSelected} onChildrenDrawerClose={onChildrenDrawerClose} />
+                                                <PayPalScriptProvider options={{ clientId: 'AfPMP9UGMMHatFve1JsJ2VWoSK13mDnXa8EFrPOlFGLSANnFYfJ8u2mWZ5KRHVF-SgF29HgR68IZ-BGS', currency: 'MXN' }}>
+                                                    <BillboardPayment details={details} seatsSelected={seatsSelected} onChildrenDrawerClose={onChildrenDrawerClose} />
+                                                </PayPalScriptProvider>
                                             </Col>
                                         </Row>
                                     )}

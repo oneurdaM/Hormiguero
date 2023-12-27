@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
-import { Modal, Row, Col, DatePicker } from 'antd'
+import { Modal, Row, Col, DatePicker, Form, Button, InputNumber, Space } from 'antd'
 import { ClockCircleOutlined, TagsOutlined, ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons'
 import type { RangePickerProps } from 'antd/es/date-picker';
-
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import moment from 'moment'
 import 'moment/locale/es'
 import Loader from '../ui/loader/loader'
@@ -11,6 +11,8 @@ import { createStyles, useTheme } from 'antd-style';
 
 
 function ModalRentSpaces(props:any) {    
+    console.log('props :>> ', props);
+
     const [current, setCurrent] = useState(0);
     const [fetchingEventsSpaces, setFetchingEventsSpaces] = useState(false);
 
@@ -92,12 +94,16 @@ function ModalRentSpaces(props:any) {
         return current && current < moment();
     };
 
+    const onFinish = (values: any) => {
+        console.log('Received values of form:', values);
+    };
+
 
     return (
         <>
             <Modal 
                 width={'60%'}
-                title={<p className="text-xl text-primary-6000 dark:text-white">{'Renta de Espacio'}</p>} 
+                title={<p className="text-xl text-primary-6000 dark:text-white">{'Renta de Espacio: ' + props.spaceSelected?.children}</p>} 
                 onCancel={() => props.showRent()} 
                 open={props.showModalRentSpace} 
                 footer={false}
@@ -105,12 +111,75 @@ function ModalRentSpaces(props:any) {
                 styles={modalStyles} 
                 classNames={{ body: 'dark:backgroundDrawerNigth backgroundDrawer', header: 'dark:backgroundDrawerNigthHeader' }}
             >
-                <DatePicker
-                    format="DD-MM-YYYY HH:mm"
-                    disabledDate={disabledDate}
-                    // disabledTime={disabledDateTime}
-                    showTime={{ defaultValue: moment('00:00', 'HH:mm') }}
-                />
+                <Row justify='space-between' gutter={[12,12]} style={{padding:'1em'}}>
+                    {/* <DatePicker
+                        format="DD-MM-YYYY HH:mm"
+                        disabledDate={disabledDate}
+                        // disabledTime={disabledDateTime}
+                        showTime={{ defaultValue: moment('00:00', 'HH:mm') }}
+                    /> */}
+                    <Col span={24}>
+                        <Form
+                            name="dynamic_form_nest_item"
+                            onFinish={onFinish}
+                            initialValues={[]}
+                            autoComplete="off"
+                        >   
+                            
+                            <Form.List name="rent">
+                            {(fields, { add, remove }) => (
+                                <Row justify='space-between' gutter={[12,12]} style={{padding:'1em'}}>
+                                    {fields.map(field => (
+                                        <Space key={field.fieldKey} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
+                                            <Col span={24}>
+                                                <Form.Item
+                                                    
+                                                    {...field}
+                                                    name={[field.name, 'date']}
+                                                    // fieldKey={[field.fieldKey, 'date']}
+                                                    rules={[{ required: true, message: 'Ingresa una fecha, por favor' }]}
+                                                >
+                                                    <DatePicker
+                                                        format="DD-MM-YYYY HH:mm"
+                                                        disabledDate={disabledDate}
+                                                        // disabledTime={disabledDateTime}
+                                                        showTime={{ defaultValue: moment('00:00', 'HH:mm') }}
+                                                    />
+                                                </Form.Item>
+                                            </Col>
+                                            <Col span={24}>
+                                                <Form.Item
+                                                    
+                                                    {...field}
+                                                    name={[field.name, 'hours']}
+                                                    // fieldKey={[field.fieldKey, 'hours']}
+                                                    rules={[{ required: true, message: 'Ingresa una cantidad de horas, por favor' }]}
+                                                >
+                                                    <InputNumber placeholder="Horas a reservar" />
+                                                </Form.Item>
+                                            </Col>
+                                            <MinusCircleOutlined onClick={() => remove(field.name)} />
+                                        </Space>
+                                    ))}
+                                    <Col span={24}>
+                                        <Form.Item>
+                                            <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+                                                Nueva fecha para reservar
+                                            </Button>
+                                        </Form.Item>
+                                    </Col>
+                                </Row>
+                            )}
+                            </Form.List>
+
+                            <Form.Item>
+                                <Button htmlType="submit">
+                                    Guardar
+                                </Button>
+                            </Form.Item>
+                        </Form>
+                    </Col>
+                </Row>
 
             </Modal>
         </>

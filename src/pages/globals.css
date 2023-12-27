@@ -298,6 +298,11 @@
     height: 15em;
     object-fit: cover;
   }
+  .orderImg{
+    height: 100%;
+    border-radius: .5em;
+  }
+
   .dayCard{
     background-color: #0b7e8b;
     color: white;

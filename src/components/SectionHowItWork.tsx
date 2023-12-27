@@ -53,11 +53,6 @@ const showSpaces = () => {
     console.log('hola')
 }
 
-const viewAvailable = (value:any)=>{
-    console.log(value);
-    
-}
-
 const SectionHowItWork: FC<SectionHowItWorkProps> = ({ className = '', data = DEMO_DATA }) => {
     const { spaces, loading: loadingSpaces } = useSpacesQuery({
         limit: 10,
@@ -66,10 +61,18 @@ const SectionHowItWork: FC<SectionHowItWorkProps> = ({ className = '', data = DE
     })
 
     const [showModalRentSpace, setShowModalRentSpace] = useState(false);
+    const [boolButton, setBoolButton] = useState(true);
+    const [spaceSelected, setSpaceSelected] = useState();
 
     const onShowRent = () => {
         setShowModalRentSpace(!showModalRentSpace);
     };
+
+    const viewAvailable = (value:any, record:any)=>{
+        console.log(value);
+        if (value) {setBoolButton(false); setSpaceSelected(record); } else setBoolButton(true);
+        
+    }
 
 
     return (
@@ -101,26 +104,27 @@ const SectionHowItWork: FC<SectionHowItWorkProps> = ({ className = '', data = DE
 
             <Divider />
             <div className="flex-col flex" style={{paddingBottom:'1em'}}>
-                <span className="my-4 text-2xl lg:text-3xl">Disponibilidad de Salones</span>
+                <span style={{textAlign:'center', fontWeight:'bold'}} className="my-4 text-2xl lg:text-3xl">Disponibilidad de Salones</span>
                 
                 <Row justify='space-between'>
                     <Select placeholder="Selecciona un espacio" className="w-full md:w-32 lg:w-40 xl:w-1/2" onChange={viewAvailable}>
                         {spaces?.map((option) => (
+                            
                             <Select.Option key={option.id} value={option.id}>
                                 {option.name}
                             </Select.Option>
                         ))}
                     </Select>
                     
-                    <Tooltip color='#56aec4' placement="left" title={true ? '' : 'Por favor selecciona un espacio'}>
-                        <Button className="btnPrimaryLeft" onClick={onShowRent}> Reservar espacio </Button>
+                    <Tooltip color='#56aec4' placement="left" title={!boolButton ? '' : 'Por favor selecciona un espacio'}>
+                        <Button disabled={boolButton} className="btnPrimaryLeft" onClick={onShowRent}> Reservar espacio </Button>
                     </Tooltip>
                 </Row>
             </div>
 
             <Calendar style={{borderRadius:'.5em'}} onPanelChange={onPanelChange}></Calendar>
 
-            <RentModal showRent={onShowRent} showModalRentSpace={showModalRentSpace} />
+            <RentModal showRent={onShowRent} showModalRentSpace={showModalRentSpace} spaceSelected={spaceSelected}/>
         </div>
     )
 }
