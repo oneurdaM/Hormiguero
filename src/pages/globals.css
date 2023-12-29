@@ -264,10 +264,16 @@
     */
     --color-failed: 238, 43, 0;
   }
-
+  button, [type="button"]{
+    color: #56aec4;
+  }
   a {
     @apply no-underline;
   }
+  html {
+    scroll-behavior: smooth;
+  }
+
   .stepsClass{
     background-color: #9ba1ac;
     border-radius: 2em;

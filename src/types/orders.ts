@@ -15,8 +15,8 @@ export interface Order {
     id: number
     payment: Payment
     seats: [Seat]
-    products: [Seat]
-    rents: [Seat]
+    products: [Rent]
+    rents: [Rent]
     user: User
 }
 
@@ -46,7 +46,23 @@ export interface Seat {
         }
     }
 }
-
+export interface Rent {
+    startDate?: string
+    id: number
+    name: string
+    spaceId?: number
+    space: Space
+  }
+  export interface Space {
+    id?: number | string
+    dimensions: string | number
+    capacity: number
+    price: number
+    active: boolean
+    location: string
+    image: string
+    name: string
+  }
 export interface User {
     id: number
     email: string

@@ -71,7 +71,7 @@ export const getEventsSpaces = async (eventId: any, spaceId: any) => {
         spaceId = spaceId ? 'spaceId=' + spaceId + '&' : ''
         eventId = 'eventId=' + eventId
         const response = await axios.get(endpoint + '/events-spaces?' + spaceId + eventId , config)
-        console.log('response', response);
+        console.log('response events spaces', response);
         if (response.status === 200) {
             return {
                 eventsSpaces: response.data,

@@ -79,7 +79,7 @@ function BillboardCard({ event }: { event: Billboard }) {
     }
 
     const showChildrenDrawer = (value: any) => {
-        console.log('value', value)
+        console.log('value', value, event)
         if (token) {
             setChildrenDrawer(true)
             value.price = event?.price
@@ -160,7 +160,7 @@ function BillboardCard({ event }: { event: Billboard }) {
     }
 
     const items = steps.map((item) => ({ key: item.title, title: item.title }))
-
+    console.log('eventSelected', eventSelected)
     return (
         <>
             {contextHolder}
@@ -339,7 +339,7 @@ function BillboardCard({ event }: { event: Billboard }) {
                                     {current === 1 && (
                                         <Row justify={'space-around'}>
                                             <Col xs={24} lg={22}>
-                                                <PayPalScriptProvider options={{ clientId: 'AfPMP9UGMMHatFve1JsJ2VWoSK13mDnXa8EFrPOlFGLSANnFYfJ8u2mWZ5KRHVF-SgF29HgR68IZ-BGS', currency: 'MXN' }}>
+                                                <PayPalScriptProvider options={{ components: 'buttons', clientId: 'AfPMP9UGMMHatFve1JsJ2VWoSK13mDnXa8EFrPOlFGLSANnFYfJ8u2mWZ5KRHVF-SgF29HgR68IZ-BGS', currency: 'MXN' }}>
                                                     <BillboardPayment details={details} seatsSelected={seatsSelected} onChildrenDrawerClose={onChildrenDrawerClose} />
                                                 </PayPalScriptProvider>
                                             </Col>

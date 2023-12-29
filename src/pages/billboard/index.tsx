@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import Head from 'next/head'
-import Layout from '@/components/layout/layout'
 // import Loader from '@/components/ui/loader/loader'
 import ErrorMessage from '@/components/ui/error-message'
 import Search from '@/components/common/search'
-import logo from '@/assets/placeholders/logo.png'
 import { getBillboard } from '@/data/billboardServices'
 import { BillboardResponse } from '@/types/billboard'
 import BillboardList from '@/components/billboard/billboard-list'
@@ -19,18 +16,17 @@ function Billboard2() {
     const [searchTerm, setSearchTerm] = useState('')
     const [page, setPage] = useState(1)
     const [fetchingBillboards, setFetchingBillboards] = useState(false)
-    const [billboardsResponse, setBillboardsResponse] =
-        useState<BillboardResponse>({
-            billboards: [],
-            fetchingBillboards: false,
-            paginatorInfo: {
-                total: 0,
-                currentPage: 0,
-                totalPages: 0,
-                perPage: 0,
-            },
-            error: '',
-        })
+    const [billboardsResponse, setBillboardsResponse] = useState<BillboardResponse>({
+        billboards: [],
+        fetchingBillboards: false,
+        paginatorInfo: {
+            total: 0,
+            currentPage: 0,
+            totalPages: 0,
+            perPage: 0,
+        },
+        error: '',
+    })
 
     const fetchData = async (pageLocal: any, searchLocal: any) => {
         try {
@@ -73,42 +69,16 @@ function Billboard2() {
         <>
             {isClient && (
                 <>
-                    <Head>
-                        <title>Cartelera | CCH</title>
-                        <meta
-                            name="description"
-                            content={'Centro Cultural El Hormiguero'}
-                        />
-                        <meta property="og:image" content={logo.toString()} />
-
-                        <meta
-                            name="twitter:title"
-                            content="Centro Cultural El Hormiguero"
-                        />
-                        <meta
-                            name="twitter:description"
-                            content={'Centro Cultural El Hormgiuero'}
-                        />
-                        <meta name="twitter:image" content={logo.toString()} />
-                        <meta name="twitter:card" content={logo.toString()} />
-                    </Head>
                     <div className="h-auto min-h-screen bg-orange-50 dark:bg-black dark:bg-opacity-20 py-5">
                         <div className="nc-PageHome container pt-10  h-auto min-h-screen">
                             <h1 className="text-4xl mt-2 font-bold text-neutral-900 dark:text-neutral-100 text-center">Cartelera</h1>
                             <div className="w-full border-slate-300 border-solid border-[1px] my-5" />
                             <Search onSearch={handleSearch} />
                             <br />
-                            <BillboardList
-                                billboards={billboardsResponse?.billboards}
-                                paginatorInfo={
-                                    billboardsResponse?.paginatorInfo
-                                }
-                                onPagination={handlePagination}
-                                loading={fetchingBillboards}
-                            />
+                            <BillboardList billboards={billboardsResponse?.billboards} paginatorInfo={billboardsResponse?.paginatorInfo} onPagination={handlePagination} loading={fetchingBillboards} />
                         </div>
                     </div>
-                </ >
+                </>
             )}
         </>
     )

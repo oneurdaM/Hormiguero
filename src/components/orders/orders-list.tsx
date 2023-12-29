@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { Button, Row, Col, notification, Divider, Card, Badge, Steps, Avatar, Tooltip } from 'antd'
 import moment from 'moment'
 import { Order, Seat } from '@/types/orders'
+import { Rent } from '@/types/spaces'
 import { MappedPaginatorInfo } from '@/utils/data-mappers'
 
 import Pagination from '../ui/pagination'
@@ -118,7 +119,7 @@ const OrdersList = ({ orders, paginatorInfo, onPagination, loading }: OrdersList
                             className="cardEvent dark:cardEventDark dark:bg-gray-500 dark:text-white"
                             bordered={false}
                         >
-                            {item.seats.length && (
+                            {item.seats.length ? (
                                 <Row justify={'space-between'} gutter={[8, 8]}>
                                     <Col xs={24} lg={18}>
                                         {item.seats?.map((seat: Seat, index: number) => (
@@ -153,19 +154,42 @@ const OrdersList = ({ orders, paginatorInfo, onPagination, loading }: OrdersList
                                         </Button>
                                     </Col>
                                 </Row>
+                            ) : (
+                                false
                             )}
                             {item.products.length ? (
                                 <Row justify={'space-between'} gutter={[8, 8]}>
                                     <Col xs={24} lg={18}>
-                                        {item.seats?.map((seat: Seat) => (
-                                            <Row key={seat.id}>
-                                                <Col span={24}>{seat.id}</Col>
+                                        {item.rents?.map((rent: Rent, index: number) => (
+                                            <Row key={rent.id} gutter={[8, 8]}>
+                                                <Col xs={24} lg={2}>
+                                                    <img className="orderImg" src={rent.space.image} />
+                                                </Col>
+                                                <Col xs={24} lg={22}>
+                                                    <Row justify={'space-between'} gutter={[8, 8]}>
+                                                        <Col span={12} className="text-primary-6000 ">
+                                                            <strong>Fecha de la renta:</strong> {moment(rent.startDate).format('dddd D MMMM YYYY').charAt(0).toUpperCase() + moment(rent.startDate).format('dddd D MMMM YYYY').slice(1)}
+                                                        </Col>
+                                                        <Col xs={24} lg={12}>
+                                                            <strong>Sala:</strong> {rent.space.name}
+                                                        </Col>
+                                                        <Col xs={24} lg={12}>
+                                                            <strong>Ubicación de la sala:</strong> {rent.space.location}
+                                                        </Col>
+                                                        <Col xs={24} lg={12}>
+                                                            <strong>Capacidad de la sala:</strong> {rent.space.capacity}
+                                                        </Col>
+                                                    </Row>
+                                                </Col>
+                                                {index + 1 < item.rents.length && <Divider />}
                                             </Row>
                                         ))}
                                     </Col>
 
                                     <Col xs={24} lg={6}>
-                                        <Button className="btnPrimary">PRODUCTS</Button>
+                                        <Button className="btnPrimary" onClick={() => onDownloadTicket(item)}>
+                                            Descargar Boleto
+                                        </Button>
                                     </Col>
                                 </Row>
                             ) : (
@@ -173,17 +197,38 @@ const OrdersList = ({ orders, paginatorInfo, onPagination, loading }: OrdersList
                             )}
                             {item.rents?.length ? (
                                 <Row justify={'space-between'} gutter={[8, 8]}>
-                                    <Col xs={24} lg={18}>
-                                        {item.seats?.map((seat: Seat) => (
-                                            <Row key={seat.id}>
-                                                <Col span={24}>{seat.id}</Col>
+                                    <Col xs={24} lg={24}>
+                                        {item.rents?.map((rent: Rent, index: number) => (
+                                            <Row key={rent.id} gutter={[8, 8]}>
+                                                <Col xs={24} lg={2}>
+                                                    <img className="orderImg" src={rent.space.image} />
+                                                </Col>
+                                                <Col xs={24} lg={22}>
+                                                    <Row justify={'space-between'} gutter={[8, 8]}>
+                                                        <Col span={12} className="text-primary-6000 ">
+                                                            <strong>Fecha de la renta:</strong> {moment(rent.startDate).format('dddd D MMMM YYYY').charAt(0).toUpperCase() + moment(rent.startDate).format('dddd D MMMM YYYY').slice(1)}
+                                                        </Col>
+                                                        <Col xs={24} lg={12}>
+                                                            <strong>Sala:</strong> {rent.space.name}
+                                                        </Col>
+                                                        <Col xs={24} lg={12}>
+                                                            <strong>Ubicación de la sala:</strong> {rent.space.location}
+                                                        </Col>
+                                                        <Col xs={24} lg={12}>
+                                                            <strong>Capacidad de la sala:</strong> {rent.space.capacity}
+                                                        </Col>
+                                                    </Row>
+                                                </Col>
+                                                {index + 1 < item.rents.length && <Divider />}
                                             </Row>
                                         ))}
                                     </Col>
 
-                                    <Col xs={24} lg={6}>
-                                        <Button className="btnPrimary">RENTS</Button>
-                                    </Col>
+                                    {/* <Col xs={24} lg={6}>
+                                        <Button className="btnPrimary" onClick={() => onDownloadTicket(item)}>
+                                            Descargar Boleto
+                                        </Button>
+                                    </Col> */}
                                 </Row>
                             ) : (
                                 false

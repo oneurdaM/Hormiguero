@@ -25,12 +25,6 @@ export const NAVIGATION: NavItemType[] =  [
   },
   {
     id: ncNanoId(),
-    href: '/spaces',
-    name: 'Renta de espacios',
-    isNew: true,
-  },
-  {
-    id: ncNanoId(),
     href: '/blog',
     name: 'Blog',
     isNew: true,

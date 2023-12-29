@@ -6,6 +6,7 @@ export interface Space {
   active: boolean
   location: string
   image: string
+  name: string
 }
 
 export interface SpacesResponse {
@@ -16,6 +17,7 @@ export interface SpacesResponse {
   active: boolean
   location: string
   image: string
+  name: string
 }
 
 export type SpacePagination = {
@@ -33,4 +35,21 @@ export type SpaceRegistration = {
   price?: number
   location?: string
   active?: boolean
+}
+export interface Rent {
+  startDate?: string
+  id: number
+  name: string
+  spaceId?: number
+  space: Space
+}
+export interface RentResponse {
+  rents?: Rent
+  id: number
+  name: string
+  spaceId?: number
+}
+export interface AvailabilityResponse {
+  isAvailable: boolean,
+  error: string,
 }
