@@ -39,7 +39,7 @@ function ProductsList({
             key={item.slug}
             title={item.title}
             href={`/products/${item.id}`}
-            image={item.thumbnail}
+            image={item.thumbnailUrl}
             content={item.description}
             price={item.price}
             stock={item.stock}
