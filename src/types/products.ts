@@ -14,6 +14,9 @@ export interface Product {
   stock?: number
 }
 
+
+
+
 export interface CreateProduct {
   content: string
   userId: number
