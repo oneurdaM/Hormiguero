@@ -1,7 +1,7 @@
 export interface Product {
   id: number
   capacity?: number
-  thumbnail: string
+  thumbnailUrl: string
   title: string
   description: string
   price: number
