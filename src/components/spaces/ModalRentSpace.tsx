@@ -132,7 +132,7 @@ function ModalRentSpaces(props: any) {
     }
     return (
         <>
-            <Modal destroyOnClose width={props.showModalMobile ? '100%' : '60%'} title={<p className="text-xl text-primary-6000 dark:text-white">{'Renta de Espacio: ' + props.spaceSelected?.name}</p>} onCancel={() => (props.showRent(props.showModalMobile), setRentDays([]), setForm(undefined))} open={props.showModalRentSpace} footer={false} styles={modalStyles} classNames={{ body: 'dark:backgroundDrawerNigth backgroundDrawer', header: 'dark:backgroundDrawerNigthHeader' }}>
+            <Modal destroyOnClose width={props.showModalMobile ? '100%' : '70%'} title={<p className="text-xl text-primary-6000 dark:text-white">{'Renta de Espacio: ' + props.spaceSelected?.name}</p>} onCancel={() => (props.showRent(props.showModalMobile), setRentDays([]), setForm(undefined))} open={props.showModalRentSpace} footer={false} styles={modalStyles} classNames={{ body: 'dark:backgroundDrawerNigth backgroundDrawer', header: 'dark:backgroundDrawerNigthHeader' }}>
                 {contextHolder}
                 <Spin spinning={fetchingRents || fetchingPayment}>
                     {!form ? (

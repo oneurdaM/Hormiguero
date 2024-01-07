@@ -2,7 +2,7 @@ export const API_ENDPOINTS = {
   EVENTS: '/website/events',
   EVENT_DETAILS: '/events',
   GENDERS: '/website/genders',
-
+BANNER: "banner",
   REGISTER: '/auth/signup',
   LOGOUT: '/auth/logout',
   LOGIN: '/auth/login',
