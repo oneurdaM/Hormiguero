@@ -39,6 +39,10 @@ module.exports = {
 
     extend: {
       colors: {
+        bluer:{
+          500: "#04242B",
+          100: "#0A4E5D"
+        },
         primary: {
           50: customColors("--c-primary-50"),
           100: customColors("--c-primary-100"),

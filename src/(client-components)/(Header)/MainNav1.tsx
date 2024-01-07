@@ -68,7 +68,7 @@ const MainNav1: FC<MainNav1Props> = ({ className = '' }) => {
                 Cerrar sesión
             </ButtonPrimary>
         ) : (
-            <ButtonPrimary className="self-center mr-4" href="/login">
+            <ButtonPrimary className=" self-center mr-4" href="/login">
                 Iniciar sesión
             </ButtonPrimary>
         )
