@@ -2,7 +2,6 @@ import { NavItemType } from '@/shared/Navigation/NavigationItem'
 import ncNanoId from '@/utils/ncNanoId'
 import { getAuthCredentials } from '@/utils/auth-utils'
 const { token } = getAuthCredentials();
-console.log('token :>> ', token);
 
 export const NAVIGATION: NavItemType[] =  [
   {

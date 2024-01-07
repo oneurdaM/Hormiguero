@@ -6,7 +6,7 @@ import {  bannerClient} from './client/banner'
 import { API_ENDPOINTS } from './client/api-endpoints'
 
 
-export const usebannerQuery = (options: Partial<QueryOptionsType>) => {
+export const UsebannerQuery = (options: Partial<QueryOptionsType>) => {
   const { data, isLoading, error } = useQuery<BannerResponse, Error>(
     [API_ENDPOINTS.BANNER, options],
     () => bannerClient.paginated(options),
