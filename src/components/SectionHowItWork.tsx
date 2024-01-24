@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import React, { FC, useState, useEffect } from 'react'
 import HIW1img from '@/images/HIW2-3.png'
 import HIW2img from '@/images/HIW2-2.png'
@@ -18,6 +20,7 @@ import { PayPalScriptProvider } from '@paypal/react-paypal-js'
 
 import moment from 'moment'
 import type { Dayjs } from 'dayjs'
+import { useRouter } from 'next/router'
 export interface SectionHowItWorkProps {
     className?: string
     data?: {
@@ -96,6 +99,23 @@ const SectionHowItWork: FC<SectionHowItWorkProps> = ({ className = '', data = DE
         }
     }
 
+    const router = useRouter()
+
+    const redirect = (value: String) => {
+        if (value.toLocaleLowerCase() === 'reserva') {
+            router.push('/schedule')
+        }
+        
+        if (value.toLocaleLowerCase() === 'contáctanos') {
+    
+            let  elemento = document.getElementById('contacto');
+            elemento.scrollIntoView({ behavior: 'smooth' });
+
+        }
+
+        // router.push('/otra-ruta');
+    }
+
     const onShowRent = (mobile: boolean) => {
         setShowModalMobile(mobile)
         if (token) {
@@ -167,8 +187,8 @@ const SectionHowItWork: FC<SectionHowItWorkProps> = ({ className = '', data = DE
         console.log(value.format('YYYY-MM-DD'), mode)
     }
     return (
-        <div className={`nc-SectionHowItWork  effectHref ${className}`} data-nc-id="SectionHowItWork" id="howItWorks">
-            <Heading isCenter desc="¿Cómo funciona?" className="text-neutral-900 dark:text-neutral-100">
+        <div className={`nc-SectionHowItWork border-2 py-3 rounded-md effectHref ${className}`} data-nc-id="SectionHowItWork" id="howItWorks">
+            <Heading isCenter desc={<span className='text-[#f4eadb]'>¿Cómo funciona?</span>} className="text-[#5bf1fa] dark:text-neutral-100">
                 Renta Espacios Hormiga
             </Heading>
             <div className="mt-20 relative grid md:grid-cols-3 gap-20">
@@ -183,10 +203,14 @@ const SectionHowItWork: FC<SectionHowItWorkProps> = ({ className = '', data = DE
                         ) : (
                             <Image alt="" className="mb-8 max-w-[180px] mx-auto" src={item.img} />
                         )}
-                        <button onClick={showSpaces}>
+                        <button
+                            onClick={() => {
+                                redirect(item.title)
+                            }}
+                        >
                             <div className="text-center mt-auto">
-                                <h3 className="text-xl font-semibold">{item.title}</h3>
-                                <span className="block mt-5 text-neutral-500 dark:text-neutral-400">{item.desc}</span>
+                                <h3 className="text-xl font-semibold text-[#5bf1fa]">{item.title}</h3>
+                                <span className="block mt-5 text-[#f4eadb] dark:text-neutral-400">{item.desc}</span>
                             </div>
                         </button>
                     </div>
@@ -194,7 +218,7 @@ const SectionHowItWork: FC<SectionHowItWorkProps> = ({ className = '', data = DE
             </div>
 
             <Divider />
-            <div className="flex-col flex" style={{ paddingBottom: '1em' }}>
+            {/* <div className="flex-col flex" style={{ paddingBottom: '1em' }}>
                 <span style={{ textAlign: 'center', fontWeight: 'bold' }} className="my-4 text-2xl lg:text-3xl">
                     Disponibilidad de Salones
                 </span>
@@ -233,7 +257,7 @@ const SectionHowItWork: FC<SectionHowItWorkProps> = ({ className = '', data = DE
             </Spin>
             <PayPalScriptProvider options={{ components: 'buttons', clientId: 'AfPMP9UGMMHatFve1JsJ2VWoSK13mDnXa8EFrPOlFGLSANnFYfJ8u2mWZ5KRHVF-SgF29HgR68IZ-BGS', currency: 'MXN' }}>
                 <RentModal fetchDataCalendar={fetchData} showRent={onShowRent} showModalRentSpace={showModalRentSpace} spaceSelected={spaceSelected} showModalMobile={showModalMobile} />
-            </PayPalScriptProvider>
+            </PayPalScriptProvider> */}
         </div>
     )
 }

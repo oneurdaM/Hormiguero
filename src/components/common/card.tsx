@@ -7,7 +7,7 @@ type Props = {
 
 const Card: React.FC<Props> = ({ className, ...props }) => {
   return (
-    <div className={cn('rounded bg-light shadow-md shadow-border-400', className)} {...props} />
+    <div className={cn('rounded shadow-md shadow-border-400', className)} {...props} />
   )
 }
 

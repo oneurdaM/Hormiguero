@@ -166,8 +166,8 @@ function BillboardCard({ event }: { event: Billboard }) {
             {contextHolder}
             <Row>
                 <Col xs={0} lg={24}>
-                    <CardEvent className="my-4 hover:shadow-xl hover:shadow-border-400 dark:bg-gray-500" onClick={onClickBillboard}>
-                        <Image src={event.thumbnailUrl} alt={event.title} className="rounded-tl rounded-tr aspect-[500/300] object-cover" width={500} height={300} />
+                    <CardEvent className="my-4 hover:shadow-xl bg-[#f5eadb] hover:shadow-border-400 dark:bg-gray-500" onClick={onClickBillboard}>
+                        <Image src={event.thumbnailUrl} alt={event.title} className="rounded-tl rounded-tr aspect-[900/900] object-cover" width={600} height={600} />
                         <div className="p-5">
                             <div>
                                 <small className="dark:text-white text-dark">{event.genderList}</small>
@@ -200,7 +200,7 @@ function BillboardCard({ event }: { event: Billboard }) {
                     </CardEvent>
                 </Col>
             </Row>
-            <Drawer title={<p className="text-xl text-primary-6000 dark:text-white">{event.title}</p>} width={widthDrawer} onClose={onClose} open={open} className=" " classNames={{ body: 'dark:backgroundDrawerNigth backgroundDrawer', header: 'dark:backgroundDrawerNigthHeader' }}>
+            <Drawer title={<p className="text-xl text-primary-600 dark:text-white">{event.title}</p>} width={widthDrawer} onClose={onClose} open={open} className=" " classNames={{ body: 'dark:backgroundDrawerNigth backgroundDrawer', header: 'dark:backgroundDrawerNigthHeader' }}>
                 {!fetchingEventsSpaces ? (
                     <Row justify={'space-around'} gutter={[8, 8]}>
                         <Col xs={22} lg={14}>
@@ -208,16 +208,16 @@ function BillboardCard({ event }: { event: Billboard }) {
                         </Col>
                         <Col xs={22} lg={10}>
                             <Row justify="center">
-                                <Col className="text-lg text-primary-6000 line-clamp-1">
+                                <Col className="text-lg text-[#5bf1fa] line-clamp-1">
                                     <p>
                                         <ClockCircleOutlined />
                                         {' ' + event.duration + ' min'}
                                     </p>
                                 </Col>
                                 <Col>
-                                    <Divider type="vertical" className="dark:text-white text-lg font-black text-primary-6000 " />
+                                    <Divider type="vertical" className="dark:text-white text-lg font-black text-[#5bf1fa] " />
                                 </Col>
-                                <Col className="text-lg text-primary-6000 line-clamp-1">
+                                <Col className="text-lg text-[#5bf1fa] line-clamp-1">
                                     <p>
                                         <TagsOutlined />
                                         {' ' + event.genderList}
@@ -229,18 +229,18 @@ function BillboardCard({ event }: { event: Billboard }) {
                             </Row>
                             <Row justify="space-around">
                                 <Col xs={11} lg={11}>
-                                    <p className="text-lg text-primary-6000">Director</p>
-                                    <p className="text-base">{event.director}</p>
+                                    <p className="text-lg text-[#5bf1fa]">Director</p>
+                                    <p className="text-base text-[#f4eadb]">{event.director}</p>
                                     <br />
                                 </Col>
                                 <Col xs={11} lg={11}>
-                                    <p className="text-lg text-primary-6000">Compañia</p>
-                                    <p className="text-base">{event.company}</p>
+                                    <p className="text-lg text-[#5bf1fa]">Compañia</p>
+                                    <p className="text-base  text-[#f4eadb]">{event.company}</p>
                                     <br />
                                 </Col>
                                 <Col span={23}>
-                                    <p className="text-lg text-primary-6000">Sinopsis</p>
-                                    <p className="text-base">{event.synopsis}</p>
+                                    <p className="text-lg text-[#5bf1fa]">Sinopsis</p>
+                                    <p className="text-base  text-[#f4eadb]">{event.synopsis}</p>
                                 </Col>
                                 <div className="card-footer">
                                     <small className="text-muted">
@@ -251,7 +251,7 @@ function BillboardCard({ event }: { event: Billboard }) {
                         </Col>
                         <Col span={24}>
                             <Divider orientation="left">
-                                <p className="text-xl text-primary-6000 ">Horarios</p>
+                                <p className="text-xl text-[#5bf1fa] ">Horarios</p>
                             </Divider>
                         </Col>
                         <Col span={24}>
@@ -267,33 +267,33 @@ function BillboardCard({ event }: { event: Billboard }) {
                                                 </p>
                                             }
                                         >
-                                            <Card className="cardEvent dark:cardEventDark dark:bg-gray-500 dark:text-white" bordered={false} onClick={() => showChildrenDrawer(eventSpace)} cover={<img className="coverCard" alt={eventSpace.space.name} src={eventSpace.space.image} />}>
+                                            <Card className="cardEvent dark:cardEventDark dark:bg-gray-500 dark:text-white bg-[#f4eadb]" bordered={false} onClick={() => showChildrenDrawer(eventSpace)} cover={<img className="coverCard" alt={eventSpace.space.name} src={eventSpace.space.image} />}>
                                                 <Row justify="space-around">
                                                     <Col span={24} className="dayCard">
                                                         <p className="text-xl ">{moment(eventSpace?.startDate).format('dddd D MMMM YYYY').charAt(0).toUpperCase() + moment(eventSpace?.startDate).format('dddd D MMMM YYYY').slice(1)}</p>
                                                     </Col>
                                                     <Col span={24}>
                                                         <Divider orientation="left">
-                                                            <p className="text-primary-6000 ">{eventSpace.space.name}</p>
+                                                            <p className="text-[#04242b] ">{eventSpace.space.name}</p>
                                                         </Divider>
                                                     </Col>
 
                                                     <Col span={12}>
                                                         <p>
-                                                            <strong className="text-primary-6000 ">Capacidad: </strong>
+                                                            <strong className="text-[#04242b] ">Capacidad: </strong>
                                                             {eventSpace.space.capacity + ' asientos'}
                                                         </p>
                                                     </Col>
                                                     <Col span={12}>
                                                         <p>
-                                                            <strong className="text-primary-6000 ">Dimensiones: </strong>
+                                                            <strong className="text-[#04242b] ">Dimensiones: </strong>
                                                             {eventSpace.space.dimensions + 'm²'}
                                                         </p>
                                                     </Col>
                                                     <Col span={24}>
                                                         <br />
                                                         <p>
-                                                            <strong className="text-primary-6000 ">Dirección: </strong>
+                                                            <strong className="text-[#04242b] ">Dirección: </strong>
                                                             {eventSpace.space.location}
                                                         </p>
                                                     </Col>
@@ -307,7 +307,7 @@ function BillboardCard({ event }: { event: Billboard }) {
 
                         <Drawer
                             destroyOnClose={true}
-                            title={<p className="text-xl text-primary-6000 dark:text-white">{eventSelected?.event.title + ', ' + moment(eventSelected?.startDate).format('dddd D MMMM YYYY').charAt(0).toUpperCase() + moment(eventSelected?.startDate).format('dddd D MMMM YYYY').slice(1) + ', ' + moment(eventSelected?.startDate).format('h:mm a')}</p>}
+                            title={<p className="text-xl dark:text-white">{eventSelected?.event.title + ', ' + moment(eventSelected?.startDate).format('dddd D MMMM YYYY').charAt(0).toUpperCase() + moment(eventSelected?.startDate).format('dddd D MMMM YYYY').slice(1) + ', ' + moment(eventSelected?.startDate).format('h:mm a')}</p>}
                             width={widthDrawer}
                             classNames={{ body: 'dark:backgroundDrawerNigth backgroundDrawer', header: 'dark:backgroundDrawerNigthHeader', footer: 'dark:backgroundDrawerNigthHeader' }}
                             onClose={() => onChildrenDrawerClose(false)}

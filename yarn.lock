@@ -662,6 +662,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-scroll@^1.8.10":
+  version "1.8.10"
+  resolved "https://registry.npmjs.org/@types/react-scroll/-/react-scroll-1.8.10.tgz"
+  integrity sha512-RD4Z7grbdNGOKwKnUBKar6zNxqaW3n8m9QSrfvljW+gmkj1GArb8AFBomVr6xMOgHPD3v1uV3BrIf01py57daQ==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react@*", "@types/react@18.2.7":
   version "18.2.7"
   resolved "https://registry.npmjs.org/@types/react/-/react-18.2.7.tgz"
@@ -3268,7 +3275,7 @@ react-dom@^18.2.0:
 
 react-easy-swipe@^0.0.21:
   version "0.0.21"
-  resolved "https://registry.yarnpkg.com/react-easy-swipe/-/react-easy-swipe-0.0.21.tgz#ce9384d576f7a8529dc2ca377c1bf03920bac8eb"
+  resolved "https://registry.npmjs.org/react-easy-swipe/-/react-easy-swipe-0.0.21.tgz"
   integrity sha512-OeR2jAxdoqUMHIn/nS9fgreI5hSpgGoL5ezdal4+oO7YSSgJR8ga+PkYGJrSrJ9MKlPcQjMQXnketrD7WNmNsg==
   dependencies:
     prop-types "^15.5.8"
@@ -3315,7 +3322,7 @@ react-popper@^2.2.5, react-popper@^2.3.0:
 
 react-responsive-carousel@^3.2.23:
   version "3.2.23"
-  resolved "https://registry.yarnpkg.com/react-responsive-carousel/-/react-responsive-carousel-3.2.23.tgz#4c0016ff54603e604bb5c1f9e7ef2d1eda133f1d"
+  resolved "https://registry.npmjs.org/react-responsive-carousel/-/react-responsive-carousel-3.2.23.tgz"
   integrity sha512-pqJLsBaKHWJhw/ItODgbVoziR2z4lpcJg+YwmRlSk4rKH32VE633mAtZZ9kDXjy4wFO+pgUZmDKPsPe1fPmHCg==
   dependencies:
     classnames "^2.2.5"

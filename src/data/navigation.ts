@@ -22,12 +22,12 @@ export const NAVIGATION: NavItemType[] =  [
     name: 'Productos',
     isNew: true,
   },
-  {
-    id: ncNanoId(),
-    href: '/blog',
-    name: 'Blog',
-    isNew: true,
-  },
+  // {
+  //   id: ncNanoId(),
+  //   href: '/blog',
+  //   name: 'Blog',
+  //   isNew: true,
+  // },
    {
     id: ncNanoId(),
     href: '/orders',

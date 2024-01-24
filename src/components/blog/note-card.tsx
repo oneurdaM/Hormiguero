@@ -25,16 +25,19 @@ function NoteCard({
   category: string | number
 }) {
   return (
-    <Card className="my-4 hover:shadow-xl hover:shadow-border-400">
+    <Card className="my-4 hover:shadow-xl hover:shadow-border-400 bg-[#04242b]" >
       <Link href={href}>
+      <div className="relative overflow-hidden group">
+
         <Image
           src={image}
           alt={title}
-          className="rounded-tl rounded-tr aspect-[500/300] object-cover"
+          className="rounded-tl rounded-tr aspect-[500/400] object-cover transition-transform transform-gpu group-hover:scale-75"
           width={500}
           height={300}
         />
-        <div className="p-5">
+        </div>
+        {/* <div className="p-5">
           <div>
             <small className="text-dark">{category}</small>
           </div>
@@ -46,7 +49,7 @@ function NoteCard({
               {author}
             </small>
           </div>
-        </div>
+        </div> */}
       </Link>
     </Card>
   )

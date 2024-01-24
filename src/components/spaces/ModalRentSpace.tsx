@@ -1,9 +1,11 @@
 'use client'
+//@ts-nocheck
+
 import React, { useState } from 'react'
-import { Modal, Row, Col, DatePicker, Form, Button, Card, Divider, notification, Spin, Tooltip, Avatar } from 'antd'
+import { Modal, Row, Col, DatePicker, Form, Button, Card, Divider, notification, Spin, Tooltip, Avatar, Input, InputNumber } from 'antd'
 import type { RangePickerProps } from 'antd/es/date-picker'
 import { MinusCircleOutlined, PlusOutlined, FullscreenOutlined, UsergroupAddOutlined, EnvironmentOutlined, DollarOutlined, ArrowLeftOutlined } from '@ant-design/icons'
-import moment from 'moment'
+import moment, { Moment } from 'moment'
 import 'moment/locale/es'
 import { getAvailabilitySpaces, rentSpace } from '@/data/rentServices'
 
@@ -19,18 +21,79 @@ function ModalRentSpaces(props: any) {
     const [fetchingRents, setFetchingAvailability] = useState(false)
     const [form, setForm] = useState()
 
+    const disableSchedule = (current: Moment | null) => {
+        if (!current) {
+            return {}
+        }
+
+        const day = current?.day()
+        let hourFalse: number[] = []
+        switch (day) {
+            case 0:
+                hourFalse = [11, 12, 13, 14, 15, 16, 17, 18, 19]
+
+                break
+            case 1:
+                hourFalse = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+
+                break
+            case 2:
+                hourFalse = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22]
+
+                break
+            case 3:
+                hourFalse = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22]
+
+                break
+            case 4:
+                hourFalse = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22]
+
+                break
+            case 5:
+                hourFalse = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22]
+
+                break
+            case 6:
+                hourFalse = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+
+                break
+
+            default:
+                break
+        }
+
+        let hoursToAdd: number[] = []
+        let minutesAdd: number[] = []
+        for (let i = 0; i < 60; i++) {
+            if (!hourFalse.includes(i)) {
+                hoursToAdd.push(i)
+            }
+            if(i !== 0){
+                minutesAdd.push(i)
+
+            }
+
+        }
+
+        // Deshabilita todos los minutos
+        return {
+            disabledHours: () => hoursToAdd,
+            disabledMinutes: ()=>minutesAdd
+        }
+    }
     const fetchData = async (days: any) => {
+       
         try {
             setFetchingAvailability(true)
             let response: any = {}
             let isAvailable: boolean = false
             for (let i in days) {
-                response = await getAvailabilitySpaces(days[i].day.format('YYYY-MM-DD'), props.spaceSelected.id)
+                response = await getAvailabilitySpaces(days[i].day.format('YYYY-MM-DD HH:00'), props.spaceSelected.id, days[i].duration)
                 console.log('response', response)
                 setFetchingAvailability(false)
                 if (response.error) {
                     api.error({
-                        message: response.error + ' para el día ' + days[i].day.format('DD-MM-YYYY'),
+                        message: response.error + ' para el día y la hora ' + days[i].day.format('DD-MM-YYYY HH:00'),
                     })
                     return
                 } else {
@@ -114,7 +177,7 @@ function ModalRentSpaces(props: any) {
 
     const disabledDate: RangePickerProps['disabledDate'] = (current) => {
         // Can not select days before today and today
-        return current && current < moment()
+        return current && current < moment().startOf('day')
     }
 
     const onChangeDate = (fields: any, selected: any) => {
@@ -128,11 +191,11 @@ function ModalRentSpaces(props: any) {
     }
     const onFinish = (values: any) => {
         console.log('Received values of form:', values)
-        fetchData(values.rent)
+         fetchData(values.rent)
     }
     return (
         <>
-            <Modal destroyOnClose width={props.showModalMobile ? '100%' : '70%'} title={<p className="text-xl text-primary-6000 dark:text-white">{'Renta de Espacio: ' + props.spaceSelected?.name}</p>} onCancel={() => (props.showRent(props.showModalMobile), setRentDays([]), setForm(undefined))} open={props.showModalRentSpace} footer={false} styles={modalStyles} classNames={{ body: 'dark:backgroundDrawerNigth backgroundDrawer', header: 'dark:backgroundDrawerNigthHeader' }}>
+            <Modal destroyOnClose width={props.showModalMobile ? '100%' : '70%'} title={<p className="text-xl text-primary-6000 dark:text-white">{'Renta de Espacio: ' + props.spaceSelected?.name}</p>} onCancel={() => (props.showRent(props.showModalMobile), setRentDays([]), setForm(undefined))} open={props.showModalRentSpace} footer={false} styles={modalStyles} classNames={{ body: 'dark:backgroundDrawerNigth backgroundDrawerModal', header: 'dark:backgroundDrawerNigthHeader' }}>
                 {contextHolder}
                 <Spin spinning={fetchingRents || fetchingPayment}>
                     {!form ? (
@@ -194,9 +257,14 @@ function ModalRentSpaces(props: any) {
                                                 <Col span={24}>
                                                     {fields.map(({ key, name, ...restField }) => (
                                                         <Row key={key} justify="space-between" gutter={[8, 8]}>
-                                                            <Col span={22}>
+                                                            <Col span={15}>
                                                                 <Form.Item {...restField} name={[name, 'day']} rules={[{ required: true, message: 'Selecciona una fecha' }]}>
-                                                                    <DatePicker onChange={() => onChangeDate(fields, false)} showToday={false} format="DD-MM-YYYY" disabledDate={disabledDate} style={{ width: '100%' }} />
+                                                                    <DatePicker disabledTime={(current: any) => disableSchedule(current)} showTime={{ format: 'HH:mm'}} format="YYYY-MM-DD HH:mm" onChange={() => onChangeDate(fields, false)} showToday={false} disabledDate={disabledDate} style={{ width: '100%' }} />
+                                                                </Form.Item>
+                                                            </Col>
+                                                            <Col span={7}>
+                                                                <Form.Item {...restField} name={[name, 'duration']} rules={[{ required: true, message: 'Escribe una duración' }]}>
+                                                                    <InputNumber placeholder='Escribe una duración'  className='w-full'/>
                                                                 </Form.Item>
                                                             </Col>
 

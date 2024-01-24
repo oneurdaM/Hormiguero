@@ -27,7 +27,7 @@ const BillboardList = ({ billboards, paginatorInfo, onPagination, loading }: Bil
 
     return (
         <>
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {billboards?.map((item) => (
                     <BillboardCard event={item} key={item.id} />
                 ))}

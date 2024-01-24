@@ -11,6 +11,9 @@ import Layout from '@/components/layout/layout'
 
 import dayjs from 'dayjs'
 import 'dayjs/locale/es-mx'
+import Blog from './blog'
+import Contactform from '@/components/Contact/Contactform'
+import DividerTailwindcss from '@/components/DividerTailwindcss'
 dayjs.locale('es-mx')
 export const metadata = {
     title: 'Centro Cultural El Hormiguero',
@@ -58,7 +61,14 @@ export default function RootLayout() {
                 <meta name="twitter:card" content={logo.toString()} />
             </Head>
             <PageHome />
+            <DividerTailwindcss />
             <Cartelera />
+            <DividerTailwindcss />
+            <Blog />
+            <DividerTailwindcss />
+
+            <Contactform />
+            <DividerTailwindcss />
         </Layout>
     )
 }

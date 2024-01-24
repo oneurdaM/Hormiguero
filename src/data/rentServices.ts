@@ -49,10 +49,13 @@ export const getRents = async (month: any) => {
     }
 };
 
-export const getAvailabilitySpaces = async (day: any, spaceId: number) => {
+export const getAvailabilitySpaces = async (day: any, spaceId: number, duration: number) => {
+
     try {
-        const startDate = day ? '&startDate=' + day + ' 12:00' : ''
-        const endDate = day ? '&endDate=' + day + ' 11:59' : ''
+        const startDate = day ? '&startDate=' + day : ''
+        const endDate = day ? '&endDate=' + moment(day).add(duration, 'hours').format("YYYY-MM-DD HH:00") : ''
+
+        console.log(startDate, endDate)
         const response = await axios.get(endpoint + '/rents/validation?spaceId=' + spaceId + startDate + endDate, config)
         console.log('response', response);
         if (response.status === 200) {
@@ -81,8 +84,8 @@ export const rentSpace = async (spaceSelected: any, form:any) => {
             const rent ={
                 "spaceId": spaceSelected.id,
                 "userId": userId,
-                "startDate": form[i].day.format('YYYY-MM-DD') + ' 12:00',
-                "endDate": form[i].day.format('YYYY-MM-DD') + ' 11:59'
+                "startDate": form[i].day.format('YYYY-MM-DD HH:00'),
+                "endDate":  form[i].day.add(form[i].duration, 'hours').format("YYYY-MM-DD HH:00")
             }
             rents.push(rent)
         }

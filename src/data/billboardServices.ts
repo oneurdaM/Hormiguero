@@ -14,7 +14,7 @@ export const getBillboard = async (page: any, search: any) => {
         search = search ? 'search=' + search + '&' : ''
         page = 'page=' + page
         let fetchingBillboards = true;
-        const response = await axios.get(endpoint + '/events?' + search + page + '&limit=10', config)
+        const response = await axios.get(endpoint + '/events?' + search + page + '&limit=3', config)
         console.log('response', response);
         const paginatorInfo = {
             total: response?.data.total ? parseInt(response.data.total.toString()) : 0,
