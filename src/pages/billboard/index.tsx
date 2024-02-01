@@ -72,7 +72,7 @@ function Billboard2() {
                     <div className="h-auto min-h-screen bg-[#014154] dark:bg-black dark:bg-opacity-20 py-5">
                         <div className="nc-PageHome container pt-10  h-auto min-h-screen">
                             <h1 className="text-4xl mt-2 font-bold text-[#5bf1fa] dark:text-neutral-100 text-center">Cartelera</h1>
-                            <div className="w-full border-[#5bf1fa] border-solid border-[1px] my-5" />
+                            <div className="w-full border-[#5bf1fa] dark:border-white border-solid border-[1px] my-5" />
                             <Search onSearch={handleSearch} />
                             <br />
                             <BillboardList billboards={billboardsResponse?.billboards} paginatorInfo={billboardsResponse?.paginatorInfo} onPagination={handlePagination} loading={fetchingBillboards} />

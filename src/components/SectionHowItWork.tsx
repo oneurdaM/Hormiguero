@@ -188,7 +188,7 @@ const SectionHowItWork: FC<SectionHowItWorkProps> = ({ className = '', data = DE
     }
     return (
         <div className={`nc-SectionHowItWork border-2 py-3 rounded-md effectHref ${className}`} data-nc-id="SectionHowItWork" id="howItWorks">
-            <Heading isCenter desc={<span className='text-[#f4eadb]'>¿Cómo funciona?</span>} className="text-[#5bf1fa] dark:text-neutral-100">
+            <Heading isCenter desc={<span className='text-[#f4eadb] dark:text-white'>¿Cómo funciona?</span>} className="text-[#5bf1fa] dark:text-neutral-100">
                 Renta Espacios Hormiga
             </Heading>
             <div className="mt-20 relative grid md:grid-cols-3 gap-20">
@@ -209,8 +209,8 @@ const SectionHowItWork: FC<SectionHowItWorkProps> = ({ className = '', data = DE
                             }}
                         >
                             <div className="text-center mt-auto">
-                                <h3 className="text-xl font-semibold text-[#5bf1fa]">{item.title}</h3>
-                                <span className="block mt-5 text-[#f4eadb] dark:text-neutral-400">{item.desc}</span>
+                                <h3 className="text-xl font-semibold text-[#5bf1fa] dark:text-white">{item.title}</h3>
+                                <span className="block mt-5 text-[#f4eadb] dark:text-white">{item.desc}</span>
                             </div>
                         </button>
                     </div>

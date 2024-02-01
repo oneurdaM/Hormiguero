@@ -24,8 +24,8 @@ const Contactform = (props: Props) => {
     return (
         <div className="h-auto dark:bg-black dark:bg-opacity-20 bg-[#014154]" id="contacto">
             <div className="nc-PageHome container h-auto py-10">
-                <h1 className="text-4xl font-bold mt-2 text-center text-[#5bf1fa] ">Contacto</h1>
-                <div className="w-full border-[#5bf1fa] border-solid border-[1px] my-5" />
+                <h1 className="text-4xl font-bold mt-2 text-center text-[#5bf1fa] dark:text-white ">Contacto</h1>
+                <div className="w-full dark:border-white border-[#5bf1fa] border-solid border-[1px] my-5" />
 
                 <div className="lg:flex">
                     <div className="lg:w-1/2 lg:mx-5 border p-5 rounded-md">
@@ -72,7 +72,7 @@ const Contactform = (props: Props) => {
 
                             <Form.Item>
                                 <div className="flex justify-end">
-                                    <Button style={{ width: '50%' }} className="btnPrimaryLeft  mt-5 border-0 h-[3em] hover:bg-[#34688f] text-base rounded-md" htmlType="submit">
+                                    <Button style={{ width: '50%' }} className="btnPrimaryLeft  mt-5 border-0 h-[3em] hover:bg-[#34688f] text-base rounded-md dark:bg-[#283c41]" htmlType="submit">
                                         Enviar Mensaje
                                     </Button>
                                 </div>
@@ -81,7 +81,7 @@ const Contactform = (props: Props) => {
                     </div>
 
                     <div className="lg:w-1/2  lg:mx-5 my-5 lg:my-0">
-                        <h2 className="text-3xl text-center text-[#5bf1fa]  mb-2">Preguntas</h2>
+                        <h2 className="text-3xl text-center text-[#5bf1fa] dark:text-[#b8b7b7] mb-2">Preguntas</h2>
 
                         <p className="text-lg text-[#f4eadb]">Para todo tipo de preguntas, comentarios e inquietudes; por favor llámanos: 55-5131-5753 o completa el formulario a continuación</p>
                     </div>

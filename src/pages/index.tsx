@@ -14,6 +14,7 @@ import 'dayjs/locale/es-mx'
 import Blog from './blog'
 import Contactform from '@/components/Contact/Contactform'
 import DividerTailwindcss from '@/components/DividerTailwindcss'
+import Community from './community'
 dayjs.locale('es-mx')
 export const metadata = {
     title: 'Centro Cultural El Hormiguero',
@@ -67,8 +68,12 @@ export default function RootLayout() {
             <Blog />
             <DividerTailwindcss />
 
+            <Community />
+            <DividerTailwindcss />
+
             <Contactform />
             <DividerTailwindcss />
+
         </Layout>
     )
 }

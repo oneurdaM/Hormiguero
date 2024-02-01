@@ -52,8 +52,8 @@ const Blog: React.FC = () => {
             </Head>
             <div className="h-auto  bg-[#014154] dark:bg-black dark:bg-opacity-20">
                 <div className="nc-PageHome container pt-10  h-auto min-h-screen">
-                    <h1 className="text-4xl font-bold mt-2 text-[#5bf1fa] text-center">Notas Destacadas</h1>
-                    <div className="w-full border-[#5bf1fa] border-solid border-[1px] my-5" />
+                    <h1 className="text-4xl font-bold mt-2 text-[#5bf1fa] text-center dark:text-white ">Notas Destacadas</h1>
+                    <div className="w-full border-[#5bf1fa] border-solid dark:border-white border-[1px] my-5" />
                     {/* <Search onSearch={handleSearch} /> */}
                     <br />
                     <BlogList notes={notes} paginatorInfo={paginatorInfo} onPagination={handlePagination} loading={loading} />

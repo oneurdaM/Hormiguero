@@ -4,12 +4,12 @@ import { getAuthCredentials } from '@/utils/auth-utils'
 const { token } = getAuthCredentials();
 
 export const NAVIGATION: NavItemType[] =  [
-  {
-    id: ncNanoId(),
-    href: '/community',
-    name: 'Impacto social',
-    isNew: true,
-  },
+  // {
+  //   id: ncNanoId(),
+  //   href: '/community',
+  //   name: 'Impacto social',
+  //   isNew: true,
+  // },
   // {
   //   id: ncNanoId(),
   //   href: '/billboard',

@@ -67,7 +67,7 @@ function PageHome() {
   // })
 
   return (
-    <main className="nc-PageHome relative overflow-hidden bg-[#014154]">
+    <main className="nc-PageHome relative overflow-hidden bg-[#014154]  dark:bg-black dark:bg-opacity-20">
       <BgGlassmorphism />
 
       <Billboard />
