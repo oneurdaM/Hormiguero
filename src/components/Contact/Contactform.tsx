@@ -2,24 +2,27 @@ import { Form, Input, Button, notification } from 'antd'
 import React from 'react'
 import { UserOutlined, MailOutlined, MessageOutlined } from '@ant-design/icons'
 import { useForm } from 'react-hook-form'
+import { useUserCorreoMutation } from '@/data/user'
 
 type Props = {}
 
 const Contactform = (props: Props) => {
-    const { register, handleSubmit, reset } = useForm()
+    const [form] = Form.useForm()
+
+  const [api, contextHolder] = notification.useNotification()
+
+    const { mutate: contanct, isLoading, error } = useUserCorreoMutation()
 
     const onSubmit = (data: any) => {
         // Aquí puedes manejar la lógica de envío del formulario.
-        console.log(data)
+        contanct(data)
+        form.resetFields()
 
-        // Ejemplo: Mostrar una notificación de éxito.
         notification.success({
-            message: 'Formulario Enviado',
-            description: 'Gracias por ponerte en contacto con nosotros.',
+            message: 'Mensaje enviado con exito',
+            description: 'Agradecemos tu cooperción',
+            duration: 5,
         })
-
-        // Limpiar el formulario después del envío.
-        reset()
     }
     return (
         <div className="h-auto dark:bg-black dark:bg-opacity-20 bg-[#014154]" id="contacto">
@@ -29,7 +32,7 @@ const Contactform = (props: Props) => {
 
                 <div className="lg:flex">
                     <div className="lg:w-1/2 lg:mx-5 border p-5 rounded-md">
-                        <Form onFinish={onSubmit}>
+                        <Form onFinish={onSubmit} form={form}>
                             <Form.Item
                                 name="name"
                                 rules={[
@@ -51,7 +54,7 @@ const Contactform = (props: Props) => {
                             </Form.Item>
 
                             <Form.Item
-                                name="email"
+                                name="correo"
                                 rules={[
                                     { required: true, message: <span className="text-slate-200">Por favor, ingresa tu correo electrónico </span> },
                                     { type: 'email', message: <span className="text-slate-200">Por favor, ingresa un correo electrónico válido</span> },
@@ -61,7 +64,7 @@ const Contactform = (props: Props) => {
                             </Form.Item>
 
                             <Form.Item
-                                name="message"
+                                name="mensaje"
                                 rules={[
                                     { required: true, message: <span className="text-slate-200">Por favor, ingresa tu mensaje</span> },
                                     { max: 500, message: <span className="text-slate-200">El mensaje no puede tener más de 500 caracteres</span> },
@@ -87,6 +90,7 @@ const Contactform = (props: Props) => {
                     </div>
                 </div>
             </div>
+            {contextHolder}
         </div>
     )
 }

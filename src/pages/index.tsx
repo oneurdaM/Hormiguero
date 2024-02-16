@@ -1,5 +1,3 @@
-'use client'
-
 import { Poppins } from 'next/font/google'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'

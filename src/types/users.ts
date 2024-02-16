@@ -38,6 +38,13 @@ export type UserRegistration = {
   role?: string | null
 }
 
+export type ContactUser = {
+  correo: string
+  name: string
+  asunto: string
+  mensaje: string
+}
+
 export interface ResetPasswordInput {
   token: string
   email: string

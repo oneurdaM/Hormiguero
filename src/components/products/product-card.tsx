@@ -23,7 +23,7 @@ function ProductCard({
         <Image
           src={image}
           alt={title}
-          className="rounded aspect-1 object-cover block"
+          className="rounded-full aspect-1 object-cover block"
           width={500}
           height={300}
         />

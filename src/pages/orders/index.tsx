@@ -83,10 +83,10 @@ function Orders() {
                         <meta name="twitter:image" content={logo.toString()} />
                         <meta name="twitter:card" content={logo.toString()} />
                     </Head>
-                    <div className="h-auto min-h-screen bg-orange-50 dark:bg-black dark:bg-opacity-20">
+                    <div className="h-auto min-h-screen  bg-[#014154] dark:bg-black dark:bg-opacity-20 py-10">
                         <div className="nc-PageHome container pt-10  h-auto min-h-screen">
-                            <h1 className="text-3xl mt-2">Ordenes</h1>
-                            <div className="w-full border-slate-300 border-solid border-[1px] my-5" />
+                            <h1 className="text-4xl font-bold mt-2  text-[#5bf1fa] text-center dark:text-white">Mis ordenes</h1>
+                            <div className="w-full border-[#5bf1fa] border-solid dark:border-white border-[1px] my-5" />
                             <Search onSearch={handleSearch} />
                             <br />
                             <OrdersList orders={ordersResponse?.orders} paginatorInfo={ordersResponse?.paginatorInfo} onPagination={handlePagination} loading={fetchingOrders} />

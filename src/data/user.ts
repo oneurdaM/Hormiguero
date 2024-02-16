@@ -52,3 +52,16 @@ export const useLogoutMutation = () => {
     isSuccess: true,
   }
 }
+
+
+
+export const useUserCorreoMutation = () => {
+  return useMutation(userClient.contact, {
+    onSuccess() {
+      toast.success('Se envio correo')
+    },
+    onError: (error: any) => {
+      toast.error(error?.response?.data?.message ?? 'Error: no se pudo crear')
+    },
+  })
+}

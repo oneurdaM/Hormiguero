@@ -1,5 +1,6 @@
 export const API_ENDPOINTS = {
   EVENTS: '/website/events',
+  CONTACT: '/contacto/formContact',
   EVENT_DETAILS: '/events',
   GENDERS: '/website/genders',
 BANNER: "banner",

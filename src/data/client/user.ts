@@ -1,6 +1,6 @@
 import {API_ENDPOINTS} from "./api-endpoints"
 import {HttpClient} from "./http-client"
-import { UsersResponse, UserRegistration, ResetPasswordInput } from "@/types/users"
+import { UsersResponse, UserRegistration, ResetPasswordInput, ContactUser } from "@/types/users"
 
 export const userClient = {
 	  login: (variables: {identifier: string, password: string}) => {
@@ -29,5 +29,9 @@ export const userClient = {
 	  },
 	  me: () => {
 		return HttpClient.get<UsersResponse>(API_ENDPOINTS.ME)
+	  },
+
+	  contact: (variables: ContactUser) => {
+		return HttpClient.post(API_ENDPOINTS.CONTACT, variables)
 	  },
 }

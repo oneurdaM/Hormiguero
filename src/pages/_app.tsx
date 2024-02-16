@@ -11,6 +11,9 @@ import '@/styles/index.scss'
 import 'rc-slider/assets/index.css'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { ShoppingCartProvider } from '@/context/CarContext'
+
+
 export default function App({ Component, pageProps }: AppProps) {
     const [client] = React.useState(new QueryClient())
 
@@ -30,7 +33,9 @@ export default function App({ Component, pageProps }: AppProps) {
             }}
         >
             <QueryClientProvider client={client}>
-                <Component {...pageProps} />
+                <ShoppingCartProvider>
+                    <Component {...pageProps} />
+                </ShoppingCartProvider>
                 <ReactQueryDevtools initialIsOpen={false} />
             </QueryClientProvider>
         </ConfigProvider>

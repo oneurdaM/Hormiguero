@@ -1,4 +1,4 @@
-'use client'
+//@ts-nocheck
 import React, { useState } from 'react'
 
 import { Button, Row, Col, notification, Divider, Card, Badge, Steps, Avatar, Tooltip } from 'antd'
@@ -13,6 +13,10 @@ import Loader from '../ui/loader/loader'
 
 import { downloadTicket } from '@/data/ordersServices'
 
+import 'moment/locale/es'
+
+// Configura moment para usar el idioma español
+moment.locale('es')
 type OrdersListProps = {
     orders: Order[] | null | undefined
     paginatorInfo: MappedPaginatorInfo | any
@@ -22,6 +26,8 @@ type OrdersListProps = {
 
 const OrdersList = ({ orders, paginatorInfo, onPagination, loading }: OrdersListProps) => {
     const [fetchingDownloadTicket, setFetchingDownloadTicket] = useState(false)
+
+    console.log(orders)
 
     const fetchData = async (order: Order) => {
         try {
@@ -157,9 +163,14 @@ const OrdersList = ({ orders, paginatorInfo, onPagination, loading }: OrdersList
                             ) : (
                                 false
                             )}
-                            {item.products.length ? (
+                            
+                                    
+                                  
+                               
+                           
+                            {item.rents?.length ? (
                                 <Row justify={'space-between'} gutter={[8, 8]}>
-                                    <Col xs={24} lg={18}>
+                                    <Col xs={24} lg={24}>
                                         {item.rents?.map((rent: Rent, index: number) => (
                                             <Row key={rent.id} gutter={[8, 8]}>
                                                 <Col xs={24} lg={2}>
@@ -186,40 +197,31 @@ const OrdersList = ({ orders, paginatorInfo, onPagination, loading }: OrdersList
                                         ))}
                                     </Col>
 
-                                    <Col xs={24} lg={6}>
+                                    {/* <Col xs={24} lg={6}>
                                         <Button className="btnPrimary" onClick={() => onDownloadTicket(item)}>
                                             Descargar Boleto
                                         </Button>
-                                    </Col>
+                                    </Col> */}
                                 </Row>
                             ) : (
                                 false
                             )}
-                            {item.rents?.length ? (
+                            {item.products?.length ? (
                                 <Row justify={'space-between'} gutter={[8, 8]}>
                                     <Col xs={24} lg={24}>
-                                        {item.rents?.map((rent: Rent, index: number) => (
-                                            <Row key={rent.id} gutter={[8, 8]}>
+                                        {item.products?.map((product: Rent, index: number) => (
+                                            <Row key={product.id} gutter={[8, 8]}>
                                                 <Col xs={24} lg={2}>
-                                                    <img className="orderImg" src={rent.space.image} />
+                                                    <img className="orderImg" src={product.product.thumbnailUrl} />
                                                 </Col>
                                                 <Col xs={24} lg={22}>
-                                                    <Row justify={'space-between'} gutter={[8, 8]}>
-                                                        <Col span={12} className="text-primary-6000 ">
-                                                            <strong>Fecha de la renta:</strong> {moment(rent.startDate).format('dddd D MMMM YYYY').charAt(0).toUpperCase() + moment(rent.startDate).format('dddd D MMMM YYYY').slice(1)}
-                                                        </Col>
-                                                        <Col xs={24} lg={12}>
-                                                            <strong>Sala:</strong> {rent.space.name}
-                                                        </Col>
-                                                        <Col xs={24} lg={12}>
-                                                            <strong>Ubicación de la sala:</strong> {rent.space.location}
-                                                        </Col>
-                                                        <Col xs={24} lg={12}>
-                                                            <strong>Capacidad de la sala:</strong> {rent.space.capacity}
+                                                    <Row className='lg:flex lg:justify-center lg:items-center '>
+                                                        <Col span={12} className="text-primary-6000 lg:text-2xl">
+                                                            <strong>Fecha de compra:</strong> {moment(product.startDate).format('dddd D MMMM YYYY').charAt(0).toUpperCase() + moment(product.startDate).format('dddd D MMMM YYYY').slice(1)}
                                                         </Col>
                                                     </Row>
                                                 </Col>
-                                                {index + 1 < item.rents.length && <Divider />}
+                                                {index + 1 < item.products.length && <Divider />}
                                             </Row>
                                         ))}
                                     </Col>

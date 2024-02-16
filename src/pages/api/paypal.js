@@ -10,6 +10,9 @@ export default async function POST(req, res) {
     const request = new paypal.orders.OrdersCreateRequest()
     const body = JSON.parse(req.body)
 
+
+    console.log(body)
+
     request.requestBody({
         intent: 'CAPTURE',
         purchase_units: [
