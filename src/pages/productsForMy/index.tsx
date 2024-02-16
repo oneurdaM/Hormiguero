@@ -109,7 +109,7 @@ const Index = (props: Props) => {
     }
     const showModal = (id: any, cantidad: any, image: any) => {
         setShow(true)
-        setCanti(cantidad - 1)
+        setCanti(cantidad)
         setProductId(id)
         setImage(image)
     }
@@ -363,15 +363,19 @@ const Index = (props: Props) => {
                             Eliminar todo
                         </Button>
 
-                        <InputNumber className="w-1/2" min={1} defaultValue={canti === 0 ? 1 : canti} max={canti} onChange={handleQuantityChange}></InputNumber>
-                        <Button
-                            onClick={() => {
-                                deleteCantidadProducto(idProd)
-                            }}
-                            className="bg-red-800 w-1/2 text-white "
-                        >
-                            Eliminar
-                        </Button>
+                        {canti > 1 ? (
+                            <>
+                                <InputNumber className="w-1/2" min={1} defaultValue={canti-1} max={canti-1} onChange={handleQuantityChange}></InputNumber>
+                                <Button
+                                    onClick={() => {
+                                        deleteCantidadProducto(idProd)
+                                    }}
+                                    className="bg-red-800 w-1/2 text-white "
+                                >
+                                    Eliminar
+                                </Button>
+                            </>
+                        ) : null}
                     </div>
                 </div>
             </Modal>
