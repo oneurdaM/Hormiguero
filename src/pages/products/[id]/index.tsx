@@ -84,7 +84,7 @@ export default function ProductPage() {
         notification.info({
             message: 'Producto agregado correctamente',
             duration: 3,
-            placement: 'bottomRight',
+            placement: 'bottomLeft',
         })
     }
 

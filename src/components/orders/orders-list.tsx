@@ -164,10 +164,6 @@ const OrdersList = ({ orders, paginatorInfo, onPagination, loading }: OrdersList
                                 false
                             )}
                             
-                                    
-                                  
-                               
-                           
                             {item.rents?.length ? (
                                 <Row justify={'space-between'} gutter={[8, 8]}>
                                     <Col xs={24} lg={24}>
