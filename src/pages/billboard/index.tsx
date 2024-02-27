@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 // import Loader from '@/components/ui/loader/loader'
 import ErrorMessage from '@/components/ui/error-message'
 import Search from '@/components/common/search'
-import { getBillboard } from '@/data/billboardServices'
+import { getBillboard, getBillboardSocial } from '@/data/billboardServices'
 import { BillboardResponse } from '@/types/billboard'
 import BillboardList from '@/components/billboard/billboard-list'
 
@@ -28,6 +28,21 @@ function Billboard2() {
         error: '',
     })
 
+
+    const [pageSocial, setPageSocial] = useState(1)
+    const [fetchingBillboardsSocial, setFetchingBillboardsSocial] = useState(false)
+    const [billboardsResponseSocial, setBillboardsResponseSocial] = useState<BillboardResponse>({
+        billboards: [],
+        fetchingBillboards: false,
+        paginatorInfo: {
+            total: 0,
+            currentPage: 0,
+            totalPages: 0,
+            perPage: 0,
+        },
+        error: '',
+    })
+
     const fetchData = async (pageLocal: any, searchLocal: any) => {
         try {
             setFetchingBillboards(true)
@@ -40,10 +55,24 @@ function Billboard2() {
         }
     }
 
+    const fetchDataSocial = async (pageLocal: any, searchLocal: any) => {
+        try {
+            setFetchingBillboardsSocial(true)
+            const response = await getBillboardSocial(pageLocal, searchLocal)
+            console.log('response en index', response)
+            setBillboardsResponseSocial(response)
+            setFetchingBillboardsSocial(false)
+        } catch (error) {
+            console.error('Error al cargar los datos', error)
+        }
+    }
+
     useEffect(() => {
         fetchData(page, searchTerm)
+        fetchDataSocial(pageSocial, searchTerm)
     }, [])
 
+    console.log(billboardsResponse.paginatorInfo)
     function handleSearch({ searchText }: { searchText: string }) {
         console.log('searchText', searchText)
         setSearchTerm(searchText)
@@ -55,6 +84,13 @@ function Billboard2() {
         console.log(current)
         setPage(current)
         fetchData(current, searchTerm)
+    }
+
+
+    function handlePaginationSocial(current: number) {
+        console.log(current)
+        setPageSocial(current)
+        fetchDataSocial(current, searchTerm)
     }
 
     if (billboardsResponse?.error) {
@@ -73,9 +109,10 @@ function Billboard2() {
                         <div className="nc-PageHome container pt-10  h-auto min-h-screen">
                             <h1 className="text-4xl mt-2 font-bold text-[#5bf1fa] dark:text-neutral-100 text-center">Cartelera</h1>
                             <div className="w-full border-[#5bf1fa] dark:border-white border-solid border-[1px] my-5" />
-                            <Search onSearch={handleSearch} />
+                            {/* <Search onSearch={handleSearch} /> */}
                             <br />
-                            <BillboardList billboards={billboardsResponse?.billboards} paginatorInfo={billboardsResponse?.paginatorInfo} onPagination={handlePagination} loading={fetchingBillboards} />
+                            <BillboardList  billboardsSocial={billboardsResponseSocial.billboards} paginatorInfoSocial={billboardsResponseSocial.paginatorInfo}  onPaginationSocial={handlePaginationSocial} loadingSocial={fetchingBillboardsSocial}   billboards={billboardsResponse?.billboards} paginatorInfo={billboardsResponse?.paginatorInfo} onPagination={handlePagination} loading={fetchingBillboards}       />
+                            
                         </div>
                     </div>
                 </>

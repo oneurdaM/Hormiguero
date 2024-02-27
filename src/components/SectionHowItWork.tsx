@@ -105,12 +105,10 @@ const SectionHowItWork: FC<SectionHowItWorkProps> = ({ className = '', data = DE
         if (value.toLocaleLowerCase() === 'reserva') {
             router.push('/schedule')
         }
-        
-        if (value.toLocaleLowerCase() === 'contáctanos') {
-    
-            let  elemento = document.getElementById('contacto');
-            elemento.scrollIntoView({ behavior: 'smooth' });
 
+        if (value.toLocaleLowerCase() === 'contáctanos') {
+            let elemento = document.getElementById('contacto')
+            elemento.scrollIntoView({ behavior: 'smooth' })
         }
 
         // router.push('/otra-ruta');
@@ -188,32 +186,33 @@ const SectionHowItWork: FC<SectionHowItWorkProps> = ({ className = '', data = DE
     }
     return (
         <div className={`nc-SectionHowItWork border-2 py-3 rounded-md effectHref ${className}`} data-nc-id="SectionHowItWork" id="howItWorks">
-            <Heading isCenter desc={<span className='text-[#f4eadb] dark:text-white'>¿Cómo funciona?</span>} className="text-[#5bf1fa] dark:text-neutral-100">
+            <Heading isCenter desc={<span className="text-[#f4eadb] dark:text-white">¿Cómo funciona?</span>} className="text-[#5bf1fa] dark:text-neutral-100">
                 Renta Espacios Hormiga
             </Heading>
             <div className="mt-20 relative grid md:grid-cols-3 gap-20">
                 <Image className="hidden md:block absolute inset-x-0 top-10" src={VectorImg} alt="" />
                 {data.map((item) => (
-                    <div key={item.id} className="relative flex flex-col items-center max-w-xs mx-auto">
-                        {item.imgDark ? (
-                            <>
-                                <Image className="dark:hidden block mb-8 max-w-[180px] mx-auto" src={item.img} alt="" />
-                                <Image alt="" className="hidden dark:block mb-8 max-w-[180px] mx-auto" src={item.imgDark} />
-                            </>
-                        ) : (
-                            <Image alt="" className="mb-8 max-w-[180px] mx-auto" src={item.img} />
-                        )}
-                        <button
-                            onClick={() => {
-                                redirect(item.title)
-                            }}
-                        >
+                    <button
+                        onClick={() => {
+                            redirect(item.title)
+                        }}
+                    >
+                        <div key={item.id} className="relative flex flex-col items-center max-w-xs mx-auto transition-transform transform origin-center cursor-pointer hover:scale-125 hover:bg-blue-950 hover:rounded-md p-6">
+                            {item.imgDark ? (
+                                <>
+                                    <Image className="dark:hidden block mb-8 max-w-[180px] mx-auto" src={item.img} alt="" />
+                                    <Image alt="" className="hidden dark:block mb-8 max-w-[180px] mx-auto" src={item.imgDark} />
+                                </>
+                            ) : (
+                                <Image alt="" className="mb-8 max-w-[180px] mx-auto" src={item.img} />
+                            )}
+
                             <div className="text-center mt-auto">
                                 <h3 className="text-xl font-semibold text-[#5bf1fa] dark:text-white">{item.title}</h3>
                                 <span className="block mt-5 text-[#f4eadb] dark:text-white">{item.desc}</span>
                             </div>
-                        </button>
-                    </div>
+                        </div>
+                    </button>
                 ))}
             </div>
 

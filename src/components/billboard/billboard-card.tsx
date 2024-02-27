@@ -131,10 +131,10 @@ function BillboardCard({ event }: { event: Billboard }) {
 
     const steps = [
         {
-            title: 'Elige tus asientos',
+            title: (<span className='text-white'>Elige tus asientos</span>)
         },
         {
-            title: 'Pagar',
+            title: (<span className='text-white'>Pagar</span>)
         },
     ]
     const next = () => {
@@ -165,10 +165,11 @@ function BillboardCard({ event }: { event: Billboard }) {
         <>
             {contextHolder}
             <Row>
+             
                 <Col xs={0} lg={24}>
-                    <CardEvent className="my-4 hover:shadow-xl bg-[#f5eadb] hover:shadow-border-400 dark:bg-gray-500" onClick={onClickBillboard}>
-                        <Image src={event.thumbnailUrl} alt={event.title} className="rounded-tl rounded-tr aspect-[900/900] object-cover" width={600} height={600} />
-                        <div className="p-5">
+                    <CardEvent className="my-4 hover:shadow-xl bg-[#f5eadb] hover:shadow-border-400 dark:bg-gray-500 cursor-pointer" onClick={onClickBillboard} >
+                        <Image src={event.thumbnailUrl} alt={event.title} className="rounded-tl rounded-tr aspect-[200/300] object-cover" width={300} height={500} />
+                        {/* <div className="p-5">
                             <div>
                                 <small className="dark:text-white text-dark">{event.genderList}</small>
                             </div>
@@ -179,7 +180,7 @@ function BillboardCard({ event }: { event: Billboard }) {
                                     Publicado {event.director} | Por {event.company}
                                 </small>
                             </div>
-                        </div>
+                        </div> */}
                     </CardEvent>
                 </Col>
                 <Col sm={24} lg={0}>
@@ -307,7 +308,7 @@ function BillboardCard({ event }: { event: Billboard }) {
 
                         <Drawer
                             destroyOnClose={true}
-                            title={<p className="text-xl dark:text-white">{eventSelected?.event.title + ', ' + moment(eventSelected?.startDate).format('dddd D MMMM YYYY').charAt(0).toUpperCase() + moment(eventSelected?.startDate).format('dddd D MMMM YYYY').slice(1) + ', ' + moment(eventSelected?.startDate).format('h:mm a')}</p>}
+                            title={<p className="text-xl dark:text-white">{ moment(eventSelected?.startDate).format('dddd D MMMM YYYY').charAt(0).toUpperCase() + moment(eventSelected?.startDate).format('dddd D MMMM YYYY').slice(1) + ', ' + moment(eventSelected?.startDate).format('h:mm a')}</p>}
                             width={widthDrawer}
                             classNames={{ body: 'dark:backgroundDrawerNigth backgroundDrawer', header: 'dark:backgroundDrawerNigthHeader', footer: 'dark:backgroundDrawerNigthHeader' }}
                             onClose={() => onChildrenDrawerClose(false)}
